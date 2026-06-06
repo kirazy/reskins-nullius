@@ -95,7 +95,7 @@ for name, map in pairs(tier_map) do
 					},
 				},
 				animation_speed = 0.5,
-				blend_mode = reskins.lib.settings.blend_mode,
+				blend_mode = "additive-soft",
 				shift = util.by_pixel(-1, -11.5),
 				scale = 0.5,
 			},

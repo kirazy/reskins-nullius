@@ -35,7 +35,7 @@ local function get_color_mask_working_visualisation(is_flipped)
 					priority = "high",
 					frame_count = 49,
 					animation_speed = 0.5,
-					blend_mode = reskins.lib.settings.blend_mode,
+					blend_mode = "additive-soft",
 					scale = 0.5,
 				}),
 			},

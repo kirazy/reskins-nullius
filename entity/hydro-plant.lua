@@ -57,7 +57,7 @@ for name, map in pairs(tier_map) do
 				width = 459,
 				height = 491,
 				shift = util.by_pixel(0, 0),
-				blend_mode = reskins.lib.settings.blend_mode,
+				blend_mode = "additive-soft",
 				scale = 0.5,
 			}, 0.725),
 		},

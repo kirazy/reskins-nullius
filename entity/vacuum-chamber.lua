@@ -62,7 +62,7 @@ for name, map in pairs(tier_map) do
 				repeat_count = 30,
 				shift = { 0, 0 },
 				animation_speed = 0.5,
-				blend_mode = reskins.lib.settings.blend_mode,
+				blend_mode = "additive-soft",
 			},
 		},
 	}

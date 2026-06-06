@@ -27,7 +27,7 @@ local function entity_animation(tint)
                     width = 269,
                     height = 221,
                     shift = util.by_pixel(-1.25, 5.25),
-                    blend_mode = reskins.lib.settings.blend_mode,
+                    blend_mode = "additive-soft",
                     scale = 0.5,
                 },
                 {
@@ -66,7 +66,7 @@ local function entity_animation(tint)
                     width = 211,
                     height = 301,
                     shift = util.by_pixel(-1.75, 1.25),
-                    blend_mode = reskins.lib.settings.blend_mode,
+                    blend_mode = "additive-soft",
                     scale = 0.5,
                 },
                 {
@@ -105,7 +105,7 @@ local function entity_animation(tint)
                     width = 260,
                     height = 201,
                     shift = util.by_pixel(4, 10.75),
-                    blend_mode = reskins.lib.settings.blend_mode,
+                    blend_mode = "additive-soft",
                     scale = 0.5,
                 },
                 {
@@ -144,7 +144,7 @@ local function entity_animation(tint)
                     width = 196,
                     height = 273,
                     shift = util.by_pixel(1.5, 7.75),
-                    blend_mode = reskins.lib.settings.blend_mode,
+                    blend_mode = "additive-soft",
                     scale = 0.5,
                 },
                 {
@@ -196,7 +196,7 @@ local function corpse_animation(tint)
                 height = 262,
                 direction_count = 4,
                 shift = util.by_pixel(0.5, 8),
-				blend_mode = reskins.lib.settings.blend_mode,
+				blend_mode = "additive-soft",
 				scale = 0.5,
 			},
 		},

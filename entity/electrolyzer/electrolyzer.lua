@@ -55,7 +55,7 @@ for name, map in pairs(tier_map) do
 		shift = { 0, 0 },
 		animation_speed = 0.5,
         scale = 0.75,
-		blend_mode = reskins.lib.settings.blend_mode,
+		blend_mode = "additive-soft",
 	}
 
 	local entity_horizontal_base = {

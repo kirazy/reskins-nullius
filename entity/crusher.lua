@@ -64,7 +64,7 @@ for name, map in pairs(tier_map) do
 				height = 214,
 				repeat_count = 16,
 				shift = util.by_pixel(-0.5, -5),
-				blend_mode = reskins.lib.settings.blend_mode,
+				blend_mode = "additive-soft",
 				animation_speed = 0.5,
 				scale = 0.5,
 			},

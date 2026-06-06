@@ -129,7 +129,7 @@ for closure, modes in pairs(turbines) do
                         frame_count = 1,
                         line_length = 1,
                         shift = util.by_pixel(4.75, 6.75),
-                        blend_mode = reskins.lib.settings.blend_mode,
+                        blend_mode = "additive-soft",
                         scale = 0.5,
                     })
                 else
@@ -151,7 +151,7 @@ for closure, modes in pairs(turbines) do
                         frame_count = 1,
                         line_length = 1,
                         shift = util.by_pixel(0, -2.75),
-                        blend_mode = reskins.lib.settings.blend_mode,
+                        blend_mode = "additive-soft",
                         scale = 0.5,
                     })
                 end
