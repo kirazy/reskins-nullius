@@ -23,6 +23,7 @@ local lib = {}
 local asset_mod_names = {
 	["assets-angels"] = { directory = "__reskins-assets-angels__" },
 	["assets-base"] = { directory = "__reskins-assets-base__" },
+	["assets-bobs"] = { directory = "__reskins-assets-bobs__" },
 }
 
 ---------------------------------------------------------------------------------------------------

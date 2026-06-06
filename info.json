@@ -11,6 +11,7 @@
         "reskins-framework >= 0.1.0",
         "reskins-assets-angels",
         "reskins-assets-base",
+        "reskins-assets-bobs",
         "? lambent-nil"
     ]
 }
