@@ -67,9 +67,9 @@ for name, map in pairs(tier_map) do
 		},
 	}
 
-    for _, fluid_box in pairs(entity.fluid_boxes) do
-        fluid_box.pipe_picture = nil
-    end
+	for _, fluid_box in pairs(entity.fluid_boxes) do
+		fluid_box.pipe_picture = nil
+	end
 
 	::continue::
 end

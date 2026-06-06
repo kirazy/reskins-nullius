@@ -41,7 +41,7 @@ for name, map in pairs(tier_map) do
 				line_length = 6,
 				shift = { 0.3, -0.3 },
 				animation_speed = 0.5,
-                scale = 0.6,
+				scale = 0.6,
 			},
 			-- Mask
 			{
@@ -53,7 +53,7 @@ for name, map in pairs(tier_map) do
 				line_length = 6,
 				shift = { 0.3, -0.3 },
 				animation_speed = 0.5,
-                scale = 0.6,
+				scale = 0.6,
 				tint = inputs.tint,
 			},
 			-- Highlights
@@ -66,7 +66,7 @@ for name, map in pairs(tier_map) do
 				line_length = 6,
 				shift = { 0.3, -0.3 },
 				animation_speed = 0.5,
-                scale = 0.6,
+				scale = 0.6,
 				blend_mode = "additive-soft",
 			},
 		},

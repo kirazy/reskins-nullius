@@ -41,7 +41,7 @@ for name, map in pairs(tier_map) do
 		line_length = 6,
 		shift = { 0, 0 },
 		animation_speed = 0.5,
-        scale = 0.75,
+		scale = 0.75,
 		tint = inputs.tint,
 	}
 
@@ -54,7 +54,7 @@ for name, map in pairs(tier_map) do
 		line_length = 6,
 		shift = { 0, 0 },
 		animation_speed = 0.5,
-        scale = 0.75,
+		scale = 0.75,
 		blend_mode = "additive-soft",
 	}
 
@@ -66,7 +66,7 @@ for name, map in pairs(tier_map) do
 		line_length = 6,
 		shift = { 0, 0 },
 		animation_speed = 0.5,
-        scale = 0.75,
+		scale = 0.75,
 	}
 
 	local entity_vertical_base = {
@@ -78,7 +78,7 @@ for name, map in pairs(tier_map) do
 		line_length = 6,
 		shift = { 0, 0 },
 		animation_speed = 0.5,
-        scale = 0.75,
+		scale = 0.75,
 	}
 
 	-- Reskin entities

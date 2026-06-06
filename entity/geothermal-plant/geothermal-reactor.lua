@@ -10,9 +10,9 @@ local inputs = {
 }
 
 local tier_map = {
-    ["nullius-geothermal-reactor-1"] = { tier = 1, prog_tier = 1 },
-    ["nullius-geothermal-reactor-2"] = { tier = 2, prog_tier = 2 },
-    ["nullius-geothermal-reactor-3"] = { tier = 3, prog_tier = 3 },
+	["nullius-geothermal-reactor-1"] = { tier = 1, prog_tier = 1 },
+	["nullius-geothermal-reactor-2"] = { tier = 2, prog_tier = 2 },
+	["nullius-geothermal-reactor-3"] = { tier = 3, prog_tier = 3 },
 }
 
 -- Reskin entities, create and assign extra details

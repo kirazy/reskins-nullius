@@ -7,9 +7,12 @@ local tier_map = {
 }
 
 for name, map in pairs(tier_map) do
-	steam_engine(name, (reskins.lib.settings.get_value("reskins-lib-tier-mapping") == "progression-map") and map.prog_tier or map.tier)
+	steam_engine(
+		name,
+		(reskins.lib.settings.get_value("reskins-lib-tier-mapping") == "progression-map") and map.prog_tier or map.tier
+	)
 end
 
-data.raw["animation"]["nullius-stirling-vertical-turbine-1"].layers = {util.empty_animation(1)}
-data.raw["animation"]["nullius-stirling-vertical-turbine-2"].layers = {util.empty_animation(1)}
-data.raw["animation"]["nullius-stirling-vertical-turbine-3"].layers = {util.empty_animation(1)}
+data.raw["animation"]["nullius-stirling-vertical-turbine-1"].layers = { util.empty_animation(1) }
+data.raw["animation"]["nullius-stirling-vertical-turbine-2"].layers = { util.empty_animation(1) }
+data.raw["animation"]["nullius-stirling-vertical-turbine-3"].layers = { util.empty_animation(1) }

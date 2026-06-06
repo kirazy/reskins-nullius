@@ -28,7 +28,7 @@ for name, map in pairs(tier_map) do
 
 	reskins.lib.setup_standard_entity(name, tier, inputs)
 
-    entity.graphics_set.animation.layers[1].tint = nil
+	entity.graphics_set.animation.layers[1].tint = nil
 
 	entity.graphics_set.working_visualisations = {
 		-- Idle animation

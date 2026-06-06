@@ -24,20 +24,26 @@ local function get_color_mask_working_visualisation(is_flipped)
 		always_draw = true,
 		animation = {
 			layers = {
-				util.sprite_load("__reskins-assets-angels__/graphics/entity/casting-machine/casting-machine" .. flipped .. "-mask", {
-					priority = "high",
-					frame_count = 49,
-					animation_speed = 0.5,
-					tint = inputs.tint,
-					scale = 0.5,
-				}),
-				util.sprite_load("__reskins-assets-angels__/graphics/entity/casting-machine/casting-machine" .. flipped .. "-highlights", {
-					priority = "high",
-					frame_count = 49,
-					animation_speed = 0.5,
-					blend_mode = "additive-soft",
-					scale = 0.5,
-				}),
+				util.sprite_load(
+					"__reskins-assets-angels__/graphics/entity/casting-machine/casting-machine" .. flipped .. "-mask",
+					{
+						priority = "high",
+						frame_count = 49,
+						animation_speed = 0.5,
+						tint = inputs.tint,
+						scale = 0.5,
+					}
+				),
+				util.sprite_load(
+					"__reskins-assets-angels__/graphics/entity/casting-machine/casting-machine" .. flipped .. "-highlights",
+					{
+						priority = "high",
+						frame_count = 49,
+						animation_speed = 0.5,
+						blend_mode = "additive-soft",
+						scale = 0.5,
+					}
+				),
 			},
 		},
 	}
@@ -58,8 +64,8 @@ for name, map in pairs(tier_map) do
 
 	reskins.lib.setup_standard_entity(name, tier, inputs)
 
-    entity.graphics_set.animation.layers[1].tint = nil
-    entity.graphics_set_flipped.animation.layers[1].tint = nil
+	entity.graphics_set.animation.layers[1].tint = nil
+	entity.graphics_set_flipped.animation.layers[1].tint = nil
 
 	if entity.graphics_set and entity.graphics_set.working_visualisations then
 		table.insert(entity.graphics_set.working_visualisations, get_color_mask_working_visualisation())

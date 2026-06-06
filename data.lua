@@ -21,7 +21,6 @@ require("entity/small-furnace")
 require("entity/steam-turbine")
 require("entity/stirling-engine")
 
-
 if mods["lambent-nil"] then
-    require("entity/vacuum-chamber")
+	require("entity/vacuum-chamber")
 end

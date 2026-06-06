@@ -6,14 +6,14 @@ local inputs = {
 	mod = "angels",
 	particles = { ["big-tint"] = 5, ["medium"] = 2 },
 	group = "smelting",
-    make_explosions = false,
+	make_explosions = false,
 	make_remnants = false,
 }
 
 local tier_map = {
-    ["nullius-geothermal-plant-1"] = { tier = 1, prog_tier = 1 },
-    ["nullius-geothermal-plant-2"] = { tier = 2, prog_tier = 2 },
-    ["nullius-geothermal-plant-3"] = { tier = 3, prog_tier = 3 },
+	["nullius-geothermal-plant-1"] = { tier = 1, prog_tier = 1 },
+	["nullius-geothermal-plant-2"] = { tier = 2, prog_tier = 2 },
+	["nullius-geothermal-plant-3"] = { tier = 3, prog_tier = 3 },
 }
 
 -- Reskin entities, create and assign extra details

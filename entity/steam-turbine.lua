@@ -1,204 +1,208 @@
 local turbines = {
-    open = {
-        standard = {
-            data.raw.furnace["nullius-turbine-open-standard-1"],
-            data.raw.furnace["nullius-turbine-open-standard-2"],
-            data.raw.furnace["nullius-turbine-open-standard-3"],
-        },
-        exhaust = {
-            data.raw.furnace["nullius-turbine-open-exhaust-1"],
-            data.raw.furnace["nullius-turbine-open-exhaust-2"],
-            data.raw.furnace["nullius-turbine-open-exhaust-3"],
-        },
-        backup = {
-            data.raw.furnace["nullius-turbine-open-backup-1"],
-            data.raw.furnace["nullius-turbine-open-backup-2"],
-            data.raw.furnace["nullius-turbine-open-backup-3"],
-        },
-    },
-    closed = {
-        standard = {
-            data.raw.furnace["nullius-turbine-closed-standard-1"],
-            data.raw.furnace["nullius-turbine-closed-standard-2"],
-            data.raw.furnace["nullius-turbine-closed-standard-3"],
-        },
-        exhaust = {
-            data.raw.furnace["nullius-turbine-closed-exhaust-1"],
-            data.raw.furnace["nullius-turbine-closed-exhaust-2"],
-            data.raw.furnace["nullius-turbine-closed-exhaust-3"],
-        },
-        backup = {
-            data.raw.furnace["nullius-turbine-closed-backup-1"],
-            data.raw.furnace["nullius-turbine-closed-backup-2"],
-            data.raw.furnace["nullius-turbine-closed-backup-3"],
-        },
-    },
+	open = {
+		standard = {
+			data.raw.furnace["nullius-turbine-open-standard-1"],
+			data.raw.furnace["nullius-turbine-open-standard-2"],
+			data.raw.furnace["nullius-turbine-open-standard-3"],
+		},
+		exhaust = {
+			data.raw.furnace["nullius-turbine-open-exhaust-1"],
+			data.raw.furnace["nullius-turbine-open-exhaust-2"],
+			data.raw.furnace["nullius-turbine-open-exhaust-3"],
+		},
+		backup = {
+			data.raw.furnace["nullius-turbine-open-backup-1"],
+			data.raw.furnace["nullius-turbine-open-backup-2"],
+			data.raw.furnace["nullius-turbine-open-backup-3"],
+		},
+	},
+	closed = {
+		standard = {
+			data.raw.furnace["nullius-turbine-closed-standard-1"],
+			data.raw.furnace["nullius-turbine-closed-standard-2"],
+			data.raw.furnace["nullius-turbine-closed-standard-3"],
+		},
+		exhaust = {
+			data.raw.furnace["nullius-turbine-closed-exhaust-1"],
+			data.raw.furnace["nullius-turbine-closed-exhaust-2"],
+			data.raw.furnace["nullius-turbine-closed-exhaust-3"],
+		},
+		backup = {
+			data.raw.furnace["nullius-turbine-closed-backup-1"],
+			data.raw.furnace["nullius-turbine-closed-backup-2"],
+			data.raw.furnace["nullius-turbine-closed-backup-3"],
+		},
+	},
 }
 
 local generators = {
-    open = {
-        standard = {
-            data.raw.generator["nullius-turbine-generator-open-standard-1"],
-            data.raw.generator["nullius-turbine-generator-open-standard-2"],
-            data.raw.generator["nullius-turbine-generator-open-standard-3"],
-        },
-        exhaust = {
-            data.raw.generator["nullius-turbine-generator-open-exhaust-1"],
-            data.raw.generator["nullius-turbine-generator-open-exhaust-2"],
-            data.raw.generator["nullius-turbine-generator-open-exhaust-3"],
-        },
-        backup = {
-            data.raw.generator["nullius-turbine-generator-open-backup-1"],
-            data.raw.generator["nullius-turbine-generator-open-backup-2"],
-            data.raw.generator["nullius-turbine-generator-open-backup-3"],
-        },
-    },
-    closed = {
-        standard = {
-            data.raw.generator["nullius-turbine-generator-closed-standard-1"],
-            data.raw.generator["nullius-turbine-generator-closed-standard-2"],
-            data.raw.generator["nullius-turbine-generator-closed-standard-3"],
-        },
-        exhaust = {
-            data.raw.generator["nullius-turbine-generator-closed-exhaust-1"],
-            data.raw.generator["nullius-turbine-generator-closed-exhaust-2"],
-            data.raw.generator["nullius-turbine-generator-closed-exhaust-3"],
-        },
-        backup = {
-            data.raw.generator["nullius-turbine-generator-closed-backup-1"],
-            data.raw.generator["nullius-turbine-generator-closed-backup-2"],
-            data.raw.generator["nullius-turbine-generator-closed-backup-3"],
-        },
-    },
+	open = {
+		standard = {
+			data.raw.generator["nullius-turbine-generator-open-standard-1"],
+			data.raw.generator["nullius-turbine-generator-open-standard-2"],
+			data.raw.generator["nullius-turbine-generator-open-standard-3"],
+		},
+		exhaust = {
+			data.raw.generator["nullius-turbine-generator-open-exhaust-1"],
+			data.raw.generator["nullius-turbine-generator-open-exhaust-2"],
+			data.raw.generator["nullius-turbine-generator-open-exhaust-3"],
+		},
+		backup = {
+			data.raw.generator["nullius-turbine-generator-open-backup-1"],
+			data.raw.generator["nullius-turbine-generator-open-backup-2"],
+			data.raw.generator["nullius-turbine-generator-open-backup-3"],
+		},
+	},
+	closed = {
+		standard = {
+			data.raw.generator["nullius-turbine-generator-closed-standard-1"],
+			data.raw.generator["nullius-turbine-generator-closed-standard-2"],
+			data.raw.generator["nullius-turbine-generator-closed-standard-3"],
+		},
+		exhaust = {
+			data.raw.generator["nullius-turbine-generator-closed-exhaust-1"],
+			data.raw.generator["nullius-turbine-generator-closed-exhaust-2"],
+			data.raw.generator["nullius-turbine-generator-closed-exhaust-3"],
+		},
+		backup = {
+			data.raw.generator["nullius-turbine-generator-closed-backup-1"],
+			data.raw.generator["nullius-turbine-generator-closed-backup-2"],
+			data.raw.generator["nullius-turbine-generator-closed-backup-3"],
+		},
+	},
 }
 
 for closure, modes in pairs(turbines) do
-    for mode, tiers in pairs(modes) do
-        for tier, prototype in pairs(tiers) do
-            if closure == "closed" then
-                prototype.graphics_set = table.deepcopy(turbines.open[mode][tier].graphics_set)
-            elseif tier < 3 then
-                prototype.graphics_set = table.deepcopy(tiers[3].graphics_set)
-            end
-        end
-    end
+	for mode, tiers in pairs(modes) do
+		for tier, prototype in pairs(tiers) do
+			if closure == "closed" then
+				prototype.graphics_set = table.deepcopy(turbines.open[mode][tier].graphics_set)
+			elseif tier < 3 then
+				prototype.graphics_set = table.deepcopy(tiers[3].graphics_set)
+			end
+		end
+	end
 end
 
 for closure, modes in pairs(generators) do
-    for mode, tiers in pairs(modes) do
-        for tier, prototype in pairs(tiers) do
-            if closure == "closed" then
-                prototype.vertical_animation = table.deepcopy(generators.open[mode][tier].vertical_animation)
-                prototype.horizontal_animation = table.deepcopy(generators.open[mode][tier].horizontal_animation)
-            elseif tier < 3 then
-                prototype.vertical_animation = table.deepcopy(tiers[3].vertical_animation)
-                prototype.horizontal_animation = table.deepcopy(tiers[3].horizontal_animation)
-            end
-        end
-    end
+	for mode, tiers in pairs(modes) do
+		for tier, prototype in pairs(tiers) do
+			if closure == "closed" then
+				prototype.vertical_animation = table.deepcopy(generators.open[mode][tier].vertical_animation)
+				prototype.horizontal_animation = table.deepcopy(generators.open[mode][tier].horizontal_animation)
+			elseif tier < 3 then
+				prototype.vertical_animation = table.deepcopy(tiers[3].vertical_animation)
+				prototype.horizontal_animation = table.deepcopy(tiers[3].horizontal_animation)
+			end
+		end
+	end
 end
 
 for closure, modes in pairs(turbines) do
-    for mode, tiers in pairs(modes) do
-        for tier, prototype in pairs(tiers) do
-            local color_tier = tier
-            if closure == "closed" then
-                color_tier = color_tier + 3
-            end
-            local tint = reskins.lib.tiers.get_tint(color_tier)
+	for mode, tiers in pairs(modes) do
+		for tier, prototype in pairs(tiers) do
+			local color_tier = tier
+			if closure == "closed" then
+				color_tier = color_tier + 3
+			end
+			local tint = reskins.lib.tiers.get_tint(color_tier)
 
-            for direction, animation in pairs(prototype.graphics_set.idle_animation) do
-                animation.layers[1].tint = nil
+			for direction, animation in pairs(prototype.graphics_set.idle_animation) do
+				animation.layers[1].tint = nil
 
-                if direction == "north" or direction == "south" then
-                    table.insert(animation.layers, 3, {
-                        filename = "__reskins-assets-base__/graphics/entity/steam-turbine/steam-turbine-vertical-mask.png",
-                        width = 217,
-                        height = 347,
-                        frame_count = 1,
-                        line_length = 1,
-                        shift = util.by_pixel(4.75, 6.75),
-                        tint = tint,
-                        scale = 0.5,
-                    })
+				if direction == "north" or direction == "south" then
+					table.insert(animation.layers, 3, {
+						filename = "__reskins-assets-base__/graphics/entity/steam-turbine/steam-turbine-vertical-mask.png",
+						width = 217,
+						height = 347,
+						frame_count = 1,
+						line_length = 1,
+						shift = util.by_pixel(4.75, 6.75),
+						tint = tint,
+						scale = 0.5,
+					})
 
-                    table.insert(animation.layers, 4, {
-                        filename = "__reskins-assets-base__/graphics/entity/steam-turbine/steam-turbine-vertical-highlights.png",
-                        width = 217,
-                        height = 347,
-                        frame_count = 1,
-                        line_length = 1,
-                        shift = util.by_pixel(4.75, 6.75),
-                        blend_mode = "additive-soft",
-                        scale = 0.5,
-                    })
-                else
-                    table.insert(animation.layers, 3, {
-                        filename = "__reskins-assets-base__/graphics/entity/steam-turbine/steam-turbine-horizontal-mask.png",
-                        width = 320,
-                        height = 245,
-                        frame_count = 1,
-                        line_length = 1,
-                        shift = util.by_pixel(0, -2.75),
-                        tint = tint,
-                        scale = 0.5,
-                    })
+					table.insert(animation.layers, 4, {
+						filename = "__reskins-assets-base__/graphics/entity/steam-turbine/steam-turbine-vertical-highlights.png",
+						width = 217,
+						height = 347,
+						frame_count = 1,
+						line_length = 1,
+						shift = util.by_pixel(4.75, 6.75),
+						blend_mode = "additive-soft",
+						scale = 0.5,
+					})
+				else
+					table.insert(animation.layers, 3, {
+						filename = "__reskins-assets-base__/graphics/entity/steam-turbine/steam-turbine-horizontal-mask.png",
+						width = 320,
+						height = 245,
+						frame_count = 1,
+						line_length = 1,
+						shift = util.by_pixel(0, -2.75),
+						tint = tint,
+						scale = 0.5,
+					})
 
-                    table.insert(animation.layers, 4, {
-                        filename = "__reskins-assets-base__/graphics/entity/steam-turbine/steam-turbine-horizontal-highlights.png",
-                        width = 320,
-                        height = 245,
-                        frame_count = 1,
-                        line_length = 1,
-                        shift = util.by_pixel(0, -2.75),
-                        blend_mode = "additive-soft",
-                        scale = 0.5,
-                    })
-                end
-            end
-        end
-    end
+					table.insert(animation.layers, 4, {
+						filename = "__reskins-assets-base__/graphics/entity/steam-turbine/steam-turbine-horizontal-highlights.png",
+						width = 320,
+						height = 245,
+						frame_count = 1,
+						line_length = 1,
+						shift = util.by_pixel(0, -2.75),
+						blend_mode = "additive-soft",
+						scale = 0.5,
+					})
+				end
+			end
+		end
+	end
 end
 
 for closure, modes in pairs(generators) do
-    for mode, tiers in pairs(modes) do
-        for tier, prototype in pairs(tiers) do
-            prototype.vertical_animation.layers[1].tint = nil
-            prototype.horizontal_animation.layers[1].tint = nil
+	for mode, tiers in pairs(modes) do
+		for tier, prototype in pairs(tiers) do
+			prototype.vertical_animation.layers[1].tint = nil
+			prototype.horizontal_animation.layers[1].tint = nil
 
-            prototype.vertical_animation.layers[3] = table.deepcopy(turbines[closure][mode][tier].graphics_set.idle_animation.north.layers[3])
-            prototype.vertical_animation.layers[4] = table.deepcopy(turbines[closure][mode][tier].graphics_set.idle_animation.north.layers[4])
-            prototype.horizontal_animation.layers[3] = table.deepcopy(turbines[closure][mode][tier].graphics_set.idle_animation.east.layers[3])
-            prototype.horizontal_animation.layers[4] = table.deepcopy(turbines[closure][mode][tier].graphics_set.idle_animation.east.layers[4])
+			prototype.vertical_animation.layers[3] =
+				table.deepcopy(turbines[closure][mode][tier].graphics_set.idle_animation.north.layers[3])
+			prototype.vertical_animation.layers[4] =
+				table.deepcopy(turbines[closure][mode][tier].graphics_set.idle_animation.north.layers[4])
+			prototype.horizontal_animation.layers[3] =
+				table.deepcopy(turbines[closure][mode][tier].graphics_set.idle_animation.east.layers[3])
+			prototype.horizontal_animation.layers[4] =
+				table.deepcopy(turbines[closure][mode][tier].graphics_set.idle_animation.east.layers[4])
 
-            prototype.vertical_animation.layers[3].repeat_count = 8
-            prototype.vertical_animation.layers[4].repeat_count = 8
-            prototype.horizontal_animation.layers[3].repeat_count = 8
-            prototype.horizontal_animation.layers[4].repeat_count = 8
-        end
-    end
+			prototype.vertical_animation.layers[3].repeat_count = 8
+			prototype.vertical_animation.layers[4].repeat_count = 8
+			prototype.horizontal_animation.layers[3].repeat_count = 8
+			prototype.horizontal_animation.layers[4].repeat_count = 8
+		end
+	end
 end
 
 for _, modes in pairs(turbines) do
-    for _, prototype in pairs(modes.standard) do
-        for _, animation in pairs(prototype.graphics_set.idle_animation) do
-            table.remove(animation.layers, 2)
-        end
-    end
+	for _, prototype in pairs(modes.standard) do
+		for _, animation in pairs(prototype.graphics_set.idle_animation) do
+			table.remove(animation.layers, 2)
+		end
+	end
 end
 
 for _, modes in pairs(generators) do
-    for _, prototype in pairs(modes.standard) do
-        table.remove(prototype.vertical_animation.layers, 2)
-        table.remove(prototype.horizontal_animation.layers, 2)
-    end
+	for _, prototype in pairs(modes.standard) do
+		table.remove(prototype.vertical_animation.layers, 2)
+		table.remove(prototype.horizontal_animation.layers, 2)
+	end
 end
 
 ---@type ConstructIconInputsOld
 local inputs = {
 	type = "furnace",
 	icon_name = "steam-turbine",
-    icon_filename = "__base__/graphics/icons/steam-turbine.png",
+	icon_filename = "__base__/graphics/icons/steam-turbine.png",
 	mod = "lib",
 	group = "base",
 }
@@ -239,8 +243,8 @@ for name, map in pairs(tier_map) do
 
 	reskins.lib.construct_icon(name, tier, inputs)
 
-    local item = data.raw.item[name]
-    if item then
-        item.icons[3].tint = util.get_color_with_alpha(reskins.lib.tiers.get_tint(map.prog_tier), 0.75)
-    end
+	local item = data.raw.item[name]
+	if item then
+		item.icons[3].tint = util.get_color_with_alpha(reskins.lib.tiers.get_tint(map.prog_tier), 0.75)
+	end
 end

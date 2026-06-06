@@ -6,7 +6,7 @@ local inputs = {
 	mod = "angels",
 	particles = { ["big"] = 1, ["medium"] = 2 },
 	group = "petrochem",
-    make_explosions = false,
+	make_explosions = false,
 	make_remnants = false,
 }
 
