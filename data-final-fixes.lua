@@ -1,1 +1,1 @@
-require("entity/pipes")
+require("entity.pipes")
