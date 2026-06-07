@@ -88,7 +88,7 @@ end
 ---@class remnant # See [Prototype/Corpse](https://wiki.factorio.com/Prototype/Corpse)
 
 ---Copies the Factorio corpse specified by `inputs.base_entity_name`, extends `data` with a new
----corpse with the name `[name]-remnants`, and assigns it to the named entity
+---corpse with the name `ar-[name]-remnants`, and assigns it to the named entity
 ---@param name string
 ---@param inputs CreateRemnantInputs
 ---```
@@ -97,14 +97,17 @@ end
 ---     type = string -- See https://wiki.factorio.com/Prototype_definitions
 --- }
 ---```
+---@return data.CorpsePrototype
 function lib.create_remnant(name, inputs)
 	---@type data.CorpsePrototype
 	local remnant = util.copy(data.raw["corpse"][inputs.base_entity_name .. "-remnants"])
-	remnant.name = name .. "-remnants"
+	remnant.name = "ar-" .. name .. "-remnants"
 	data:extend({ remnant })
 
 	-- Assign corpse to originating entity
 	data.raw[inputs.type][name]["corpse"] = remnant.name
+
+	return remnant
 end
 
 ---@class CreateExplosionInputs : CreateRemnantInputs
@@ -266,7 +269,7 @@ local function link_particle_to_explosion(explosion, particle, base_particle_nam
 end
 
 ---Copies the Factorio particle specified by `base_entity_name`, applies tints, extends `data`
----with a new particle with the name `[name]-[base-particle-name]-tinted`, and links it to the named explosion
+---with a new particle with the name `ar-[name]-[base-particle-name]-tinted`, and links it to the named explosion
 ---@param name data.EntityID The name of the entity prototype for which an AR explosion exists.
 ---@param base_entity_name data.EntityID Name of Factorio reference entity to copy from, e.g. `stone-furnace`
 ---@param base_particle_name string A value from `lib.particle_index` used to find the particle to copy.

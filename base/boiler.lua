@@ -249,7 +249,7 @@ return function(name, tier, tint, make_tier_labels)
 	_lib.setup_standard_entity(name, tier, inputs)
 
 	-- Fetch corpse
-	local corpse = data.raw["corpse"][name .. "-remnants"]
+	local corpse = data.raw["corpse"][entity.corpse]
 
 	-- Reskin corpse
 	corpse.animation = corpse_animation(inputs.tint)

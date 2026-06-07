@@ -281,7 +281,7 @@ local function chemical_plant(name, tier, tint, make_tier_labels)
 	_lib.setup_standard_entity(name, tier, inputs)
 
 	-- Fetch corpse
-	local corpse = data.raw["corpse"][name .. "-remnants"]
+	local corpse = data.raw["corpse"][entity.corpse]
 
 	-- Reskin corpse
 	corpse.animation = get_chemical_plant_standard_remnants(inputs.tint)
