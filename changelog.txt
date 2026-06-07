@@ -1,6 +1,8 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.1
 Date: ????
+  Features:
+    - Added tier labels to transport belts, underground belts, and splitters.
   Bugfixes:
     - Fixed wrong blend mode on stirling engines.
 ---------------------------------------------------------------------------------------------------
