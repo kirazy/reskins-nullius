@@ -9,6 +9,7 @@ Date: ????
     - Added support for assembling machines.
   Changes:
     - Revised pipe and underground pipes; now using iron (base), aluminum (white), plastic (blue) and nitinol (dark gray) material sets.
+    - Revised default tier color sequence to be yellow -> red -> blue -> green -> purple -> orange, swapping green with purple to match more conventional color sequences in Nullius.
   Bugfixes:
     - Fixed wrong blend mode on stirling engines.
 ---------------------------------------------------------------------------------------------------
