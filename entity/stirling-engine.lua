@@ -294,7 +294,7 @@ for name, map in pairs(tier_map) do
 		base_entity_name = "steam-engine",
 		graphics_mod = "assets-base",
 		particles = { ["big"] = 2, ["medium"] = 1 },
-		tint = tint and tint or _framework.tiers.get_tint(tier),
+		tint = _framework.tiers.get_tint(tier),
 	}
 
 	---@type data.ElectricEnergyInterfacePrototype
