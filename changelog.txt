@@ -6,6 +6,7 @@ Date: ????
     - Added support for construction and logistics robots.
     - Added preliminary support for locomotives, cargo wagons, and fluid wagons.
     - Added support for the 1x2 fluid pumps / valves.
+    - Added support for assembling machines.
   Changes:
     - Revised pipe and underground pipes; now using iron (base), aluminum (white), plastic (blue) and nitinol (dark gray) material sets.
   Bugfixes:
