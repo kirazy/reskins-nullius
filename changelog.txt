@@ -3,6 +3,7 @@ Version: 0.1.2
 Date: ????
   Features:
     - Added support for inserters, bulk inserters.
+    - Added initial support for grid batteries.
   Changes:
     - Open/Closed turbine icons are now tinted to match their assigned tier.
 ---------------------------------------------------------------------------------------------------
