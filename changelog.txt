@@ -8,6 +8,7 @@ Date: ????
     - Added support for sensor nodes.
     - Added support for storage tanks.
     - Added support for pylons and substations.
+    - Added support for broken items and recipes.
   Changes:
     - Open/Closed turbine icons are now tinted to match their assigned tier.
 ---------------------------------------------------------------------------------------------------

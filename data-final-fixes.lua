@@ -4,3 +4,6 @@ require("prototypes.entities.pylons")
 require("prototypes.entities.sensor-nodes")
 require("prototypes.entities.substations")
 require("prototypes.entities.storage-tanks")
+
+-- After all entity updates.
+require("prototypes.items.broken")
