@@ -5,19 +5,19 @@ local _assets = {
 	create_icon = require("__reskins-assets-api__.assets.base.base-icons"),
 }
 
-local icon_helpers = require("__reskins-assets-api__.api.icon-helpers")
-
 local InserterPresetGraphicsPack = require("__reskins-assets-api__.graphics-packs.base.inserter-preset-graphics-pack")
-local inserter_icon_creator_fn = icon_helpers.make_flat_icon_creator_fn({
-	folder = "__reskins-assets-bobs__/graphics/icons/inserters",
-	icon_name = "filter-inserter-icon",
-})
 
 local entities = {
+	["inserter"] = {
+		type = "inserter",
+		icon_filename = "__reskins-assets-bobs__/graphics/icons/inserters/inserter-icon.png",
+		particle_tint = util.color("#ffaa23"),
+		preset = "inserter",
+	},
 	["bob-turbo-inserter"] = {
 		type = "inserter",
-		icon_data = inserter_icon_creator_fn(),
-		tint = util.color("#a26ae3"),
+		icon_filename = "__reskins-assets-bobs__/graphics/icons/inserters/filter-inserter-icon.png",
+		particle_tint = util.color("#a26ae3"),
 		preset = "inserter-filter",
 	},
 }
@@ -31,7 +31,7 @@ for name, options in pairs(entities) do
 	_lib.create_explosions_and_particles(name, {
 		base_entity_name = "inserter",
 		type = options.type,
-		tint = options.tint,
+		tint = options.particle_tint,
 		particles = {
 			["medium"] = 1,
 		},
@@ -44,16 +44,20 @@ for name, options in pairs(entities) do
 
 	local graphics_pack = InserterPresetGraphicsPack:configure({
 		preset = options.preset,
+		is_long = true,
 	})
 
 	graphics_pack:apply_to_entity(entity)
 	graphics_pack:apply_to_corpse(corpse)
 
-	---@type DeferrableIconData
+	---@type DeferrableIconDatum
 	local deferrable_icon = {
 		name = name,
 		type_name = options.type,
-		icon_data = options.icon_data,
+		icon_datum = {
+			icon = options.icon_filename,
+			icon_size = 64,
+		},
 	}
 
 	_assets.icons.assign_deferrable_icon(deferrable_icon)
