@@ -6,6 +6,7 @@ Date: ????
     - Added initial support for grid batteries.
     - Added support for solar panel structures.
     - Added support for sensor nodes.
+    - Added support for storage tanks.
     - Added support for pylons and substations.
   Changes:
     - Open/Closed turbine icons are now tinted to match their assigned tier.
