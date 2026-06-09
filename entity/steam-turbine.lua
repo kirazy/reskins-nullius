@@ -205,7 +205,6 @@ end
 local inputs = {
 	type = "furnace",
 	icon_name = "steam-turbine",
-	icon_filename = "__base__/graphics/icons/steam-turbine.png",
 	graphics_mod = "assets-base",
 }
 
