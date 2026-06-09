@@ -1,7 +1,5 @@
 require("entity.air-filter")
-require("entity.boiler")
 require("entity.chemical-plant")
-require("entity.combustion-chamber")
 require("entity.compressor")
 require("entity.crusher")
 require("entity.distillery")

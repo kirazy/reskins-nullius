@@ -2,6 +2,9 @@
 Version: 0.1.4
 Date: ????
   Changes:
+    - Revised support for combustion chambers and boilers
+      - Fire and fire glow animations now work correctly.
+      - Combustion chambers and boilers now use different icons; as such, boiler tiers are now independent and are 2 and 3 when using progression.
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.3
 Date: 2026-06-08
