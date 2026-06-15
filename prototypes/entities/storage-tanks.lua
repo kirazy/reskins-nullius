@@ -6,7 +6,7 @@ local _assets = {
 	create_icon = require("__reskins-assets-api__.assets.base.base-icons"),
 }
 
-local SolarPanelGraphicsPack = require("__reskins-assets-api__.graphics-packs.base.storage-tank-graphics-pack")
+local StorageTankGraphicsPack = require("__reskins-assets-api__.graphics-packs.base.storage-tank-graphics-pack")
 
 local entities = {
 	["storage-tank"] = { type = "storage-tank", tier = 1, prog_tier = 1 },
@@ -38,7 +38,7 @@ for name, options in pairs(entities) do
 		type = options.type,
 	})
 
-	local graphics_pack = SolarPanelGraphicsPack:configure({
+	local graphics_pack = StorageTankGraphicsPack:configure({
 		tint = tint,
 		variant = "large",
 	})
