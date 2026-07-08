@@ -1,4 +1,5 @@
 require("entity.air-filter")
+require("entity.beacon")
 require("entity.chemical-plant")
 require("entity.compressor")
 require("entity.crusher")
@@ -13,6 +14,7 @@ require("entity.geothermal-plant.item")
 require("entity.heat-exchanger")
 require("entity.hydro-plant")
 require("entity.nanofabricator")
+require("entity.solar-collector")
 
 -- require("entity.small-furnace")
 require("entity.steam-turbine")
