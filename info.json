@@ -1,22 +1,22 @@
 {
-    "name": "reskins-nullius",
-    "version": "0.1.4",
-    "factorio_version": "2.0",
-    "title": "Artisanal Reskins: Nullius",
-    "author": "Kirazy",
-    "contact": "https://discord.gg/qAvSyzZFPr",
-    "homepage": "https://github.com/kirazy/reskins-nullius",
-    "dependencies": [
-        "nullius",
-        "reskins-framework >= 0.1.1",
-        "reskins-assets-api >= 0.1.2",
-        "reskins-assets-angels",
-        "reskins-assets-base",
-        "reskins-assets-bobs",
-        "reskins-assets-assorted",
-        "? lambent-nil"
-    ],
-    "package": {
-        "git_publish_branch": "main"
-    }
+	"name": "reskins-nullius",
+	"version": "0.1.4",
+	"factorio_version": "2.0",
+	"title": "Artisanal Reskins: Nullius",
+	"author": "Kirazy",
+	"contact": "https://discord.gg/qAvSyzZFPr",
+	"homepage": "https://github.com/kirazy/reskins-nullius",
+	"dependencies": [
+		"nullius",
+		"reskins-framework >= 0.1.1",
+		"reskins-assets-api >= 0.1.2",
+		"reskins-assets-angels",
+		"reskins-assets-base",
+		"reskins-assets-bobs",
+		"reskins-assets-assorted",
+		"? lambent-nil"
+	],
+	"package": {
+		"git_publish_branch": "main"
+	}
 }
