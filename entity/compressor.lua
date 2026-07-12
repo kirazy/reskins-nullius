@@ -1,7 +1,7 @@
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _lib = require("_lib")
 
----@type ConstructIconInputsOld
+---@type LibHack.ConstructIconInputsOld
 local inputs = {
 	type = "assembling-machine",
 	icon_name = "thermal-extractor",

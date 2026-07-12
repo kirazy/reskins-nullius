@@ -1,8 +1,6 @@
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _lib = require("_lib")
 
----@type SetupStandardEntityInputs
-
 local tier_map = {
 	["nullius-geothermal-reactor-1"] = { tier = 1, prog_tier = 1 },
 	["nullius-geothermal-reactor-2"] = { tier = 2, prog_tier = 2 },
@@ -13,7 +11,7 @@ local tier_map = {
 for name, map in pairs(tier_map) do
 	local tier = _framework.tiers.get_tier(map)
 
-	---@type SetupStandardEntityInputs
+	---@type LibHack.SetupStandardEntityInputs
 	local inputs = {
 		type = "reactor",
 		icon_name = "chemical-furnace",

@@ -230,7 +230,7 @@ end
 ---@param tint? data.Color
 ---@param make_tier_labels? boolean
 return function(name, tier, tint, make_tier_labels)
-	---@type SetupStandardEntityInputs
+	---@type LibHack.SetupStandardEntityInputs
 	local inputs = {
 		type = "assembling-machine",
 		icon_name = "boiler",

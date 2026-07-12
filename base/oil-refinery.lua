@@ -95,7 +95,7 @@ end
 ---@param tint? data.Color
 ---@param make_tier_labels? boolean
 local function oil_refinery(name, tier, tint, make_tier_labels)
-	---@type SetupStandardEntityInputs
+	---@type LibHack.SetupStandardEntityInputs
 	local inputs = {
 		type = "assembling-machine",
 		icon_name = "oil-refinery",

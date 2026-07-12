@@ -29,13 +29,13 @@ local asset_mod_names = {
 -- functions.lua
 ---------------------------------------------------------------------------------------------------
 
----@class SetupStandardEntityInputs : ParseInputsInputs, CreateExplosionsAndParticlesInputs, CreateRemnantInputs, ConstructIconInputsOld
+---@class LibHack.SetupStandardEntityInputs : LibHack.ParseInputsInputs, LibHack.CreateExplosionsAndParticlesInputs, LibHack.CreateRemnantInputs, LibHack.ConstructIconInputsOld
 
 ---Most entities have a common process for reskinning, so consolidate the other functions under one super-function for
 ---ease of use
 ---@param name string # The name of the entity prototype to be reskinned.
 ---@param tier integer # The tier of the entity. An integer value from 0 to 6. Default `0`.
----@param inputs SetupStandardEntityInputs
+---@param inputs LibHack.SetupStandardEntityInputs
 function lib.setup_standard_entity(name, tier, inputs)
 	-- Parse inputs
 	lib.set_inputs_defaults(inputs)
@@ -56,7 +56,7 @@ function lib.setup_standard_entity(name, tier, inputs)
 	end
 end
 
----@class ParseInputsInputs
+---@class LibHack.ParseInputsInputs
 ---@field icon_size? data.SpriteSizeType # Default `64`.
 ---@field technology_icon_size? data.SpriteSizeType # Default `128`.
 ---@field make_explosions? boolean # Default `true`, creates explosions in `standard_setup_entity`.
@@ -66,8 +66,8 @@ end
 ---@field make_icon_pictures? boolean # Default `true`, creates pictures for item-on-ground icons.
 
 ---Adds missing default values to the given `inputs` table.
----@param inputs ParseInputsInputs
----@return ParseInputsInputs inputs
+---@param inputs LibHack.ParseInputsInputs
+---@return LibHack.ParseInputsInputs inputs
 function lib.set_inputs_defaults(inputs)
 	inputs.icon_size = inputs.icon_size or 64
 	inputs.technology_icon_size = inputs.technology_icon_size or 128
@@ -80,16 +80,14 @@ function lib.set_inputs_defaults(inputs)
 	return inputs
 end
 
----@class CreateRemnantInputs
+---@class LibHack.CreateRemnantInputs
 ---@field base_entity_name string # The type name of the entity to copy an existing `CorpsePrototype` from.
 ---@field type string # The type name of the entity to be assigned the new `CorpsePrototype`.
-
----@class remnant # See [Prototype/Corpse](https://wiki.factorio.com/Prototype/Corpse)
 
 ---Copies the Factorio corpse specified by `inputs.base_entity_name`, extends `data` with a new
 ---corpse with the name `ar-[name]-remnants`, and assigns it to the named entity
 ---@param name string
----@param inputs CreateRemnantInputs
+---@param inputs LibHack.CreateRemnantInputs
 ---```
 --- inputs = {
 ---     base_entity_name = string -- Name of Factorio reference entity to copy from, e.g. `stone-furnace`
@@ -109,12 +107,12 @@ function lib.create_remnant(name, inputs)
 	return remnant
 end
 
----@class CreateExplosionInputs : CreateRemnantInputs
+---@class LibHack.CreateExplosionInputs : LibHack.CreateRemnantInputs
 
 ---Copies the Factorio explosion specified by `inputs.base_entity_name`, extends `data` with a new
 ---explosion with the name `ar-[name]-explosion`, and assigns it to the named entity
 ---@param name string
----@param inputs CreateExplosionInputs
+---@param inputs LibHack.CreateExplosionInputs
 ---```
 --- inputs = {
 ---     base_entity_name = string -- Name of Factorio reference entity to copy from, e.g. `stone-furnace`
@@ -291,13 +289,13 @@ function lib.create_particle(name, base_entity_name, base_particle_name, key, ti
 	end
 end
 
----@class CreateExplosionsAndParticlesInputs : CreateExplosionInputs
+---@class LibHack.CreateExplosionsAndParticlesInputs : LibHack.CreateExplosionInputs
 ---@field particles? table # Table of keys for `_lib.particle_index` and the target index within the explosion particle table to copy
 ---@field tint table # [Types/Color](https://wiki.factorio.com/Types/Color)
 
 ---Batches the `create_explosion` and `create_particle` function together for ease of use
 ---@param name string # [Prototype name](https://wiki.factorio.com/PrototypeBase#name)
----@param inputs CreateExplosionsAndParticlesInputs @
+---@param inputs LibHack.CreateExplosionsAndParticlesInputs @
 ---```
 --- inputs = {
 ---     base_entity_name = string -- Name of Factorio reference entity to copy from, e.g. `stone-furnace`
@@ -336,7 +334,7 @@ lib.particle_index = {
 -- icon-handling.lua
 ---------------------------------------------------------------------------------------------------
 
----@class ConstructTechnologyIconInputsOld
+---@class LibHack.ConstructTechnologyIconInputsOld
 ---@field mod "assets-angels"|"assets-base"|"assets-bobs"|"assets-assorted
 ---@field group? string # Folder under the `graphics/technology` folder. Default `nil`.
 ---@field subgroup? string # Folder under the `group` folder, e.g. `group/subgroup`. Default `nil`.
@@ -354,9 +352,9 @@ lib.particle_index = {
 ---@field defer_to_data_final_fixes? boolean # When `true`, stores the icon for assignment at the end of data-final-fixes. Supersedes `defer_to_data_updates`. Expected if `defer_to_data_updates` is not set.
 
 ---@param name string # The name of the technology prototype.
----@param inputs ConstructTechnologyIconInputsOld
+---@param inputs LibHack.ConstructTechnologyIconInputsOld
 function lib.construct_technology_icon(name, inputs)
-	---@type ConstructTechnologyIconInputsOld
+	---@type LibHack.ConstructTechnologyIconInputsOld
 	local inputs_copy = util.copy(inputs)
 
 	--Set defaults
@@ -473,7 +471,7 @@ function lib.construct_technology_icon(name, inputs)
 	end
 end
 
----@alias TechnologyConstant
+---@alias LibHack.TechnologyConstant
 ---| "battery"
 ---| "braking-force"
 ---| "capacity"
@@ -508,7 +506,7 @@ local technology_constants = {
 	["speed"] = { icon = "__core__/graphics/icons/technology/constants/constant-speed.png" },
 }
 
----@param constant TechnologyConstant
+---@param constant LibHack.TechnologyConstant
 ---@param scale double?
 ---@return data.IconData
 function lib.return_technology_effect_icon(constant, scale)
@@ -524,7 +522,7 @@ function lib.return_technology_effect_icon(constant, scale)
 end
 
 ---The common base class for all creatable icons.
----@class CreatableIconBase
+---@class LibHack.CreatableIconBase
 ---The path to the folder containing the icon files, relative to the mod's `graphics` folder.
 ---@field subfolder string
 ---The size of the square icon, in pixels, e.g. `32` for a 32px by 32px icon.
@@ -558,7 +556,7 @@ end
 ---highlights layer.
 ---
 ---The number of layers used to create the icon is determined by the `num_layers` field.
----@class TintedCreatableIcon : CreatableIconBase
+---@class LibHack.TintedCreatableIcon : LibHack.CreatableIconBase
 ---
 ---The prefix of the base icon file named `{icon_base}-icon-base.png`. Used in place of `mask_name`
 ---and `highlights_name` if neither is provided.
@@ -579,14 +577,14 @@ end
 ---@field num_layers? 1|2|3
 
 ---A creatable single-layer icon.
----@class FlatCreatableIcon : CreatableIconBase
+---@class LibHack.FlatCreatableIcon : LibHack.CreatableIconBase
 ---The name of the icon file named `{icon}.png`.
 ---@field icon string
 ---
 ---An optional tint to apply to the icon.
 ---@field tint? data.Color
 
----@class ConstructIconInputsOld
+---@class LibHack.ConstructIconInputsOld
 ---@field type string # The type name of the prototype.
 ---@field graphics_mod "assets-angels"|"assets-base"|"assets-bobs"|"assets-assorted"
 ---@field group? string # Folder under the `graphics/icons` folder. Default `nil`.
@@ -611,9 +609,9 @@ end
 ---
 ---@param name string # The name of the prototype.
 ---@param tier integer # The tier of the added labels. An integer value from 0 to 6.
----@param inputs ConstructIconInputsOld
+---@param inputs LibHack.ConstructIconInputsOld
 function lib.construct_icon(name, tier, inputs)
-	---@type ConstructIconInputsOld
+	---@type LibHack.ConstructIconInputsOld
 	local inputs_copy = util.copy(inputs)
 
 	--Set defaults

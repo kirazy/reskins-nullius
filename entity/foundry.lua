@@ -47,7 +47,7 @@ end
 for name, map in pairs(tier_map) do
 	local tier = _framework.tiers.get_tier(map)
 
-	---@type SetupStandardEntityInputs
+	---@type LibHack.SetupStandardEntityInputs
 	local inputs = {
 		type = "assembling-machine",
 		icon_name = "casting-machine",

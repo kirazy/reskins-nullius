@@ -261,7 +261,7 @@ local function get_chemical_plant_standard_remnants(tint)
 end
 
 local function chemical_plant(name, tier, tint, make_tier_labels)
-	---@type SetupStandardEntityInputs
+	---@type LibHack.SetupStandardEntityInputs
 	local inputs = {
 		type = "assembling-machine",
 		icon_name = "chemical-plant",

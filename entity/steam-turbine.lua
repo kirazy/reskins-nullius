@@ -201,7 +201,7 @@ for _, modes in pairs(generators) do
 	end
 end
 
----@type ConstructIconInputsOld
+---@type LibHack.ConstructIconInputsOld
 local inputs = {
 	type = "furnace",
 	icon_name = "steam-turbine",
