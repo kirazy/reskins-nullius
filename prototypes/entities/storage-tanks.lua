@@ -12,6 +12,7 @@ local entities = {
 	["storage-tank"] = { type = "storage-tank", tier = 1, prog_tier = 1 },
 	["nullius-medium-tank-2"] = { type = "storage-tank", tier = 2, prog_tier = 2 },
 	["nullius-medium-tank-3"] = { type = "storage-tank", tier = 3, prog_tier = 3 },
+	["nullius-medium-tank-4"] = { type = "storage-tank", tier = 4, prog_tier = 4 },
 }
 
 for name, options in pairs(entities) do

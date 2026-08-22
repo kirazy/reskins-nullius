@@ -4,6 +4,7 @@ Date: ????
   Features:
     - Tier labels may now be shown in world, or not, based on the "Show tier labels in world" setting.
     - Added support for heat pipes.
+    - Added support for the 4th tier storage tank.
   Changes:
     - Revised support for combustion chambers and boilers:
       - Fire and fire glow animations now work correctly.
