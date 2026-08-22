@@ -1,6 +1,8 @@
 -- HACK: To avoid pulling in the Artisanal Reskins: Library sprite overrides and until Artisanal
 -- Reskins: Framework and Artisanal Reskins: Assets API are both ready for use.
 
+---@using Reskins.SpriteUtils
+
 local sprite_utils = {
 	icons = require("__reskins-sprite-utils__.icons"),
 	colors = require("__reskins-sprite-utils__.colors"),
@@ -36,6 +38,7 @@ local asset_mod_names = {
 ---@param name string # The name of the entity prototype to be reskinned.
 ---@param tier integer # The tier of the entity. An integer value from 0 to 6. Default `0`.
 ---@param inputs LibHack.SetupStandardEntityInputs
+---@deprecated
 function lib.setup_standard_entity(name, tier, inputs)
 	-- Parse inputs
 	lib.set_inputs_defaults(inputs)
@@ -68,6 +71,7 @@ end
 ---Adds missing default values to the given `inputs` table.
 ---@param inputs LibHack.ParseInputsInputs
 ---@return LibHack.ParseInputsInputs inputs
+---@deprecated
 function lib.set_inputs_defaults(inputs)
 	inputs.icon_size = inputs.icon_size or 64
 	inputs.technology_icon_size = inputs.technology_icon_size or 128
@@ -95,6 +99,7 @@ end
 --- }
 ---```
 ---@return data.CorpsePrototype
+---@deprecated
 function lib.create_remnant(name, inputs)
 	---@type data.CorpsePrototype
 	local remnant = util.copy(data.raw["corpse"][inputs.base_entity_name .. "-remnants"])
@@ -119,6 +124,7 @@ end
 ---     type = string -- See https://wiki.factorio.com/Prototype_definitions
 --- }
 ---```
+---@deprecated
 function lib.create_explosion(name, inputs)
 	local explosion_copy = util.copy(data.raw["explosion"][inputs.base_entity_name .. "-explosion"])
 	explosion_copy.name = "ar-" .. name .. "-explosion"
@@ -160,7 +166,7 @@ local function get_preferred_explosion(explosion)
 		return explosion
 	end
 
-	if target_effects[1].type == "create-explosion" then
+	if target_effects[1] and target_effects[1].type == "create-explosion" then
 		-- Copy the explosion reference and update our explosion, if it doesn't already exist, as we may visit the same
 		-- explosion multiple times.
 		local explosion_base_name = target_effects[1].entity_name
@@ -272,11 +278,14 @@ end
 ---@param base_particle_name string A value from `lib.particle_index` used to find the particle to copy.
 ---@param key integer Index corresponding to the particle within the explosion target_effects table.
 ---@param tint data.Color The tint to apply to the particle.
+---@deprecated
 function lib.create_particle(name, base_entity_name, base_particle_name, key, tint)
 	local particle = util.copy(data.raw["optimized-particle"][base_entity_name .. "-" .. base_particle_name])
 
 	particle.name = "ar-" .. name .. "-" .. base_particle_name .. "-tinted"
-	particle.pictures.sheet.tint = tint
+	if particle.pictures and particle.pictures.sheet then
+		particle.pictures.sheet.tint = tint
+	end
 
 	data:extend({ particle })
 
@@ -307,6 +316,7 @@ end
 ---     }
 --- }
 ---```
+---@deprecated
 function lib.create_explosions_and_particles(name, inputs)
 	lib.create_explosion(name, inputs)
 
@@ -353,6 +363,7 @@ lib.particle_index = {
 
 ---@param name string # The name of the technology prototype.
 ---@param inputs LibHack.ConstructTechnologyIconInputsOld
+---@deprecated
 function lib.construct_technology_icon(name, inputs)
 	---@type LibHack.ConstructTechnologyIconInputsOld
 	local inputs_copy = util.copy(inputs)
@@ -509,6 +520,7 @@ local technology_constants = {
 ---@param constant LibHack.TechnologyConstant
 ---@param scale double?
 ---@return data.IconData
+---@deprecated
 function lib.return_technology_effect_icon(constant, scale)
 	---@type data.IconData
 	local icon_data = {
@@ -609,6 +621,7 @@ end
 ---@param name string # The name of the prototype.
 ---@param tier integer # The tier of the added labels. An integer value from 0 to 6.
 ---@param inputs LibHack.ConstructIconInputsOld
+---@deprecated
 function lib.construct_icon(name, tier, inputs)
 	---@type LibHack.ConstructIconInputsOld
 	local inputs_copy = util.copy(inputs)
@@ -747,7 +760,7 @@ local function convert_rotated_animation_to_animation(animation, shift)
 		--- Remove it from the returned prototype.
 		layer.direction_count = nil
 		layer.animation_speed = 1
-		layer.shift = util.add_shift(layer.shift, shift)
+		layer.shift = util.add_shift(layer.shift or { 0, 0 }, shift)
 	end
 
 	return animation_copy --[[@as data.Animation]]
@@ -773,14 +786,15 @@ end
 ---Creates the necessary particles and animations for a flying robot's death spiral, and links it to the prototype.
 ---@param prototype data.CombatRobotPrototype|data.RobotWithLogisticInterfacePrototype
 ---@param corpse_name data.EntityID
+---@deprecated
 function lib.configure_robot_death_animation(prototype, corpse_name)
 	local shadow_shift = { -0.75, -0.40 }
 	local animation_shift = { 0, 0 }
 
 	local particle_name = "ar-" .. prototype.name .. "-dying-particle"
 
-	local animation = convert_rotated_animation_to_animation(prototype.in_motion, animation_shift)
-	local shadow_animation = convert_rotated_animation_to_animation(prototype.shadow_in_motion, shadow_shift)
+	local animation = convert_rotated_animation_to_animation(prototype.in_motion or {}, animation_shift)
+	local shadow_animation = convert_rotated_animation_to_animation(prototype.shadow_in_motion or {}, shadow_shift)
 
 	---@type data.ParticlePrototype
 	local particle = {
@@ -865,6 +879,7 @@ end
 ---icon assignment, and returns the LibHack instance.
 ---@param icon_store Reskins.SpriteUtils.DeferredIconStore
 ---@return LibHack
+---@deprecated
 function lib.with_icon_store(icon_store)
 	_deferred_icon_store = icon_store
 	return lib -- chainable
