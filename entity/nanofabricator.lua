@@ -1,3 +1,4 @@
+-- cspell: words nanofabricator
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _lib = require("_lib")
 local _sprites = require("__reskins-sprite-utils__.sprites")
@@ -20,7 +21,7 @@ for name, map in pairs(tier_map) do
 		graphics_mod = "assets-angels",
 		particles = { ["big"] = 1, ["medium"] = 2 },
 		make_remnants = false,
-		tint = map.tint or _framework.tiers.get_tint(tier),
+		tint = _framework.tiers.get_tint(tier),
 	}
 
 	---@type data.AssemblingMachinePrototype
@@ -32,6 +33,7 @@ for name, map in pairs(tier_map) do
 	_lib.setup_standard_entity(name, tier, inputs)
 
 	-- Reskin entities
+	entity.graphics_set = entity.graphics_set or {}
 	entity.graphics_set.animation = {
 		layers = {
 			-- Base

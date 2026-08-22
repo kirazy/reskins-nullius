@@ -1,3 +1,5 @@
+---@using data
+
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _lib = require("_lib")
 
@@ -8,6 +10,7 @@ local tier_map = {
 }
 
 ---@param is_flipped boolean?
+---@param tint Color
 ---@return data.WorkingVisualisation
 local function get_color_mask_working_visualisation(is_flipped, tint)
 	local flipped = is_flipped == true and "-flipped" or ""
@@ -18,6 +21,8 @@ local function get_color_mask_working_visualisation(is_flipped, tint)
 			layers = {
 				util.sprite_load(
 					"__reskins-assets-angels__/graphics/entity/casting-machine/casting-machine" .. flipped .. "-mask",
+					-- The generic signature is badly constructed; the second parameter is enriched, not passed-through as-is.
+					---@diagnostic disable-next-line: generic-constraint-mismatch
 					{
 						priority = "high",
 						frame_count = 49,
@@ -28,6 +33,8 @@ local function get_color_mask_working_visualisation(is_flipped, tint)
 				),
 				util.sprite_load(
 					"__reskins-assets-angels__/graphics/entity/casting-machine/casting-machine" .. flipped .. "-highlights",
+					-- The generic signature is badly constructed; the second parameter is enriched, not passed-through as-is.
+					---@diagnostic disable-next-line: generic-constraint-mismatch
 					{
 						priority = "high",
 						frame_count = 49,
@@ -55,7 +62,7 @@ for name, map in pairs(tier_map) do
 		graphics_mod = "assets-angels",
 		particles = { ["big"] = 1, ["medium"] = 2 },
 		make_remnants = false,
-		tint = map.tint or _framework.tiers.get_tint(tier),
+		tint = _framework.tiers.get_tint(tier),
 	}
 
 	---@type data.AssemblingMachinePrototype
@@ -66,8 +73,23 @@ for name, map in pairs(tier_map) do
 
 	_lib.setup_standard_entity(name, tier, inputs)
 
-	entity.graphics_set.animation.layers[1].tint = nil
-	entity.graphics_set_flipped.animation.layers[1].tint = nil
+	if
+		entity.graphics_set
+		and entity.graphics_set.animation
+		and entity.graphics_set.animation.layers
+		and entity.graphics_set.animation.layers[1]
+	then
+		entity.graphics_set.animation.layers[1].tint = nil
+	end
+
+	if
+		entity.graphics_set_flipped
+		and entity.graphics_set_flipped.animation
+		and entity.graphics_set_flipped.animation.layers
+		and entity.graphics_set_flipped.animation.layers[1]
+	then
+		entity.graphics_set_flipped.animation.layers[1].tint = nil
+	end
 
 	if entity.graphics_set and entity.graphics_set.working_visualisations then
 		local working_vis = get_color_mask_working_visualisation(false, inputs.tint)

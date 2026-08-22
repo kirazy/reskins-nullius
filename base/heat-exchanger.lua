@@ -1,3 +1,4 @@
+-- cspell: words heatex
 local _sprites = require("__reskins-sprite-utils__.sprites")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _lib = require("_lib")
@@ -213,7 +214,7 @@ end
 ---@param tier integer # 1-6 are supported, 0 to disable
 ---@param tint? data.Color
 ---@param make_tier_labels? boolean
-return function(name, tier, tint, make_tier_labels)
+local heat_exchanger = function(name, tier, tint, make_tier_labels)
 	---@type LibHack.SetupStandardEntityInputs
 	local inputs = {
 		type = "assembling-machine",
@@ -234,12 +235,17 @@ return function(name, tier, tint, make_tier_labels)
 
 	_lib.setup_standard_entity(name, tier, inputs)
 
-	-- Fetch corpse
+	-- setup_standard_entity sets a corpse; the corpse field may be a table of corpses or the name of
+	-- a prototype, so narrow the type given we enforce a singular corpse.
+	assert(type(entity.corpse) == "string")
 	local corpse = data.raw["corpse"][entity.corpse]
 
 	-- Reskin corpse
 	corpse.animation = corpse_animation(inputs.tint)
 
 	-- Reskin entity
+	entity.graphics_set = entity.graphics_set or {}
 	entity.graphics_set.animation = entity_animation(inputs.tint)
 end
+
+return heat_exchanger

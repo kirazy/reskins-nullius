@@ -19,7 +19,7 @@ for name, map in pairs(tier_map) do
 		graphics_mod = "assets-angels",
 		particles = { ["big-tint"] = 5, ["medium"] = 2 },
 		make_remnants = false,
-		tint = map.tint or _framework.tiers.get_tint(tier),
+		tint = _framework.tiers.get_tint(tier),
 	}
 
 	---@type data.ReactorPrototype

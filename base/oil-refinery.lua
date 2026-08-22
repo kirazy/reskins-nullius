@@ -1,10 +1,12 @@
+---@using data
+
 local _sprites = require("__reskins-sprite-utils__.sprites")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _lib = require("_lib")
 
 ---Provides vanilla-style sprite definition for oil refinery `animation` field. See [Prototype/AssemblingMachine](https://wiki.factorio.com/Prototype/AssemblingMachine).
----@param tint data.Color
----@return data.Animation4Way
+---@param tint Color
+---@return Animation4Way
 local function entity_animation(tint)
 	return _sprites.make_4way_animation_from_spritesheet({
 		layers = {
@@ -44,14 +46,14 @@ local function entity_animation(tint)
 				scale = 0.5,
 			},
 		},
-	})
+	}) --[[@as Animation4Way]]
 end
 
 ---Provides vanilla-style sprite definition for oil refinery corpse `animation` field. See [Prototype/Corpse](https://wiki.factorio.com/Prototype/Corpse).
----@param tint data.Color
----@return data.RotatedAnimationVariations
+---@param tint Color
+---@return RotatedAnimationVariations
 local function corpse_animation(tint)
-	---@type data.RotatedAnimation
+	---@type RotatedAnimation
 	local animation = {
 		layers = {
 			-- Base
@@ -92,7 +94,7 @@ end
 ---Reskins the named assembling machine with vanilla-style oil refinery sprites and color masking, and sets up appropriate corpse, explosion, and particle prototypes
 ---@param name string # [Prototype name](https://wiki.factorio.com/PrototypeBase#name)
 ---@param tier integer # 1-6 are supported, 0 to disable
----@param tint? data.Color
+---@param tint? Color
 ---@param make_tier_labels? boolean
 local function oil_refinery(name, tier, tint, make_tier_labels)
 	---@type LibHack.SetupStandardEntityInputs
@@ -106,7 +108,7 @@ local function oil_refinery(name, tier, tint, make_tier_labels)
 		tint = tint and tint or _framework.tiers.get_tint(tier),
 	}
 
-	---@type data.AssemblingMachinePrototype
+	---@type AssemblingMachinePrototype
 	local entity = data.raw[inputs.type][name]
 	if not entity then
 		return
@@ -114,13 +116,16 @@ local function oil_refinery(name, tier, tint, make_tier_labels)
 
 	_lib.setup_standard_entity(name, tier, inputs)
 
-	-- Fetch corpse
+	-- setup_standard_entity sets a corpse; the corpse field may be a table of corpses or the name of
+	-- a prototype, so narrow the type given we enforce a singular corpse.
+	assert(type(entity.corpse) == "string")
 	local corpse = data.raw["corpse"][entity.corpse]
 
 	-- Reskin corpse
 	corpse.animation = corpse_animation(inputs.tint)
 
 	-- Reskin entity
+	entity.graphics_set = entity.graphics_set or {}
 	entity.graphics_set.animation = entity_animation(inputs.tint)
 end
 

@@ -1,3 +1,5 @@
+---@using data
+
 local _sprites = require("__reskins-sprite-utils__.sprites")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _lib = require("_lib")
@@ -6,10 +8,10 @@ local _lib = require("_lib")
 ---Gets the standard working visualisations for a chemical plant. This is the Factorio default.
 ---
 ---### Returns
----@return data.WorkingVisualisation # The complete set of working visualisations.
+---@return WorkingVisualisation[] # The complete set of working visualisations.
 ---@nodiscard
 local function get_chemical_plant_standard_working_visualisations()
-	---@type data.WorkingVisualisation
+	---@type WorkingVisualisation
 	local working_visualisation = {
 		{
 			apply_recipe_tint = "primary",
@@ -131,7 +133,7 @@ local function get_chemical_plant_standard_working_visualisations()
 		},
 	}
 
-	return working_visualisation
+	return { working_visualisation }
 end
 
 ---
@@ -139,7 +141,7 @@ end
 ---using the given `tint`.
 ---
 ---### Returns
----@return data.Animation4Way # The complete set of tinted sprites.
+---@return Animation4Way # The complete set of tinted sprites.
 ---
 ---### Examples
 ---```lua
@@ -151,7 +153,7 @@ end
 ---```
 ---
 ---### Parameters
----@param tint data.Color
+---@param tint Color
 ---@nodiscard
 local function get_chemical_plant_standard_animation(tint)
 	return _sprites.make_4way_animation_from_spritesheet({
@@ -199,7 +201,7 @@ local function get_chemical_plant_standard_animation(tint)
 				scale = 0.5,
 			},
 		},
-	})
+	}) --[[@as Animation4Way]]
 end
 
 ---
@@ -207,7 +209,7 @@ end
 ---remnant sprites colored using the given `tint`.
 ---
 ---### Returns
----@return data.RotatedAnimationVariations # The complete set of tinted remnant sprites.
+---@return RotatedAnimationVariations # The complete set of tinted remnant sprites.
 ---
 ---### Examples
 ---```lua
@@ -219,10 +221,10 @@ end
 ---```
 ---
 ---### Parameters
----@param tint data.Color # The color of the remnant sprites.
+---@param tint Color # The color of the remnant sprites.
 ---@nodiscard
 local function get_chemical_plant_standard_remnants(tint)
-	---@type data.RotatedAnimationVariations
+	---@type RotatedAnimationVariations
 	local animation = {
 		layers = {
 			-- Base
@@ -280,13 +282,16 @@ local function chemical_plant(name, tier, tint, make_tier_labels)
 
 	_lib.setup_standard_entity(name, tier, inputs)
 
-	-- Fetch corpse
+	-- setup_standard_entity sets a corpse; the corpse field may be a table of corpses or the name of
+	-- a prototype, so narrow the type given we enforce a singular corpse.
+	assert(type(entity.corpse) == "string")
 	local corpse = data.raw["corpse"][entity.corpse]
 
 	-- Reskin corpse
 	corpse.animation = get_chemical_plant_standard_remnants(inputs.tint)
 
 	-- Reskin entity
+	entity.graphics_set = entity.graphics_set or {}
 	entity.graphics_set.animation = get_chemical_plant_standard_animation(inputs.tint)
 	entity.graphics_set.working_visualisations = get_chemical_plant_standard_working_visualisations()
 end

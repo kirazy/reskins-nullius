@@ -1,3 +1,4 @@
+-- cspell: words electrolyser electrolyzer
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _lib = require("_lib")
 
@@ -19,7 +20,7 @@ for name, map in pairs(tier_map) do
 		particles = { ["big"] = 1, ["medium"] = 2 },
 		make_explosions = false,
 		make_remnants = false,
-		tint = map.tint or _framework.tiers.get_tint(tier),
+		tint = _framework.tiers.get_tint(tier),
 	}
 
 	_lib.setup_standard_entity(name, tier, inputs)

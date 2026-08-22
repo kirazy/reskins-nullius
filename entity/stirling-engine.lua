@@ -305,7 +305,9 @@ for name, map in pairs(tier_map) do
 
 	_lib.setup_standard_entity(name, tier, inputs)
 
-	-- Fetch corpse
+	-- setup_standard_entity sets a corpse; the corpse field may be a table of corpses or the name of
+	-- a prototype, so narrow the type given we enforce a singular corpse.
+	assert(type(entity.corpse) == "string")
 	local corpse = data.raw["corpse"][entity.corpse]
 
 	-- Reskin corpse

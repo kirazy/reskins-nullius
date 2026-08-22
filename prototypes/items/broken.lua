@@ -1,4 +1,8 @@
--- cspell: words FFCBCBCB
+-- cspell: words CBCBCBFF electrolyzer
+
+---@using data
+---@using Reskins.SpriteUtils
+
 local _colors = require("__reskins-sprite-utils__.colors")
 local _assets = {
 	defines = require("__reskins-assets-api__.api.defines"),
@@ -36,8 +40,9 @@ for name, options in pairs(broken_items) do
 	-- HACK: this is unsafe; prefer to construct clean icons with the appropriate tints.
 	-- Needs additional work around icon generation in the assets-api.
 	local icon = _assets.icons.compose_icons("default", source_icon, broken_symbol)
-	icon[1].tint = _colors.from_argb("FFCBCBCB")
-	icon[2].tint = _colors.blend(icon[2].tint, icon[1].tint, 0.25)
+	assert(icon[1] and icon[2])
+	icon[1].tint = util.color("CBCBCBFF") --[[@as Color]]
+	icon[2].tint = _colors.blend(icon[2].tint --[[@as Color]], icon[1].tint, 0.25)
 
 	---@type DeferrableIconData
 	local deferrable_icon = {

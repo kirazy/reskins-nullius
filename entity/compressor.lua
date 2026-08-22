@@ -8,7 +8,7 @@ local inputs = {
 	graphics_mod = "assets-angels",
 }
 
--- Setup defaults.
+---@diagnostic disable-next-line: param-type-mismatch
 _lib.set_inputs_defaults(inputs)
 
 local tier_map = {
@@ -19,7 +19,7 @@ local tier_map = {
 
 for name, map in pairs(tier_map) do
 	local tier = _framework.tiers.get_tier(map)
-	inputs.tint = map.tint or _framework.tiers.get_tint(tier)
+	inputs.tint = _framework.tiers.get_tint(tier)
 
 	_lib.construct_icon(name, tier, inputs)
 end

@@ -20,7 +20,7 @@ for name, map in pairs(tier_map) do
 		graphics_mod = "assets-angels",
 		particles = { ["big"] = 1, ["medium"] = 2 },
 		make_remnants = false,
-		tint = map.tint or _framework.tiers.get_tint(tier),
+		tint = _framework.tiers.get_tint(tier),
 	}
 
 	---@type data.AssemblingMachinePrototype
@@ -31,7 +31,14 @@ for name, map in pairs(tier_map) do
 
 	_lib.setup_standard_entity(name, tier, inputs)
 
-	entity.graphics_set.animation.layers[1].tint = nil
+	entity.graphics_set = entity.graphics_set or {}
+	if
+		entity.graphics_set.animation
+		and entity.graphics_set.animation.layers
+		and entity.graphics_set.animation.layers[1]
+	then
+		entity.graphics_set.animation.layers[1].tint = nil
+	end
 
 	entity.graphics_set.working_visualisations = {
 		-- Idle animation
