@@ -514,8 +514,9 @@ function lib.return_technology_effect_icon(constant, scale)
 	local icon_data = {
 		icon = technology_constants[constant].icon,
 		icon_size = 128,
-		shift = util.mul_shift({ 100, 100 }, scale or 1),
-		scale = scale,
+		shift = { 50, 50 },
+		scale = 0.5,
+		floating = true,
 	}
 
 	return icon_data
