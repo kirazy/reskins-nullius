@@ -1,4 +1,5 @@
 require("entity.air-filter")
+require("entity.beacon")
 require("entity.chemical-plant")
 require("entity.compressor")
 require("entity.crusher")
@@ -13,11 +14,10 @@ require("entity.geothermal-plant.item")
 require("entity.heat-exchanger")
 require("entity.hydro-plant")
 require("entity.nanofabricator")
+require("entity.solar-collector")
 
 -- require("entity.small-furnace")
 require("entity.steam-turbine")
 require("entity.stirling-engine")
 
-if mods["lambent-nil"] then
-	require("entity.vacuum-chamber")
-end
+require("entity.vacuum-chamber")

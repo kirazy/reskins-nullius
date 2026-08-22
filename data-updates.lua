@@ -13,4 +13,11 @@ require("prototypes.entities.combustion-chambers")
 require("prototypes.entities.boilers")
 require("prototypes.entities.heat-pipes")
 
+require("entity.hangars")
+require("entity.relays")
+require("entity.chargers")
+require("entity.solar-collectors")
+require("entity.mining-drills")
+require("entity.labs")
+
 require("prototypes.recipe-updates")

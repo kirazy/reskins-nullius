@@ -1,3 +1,7 @@
+if not mods["lambent-nil"] then
+	return
+end
+
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _lib = require("_lib")
 

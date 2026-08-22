@@ -2,9 +2,9 @@ local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _lib = require("_lib")
 
 local tier_map = {
-	["nullius-crusher-1"] = { tier = 1 },
-	["nullius-crusher-2"] = { tier = 2 },
-	["nullius-crusher-3"] = { tier = 3 },
+	["nullius-crusher-1"] = { tier = 1, prog_tier = 1 },
+	["nullius-crusher-2"] = { tier = 2, prog_tier = 3 },
+	["nullius-crusher-3"] = { tier = 3, prog_tier = 4 },
 }
 
 -- Reskin entities, create and assign extra details
