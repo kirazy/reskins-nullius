@@ -20,13 +20,12 @@ for name, options in pairs(entities) do
 	local tier = _framework.tiers.get_tier(options)
 	local tint = _framework.tiers.get_tint(tier)
 
-	local icon = _assets.create_icon.train_fluid_wagon(tint)
-	---@type DeferrableIconData
-	local deferrable_icon = {
+	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+		tier = tier,
 		name = name,
 		type_name = entity.type,
-		icon_data = _framework.tiers.add_tier_labels_to_icons(tier, icon),
-	}
+		icon_data = _assets.create_icon.train_fluid_wagon(tint),
+	})
 
 	_assets.icons.assign_deferrable_icon(deferrable_icon)
 

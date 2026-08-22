@@ -153,14 +153,12 @@ for name, options in pairs(entities) do
 		_sprites.rescale_prototype(corpse, options.scale_factor)
 	end
 
-	local icon = resolve_icon(tint, options.machine_tier, options.scale_factor)
-
-	---@type DeferrableIconData
-	local deferrable_icon = {
+	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+		tier = tier,
 		name = name,
 		type_name = options.type,
-		icon_data = _framework.tiers.add_tier_labels_to_icons(tier, icon),
-	}
+		icon_data = resolve_icon(tint, options.machine_tier, options.scale_factor),
+	})
 
 	_assets.icons.assign_deferrable_icon(deferrable_icon)
 

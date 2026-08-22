@@ -1,10 +1,15 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.4
 Date: ????
+  Features:
+    - Tier labels may now be shown in world, or not, based on the "Show tier labels in world" setting.
   Changes:
-    - Revised support for combustion chambers and boilers
+    - Revised support for combustion chambers and boilers:
       - Fire and fire glow animations now work correctly.
       - Combustion chambers and boilers now use different icons; as such, boiler tiers are now independent and are 2 and 3 when using progression.
+  Bugfixes:
+    - Fixed that some items would show tier labels when on belts and on the ground, unintentionally.
+    - Fixed that pipes and underground pipes did not respect the "Show tier labels on pipes" setting.
 ---------------------------------------------------------------------------------------------------
 Version: 0.1.3
 Date: 2026-06-08

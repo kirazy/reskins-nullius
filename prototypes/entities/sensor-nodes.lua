@@ -44,13 +44,12 @@ for name, options in pairs(entities) do
 	graphics_pack:apply_to_entity(entity)
 	graphics_pack:apply_to_corpse(corpse)
 
-	local icon = _assets.create_icon.radar(tint)
-	---@type DeferrableIconData
-	local deferrable_icon = {
+	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+		tier = tier,
 		name = name,
 		type_name = options.type,
-		icon_data = _framework.tiers.add_tier_labels_to_icons(tier, icon),
-	}
+		icon_data = _assets.create_icon.radar(tint),
+	})
 
 	_assets.icons.assign_deferrable_icon(deferrable_icon)
 

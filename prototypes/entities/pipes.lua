@@ -30,25 +30,21 @@ local PipeToGroundGraphicsPack = require("__reskins-assets-api__.graphics-packs.
 
 local pipe_entities = {
 	["pipe"] = {
-		type = "pipe",
 		tier = 1,
 		prog_tier = 1,
 		pipe_material = _assets.defines.pipe_material.iron,
 	},
 	["nullius-pipe-2"] = {
-		type = "pipe",
 		tier = 2,
 		prog_tier = 2,
 		pipe_material = _assets.defines.pipe_material.aluminum,
 	},
 	["nullius-pipe-3"] = {
-		type = "pipe",
 		tier = 3,
 		prog_tier = 3,
 		pipe_material = _assets.defines.pipe_material.plastic,
 	},
 	["nullius-pipe-4"] = {
-		type = "pipe",
 		tier = 4,
 		prog_tier = 4,
 		pipe_material = _assets.defines.pipe_material.tungsten,
@@ -56,7 +52,7 @@ local pipe_entities = {
 }
 
 for name, options in pairs(pipe_entities) do
-	local entity = data.raw[options.type][name]
+	local entity = data.raw["pipe"][name]
 	if not entity then
 		goto continue
 	end
@@ -85,14 +81,12 @@ for name, options in pairs(pipe_entities) do
 	graphics_pack:apply_to_entity(entity)
 	graphics_pack:apply_to_corpse(corpse)
 
-	local icon = _assets.create_icon.pipe(options.pipe_material)
-	---@type DeferrableIconData
-	local deferrable_icon = {
+	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+		tier = tier,
 		name = name,
-		type_name = options.type,
-		icon_data = _framework.tiers.add_tier_labels_to_icons(tier, icon),
-	}
-
+		type_name = "pipe",
+		icon_data = _assets.create_icon.pipe(options.pipe_material),
+	})
 	_assets.icons.assign_deferrable_icon(deferrable_icon)
 
 	::continue::
@@ -100,25 +94,21 @@ end
 
 local pipe_to_ground_entities = {
 	["pipe-to-ground"] = {
-		type = "pipe-to-ground",
 		tier = 1,
 		prog_tier = 1,
 		pipe_material = _assets.defines.pipe_material.iron,
 	},
 	["nullius-underground-pipe-2"] = {
-		type = "pipe-to-ground",
 		tier = 2,
 		prog_tier = 2,
 		pipe_material = _assets.defines.pipe_material.aluminum,
 	},
 	["nullius-underground-pipe-3"] = {
-		type = "pipe-to-ground",
 		tier = 3,
 		prog_tier = 3,
 		pipe_material = _assets.defines.pipe_material.plastic,
 	},
 	["nullius-underground-pipe-4"] = {
-		type = "pipe-to-ground",
 		tier = 4,
 		prog_tier = 4,
 		pipe_material = _assets.defines.pipe_material.nitinol,
@@ -126,7 +116,7 @@ local pipe_to_ground_entities = {
 }
 
 for name, options in pairs(pipe_to_ground_entities) do
-	local entity = data.raw[options.type][name]
+	local entity = data.raw["pipe-to-ground"][name]
 	if not entity then
 		goto continue
 	end
@@ -155,13 +145,12 @@ for name, options in pairs(pipe_to_ground_entities) do
 	graphics_pack:apply_to_entity(entity)
 	graphics_pack:apply_to_corpse(corpse)
 
-	local icon = _assets.create_icon.pipe_to_ground(options.pipe_material)
-	---@type DeferrableIconData
-	local deferrable_icon = {
+	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+		tier = tier,
 		name = name,
-		type_name = options.type,
-		icon_data = _framework.tiers.add_tier_labels_to_icons(tier, icon),
-	}
+		type_name = "pipe-to-ground",
+		icon_data = _assets.create_icon.pipe_to_ground(options.pipe_material),
+	})
 
 	_assets.icons.assign_deferrable_icon(deferrable_icon)
 

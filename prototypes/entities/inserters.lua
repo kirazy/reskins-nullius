@@ -1,3 +1,5 @@
+---@using Reskins.SpriteUtils
+
 local _lib = require("_lib")
 local _assets = {
 	defines = require("__reskins-assets-api__.api.defines"),

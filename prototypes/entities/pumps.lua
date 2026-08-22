@@ -10,40 +10,16 @@ local _assets = {
 local PumpGraphicsPack = require("__reskins-assets-api__.graphics-packs.base.pump-graphics-pack")
 
 local entities = {
-	["nullius-pump-1"] = {
-		type = "pump",
-		tier = 1,
-		prog_tier = 1,
-	},
-	["nullius-pump-2"] = {
-		type = "pump",
-		tier = 2,
-		prog_tier = 2,
-	},
-	["pump"] = {
-		type = "pump",
-		tier = 3,
-		prog_tier = 3,
-	},
-	["nullius-togglable-pump-1"] = {
-		type = "pump",
-		tier = 1,
-		prog_tier = 1,
-	},
-	["nullius-togglable-pump-2"] = {
-		type = "pump",
-		tier = 2,
-		prog_tier = 2,
-	},
-	["nullius-togglable-pump-3"] = {
-		type = "pump",
-		tier = 3,
-		prog_tier = 3,
-	},
+	["nullius-pump-1"] = { tier = 1, prog_tier = 1 },
+	["nullius-pump-2"] = { tier = 2, prog_tier = 2 },
+	["pump"] = { tier = 3, prog_tier = 3 },
+	["nullius-togglable-pump-1"] = { tier = 1, prog_tier = 1 },
+	["nullius-togglable-pump-2"] = { tier = 2, prog_tier = 2 },
+	["nullius-togglable-pump-3"] = { tier = 3, prog_tier = 3 },
 }
 
 for name, options in pairs(entities) do
-	local entity = data.raw[options.type][name]
+	local entity = data.raw["pump"][name]
 	if not entity then
 		goto continue
 	end
@@ -72,13 +48,12 @@ for name, options in pairs(entities) do
 	graphics_pack:apply_to_entity(entity)
 	graphics_pack:apply_to_corpse(corpse)
 
-	local icon = _assets.create_icon.pump(tint)
-	---@type DeferrableIconData
-	local deferrable_icon = {
+	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+		tier = tier,
 		name = name,
-		type_name = options.type,
-		icon_data = _framework.tiers.add_tier_labels_to_icons(tier, icon),
-	}
+		type_name = "pump",
+		icon_data = _assets.create_icon.pump(tint),
+	})
 
 	_assets.icons.assign_deferrable_icon(deferrable_icon)
 

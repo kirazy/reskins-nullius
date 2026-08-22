@@ -591,7 +591,6 @@ end
 ---@field subgroup? string # Folder under the `group` folder, e.g. `group/subgroup`. Default `nil`.
 ---@field untinted_icon_mask? boolean # Overrides default tinting behavior; when `true`, will not apply `tint` to the mask layer.
 ---@field tint? data.Color # Expected if `untinted_icon_mask` is not `true`. If not provided, defaults to white ({1, 1, 1, 1}).
----@field tier_labels? boolean # Default `true`, displays tier labels on icons.
 ---@field icon_filename? data.FileName # Required if `icon_name` is not defined.
 ---@field icon_size? data.SpriteSizeType # Default `64`.
 ---@field icon_name? string # Required if `icon_filename` is not defined. Specifies the folder/filenames to prepare the layered icon.
@@ -599,7 +598,6 @@ end
 ---@field icon_mask? string # Override of `icon_name` for filename variants within the folder specified by `icon_name`, for the mask layer
 ---@field icon_highlights? string # Override of `icon_name` for filename variants within the folder specified by `icon_name`, for the highlights layer
 ---@field icon_extras? data.IconData[] # An array of `IconData` objects to append to the main icon.
----@field icon_picture_extras? data.SpriteVariations[] # An array of `SpriteVariations` objects to append to the main sprite for the item-on-ground.
 ---@field icon_layers? 1|2|3 # Default 3 if used with `icon_name`, 1 if used with `icon_filename`, corresponds to the number of standard-form files to prepare
 ---@field defer_to_data_updates? boolean # When `true`, stores the icon for assignment at the end of data-updates. Expected if `defer_to_data_final_fixes` is not set.
 ---@field defer_to_data_final_fixes? boolean # When `true`, stores the icon for assignment at the end of data-final-fixes. Supersedes `defer_to_data_updates`. Expected if `defer_to_data_updates` is not set.
@@ -616,7 +614,6 @@ function lib.construct_icon(name, tier, inputs)
 
 	--Set defaults
 	inputs_copy.icon_size = inputs.icon_size or 64
-	inputs_copy.tier_labels = (inputs.tier_labels ~= false)
 
 	-- Handle compatibility defaults
 	local subfolder_path = ""
@@ -703,9 +700,6 @@ function lib.construct_icon(name, tier, inputs)
 		table.insert(icon_data, icon_highlights_layer)
 	end
 
-	---@type data.SpriteVariations
-	local pictures = sprite_utils.sprites.create_sprite_from_icons(icon_data, 1.0)
-
 	-- Append icon extras as needed
 	if inputs_copy.icon_extras then
 		-- Append icon_extras
@@ -714,26 +708,12 @@ function lib.construct_icon(name, tier, inputs)
 		end
 	end
 
-	if inputs_copy.icon_picture_extras then
-		-- If we have one layer, we need to convert to an layered sprite.
-		if not pictures.layers then
-			pictures = {
-				layers = { pictures },
-			}
-		end
-
-		for n = 1, #inputs_copy.icon_picture_extras do
-			table.insert(pictures.layers, inputs_copy.icon_picture_extras[n])
-		end
-	end
-
-	---@type DeferrableIconData
-	local deferrable_icon = {
+	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+		tier = tier,
 		name = name,
 		type_name = inputs_copy.type or "item",
-		icon_data = inputs_copy.tier_labels and _framework.tiers.add_tier_labels_to_icons(tier, icon_data) or icon_data,
-		pictures = pictures,
-	}
+		icon_data = icon_data,
+	})
 
 	-- It may be necessary to put icons back in final fixes, allow for that
 	local stage

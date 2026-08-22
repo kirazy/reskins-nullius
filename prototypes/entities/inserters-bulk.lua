@@ -1,3 +1,6 @@
+---@using data
+---@using Reskins.SpriteUtils
+
 local _lib = require("_lib")
 local _assets = {
 	defines = require("__reskins-assets-api__.api.defines"),
@@ -16,12 +19,12 @@ local bulk_inserter_icon_creator_fn = icon_helpers.make_tinted_three_layer_icon_
 local entities = {
 	["bulk-inserter"] = {
 		type = "inserter",
-		tint = util.color("#45bcec"),
+		tint = util.color("#45bcec") --[[@as Color]],
 		icon_creator_fn = bulk_inserter_icon_creator_fn,
 	},
 	["bob-express-bulk-inserter"] = {
 		type = "inserter",
-		tint = util.color("#9fd942"),
+		tint = util.color("#9fd942") --[[@as Color]],
 		icon_creator_fn = bulk_inserter_icon_creator_fn,
 	},
 }
