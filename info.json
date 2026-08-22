@@ -11,7 +11,7 @@
 		"reskins-framework >= 0.1.2",
 		"reskins-assets-api >= 0.1.3",
 		"reskins-assets-angels",
-		"reskins-assets-base",
+		"reskins-assets-base >= 1.0.1",
 		"reskins-assets-bobs",
 		"reskins-assets-assorted",
 		"? lambent-nil"
