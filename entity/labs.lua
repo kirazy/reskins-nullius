@@ -118,14 +118,12 @@ for name, options in pairs(lab_tiers) do
 	entity.on_animation = lab_layers(tint, 33, 11, nil, animation_speed, options.scale_factor)
 	entity.off_animation = lab_layers(tint, 1, 1, nil, animation_speed, options.scale_factor)
 
-	local icon_data = util.table.deepcopy(data.raw.item[name].icons or entity.icons)
-
-	---@type DeferrableIconData
-	local deferrable_icon = {
+	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+		tier = tier,
 		name = name,
 		type_name = options.type,
-		icon_data = _lib.add_tier_labels_to_icons(tier, icon_data),
-	}
+		icon_data = _assets.icons.get_icon_from_prototype(entity),
+	})
 
 	_assets.icons.assign_deferrable_icon(deferrable_icon)
 

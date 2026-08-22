@@ -1,19 +1,19 @@
 local _lib = require("_lib")
-local _framework = {
-	tiers = require("__reskins-framework__.api.tiers"),
-}
+local _framework = { tiers = require("__reskins-framework__.api.tiers") }
+local _assets = { icons = require("__reskins-assets-api__.api.icons") }
+
+local icon_helpers = require("__reskins-assets-api__.api.icon-helpers")
+
+local artillery_wagon_icon_creator_fn = icon_helpers.make_tinted_three_layer_icon_creator_fn({
+	folder = "__reskins-assets-base__/graphics/icons",
+	icon_name = "train-artillery-wagon",
+})
+local artillery_turret_icon_creator_fn = icon_helpers.make_tinted_three_layer_icon_creator_fn({
+	folder = "__reskins-assets-base__/graphics/icons",
+	icon_name = "turret-artillery",
+})
 
 local TURRET_ENTITY_PATH = "__reskins-assets-base__/graphics/entity/turret-artillery/"
-local TURRET_ICON_PATH = "__reskins-assets-base__/graphics/icons/turret-artillery/turret-artillery-icon-"
-local CARRIER_ICON_PATH = "__reskins-assets-base__/graphics/icons/train-artillery-wagon/train-artillery-wagon-icon-"
-local blend_mode = _lib.get_setting("reskins-lib-blend-mode") or "additive"
-
-local do_entities = _lib.is_scope_enabled("entities")
-local do_items = _lib.is_scope_enabled("items-and-fluids")
-
-if not (do_entities or do_items) then
-	return
-end
 
 local launchers = {
 	["nullius-drone-launcher-1"] = { tier = 1, prog_tier = 3 },
@@ -51,7 +51,7 @@ local function make_base_picture(tint)
 				width = 207,
 				height = 199,
 				shift = util.by_pixel(0, 22),
-				blend_mode = blend_mode,
+				blend_mode = "additive-soft",
 				scale = 0.5,
 			},
 			{
@@ -93,7 +93,7 @@ local function make_remnant_animation(tint)
 				height = 290,
 				direction_count = 1,
 				shift = util.by_pixel(9.5, 1.5),
-				blend_mode = blend_mode,
+				blend_mode = "additive-soft",
 				scale = 0.5,
 			},
 		},
@@ -132,8 +132,7 @@ local function tint_sprite_tree(sprite, tint)
 end
 
 local function make_carrier_pictures(tint)
-	local pictures =
-		util.table.deepcopy(data.raw["artillery-wagon"]["artillery-wagon"].pictures)
+	local pictures = util.copy(data.raw["artillery-wagon"]["artillery-wagon"].pictures)
 
 	tint_sprite_tree(pictures, tint)
 	return pictures
@@ -142,47 +141,40 @@ end
 for name, options in pairs(launchers) do
 	local tier = _framework.tiers.get_tier(options)
 	local tint = _framework.tiers.get_tint(tier)
-	local icon = _lib.add_tier_labels_to_icons(
-		tier,
-		_lib.make_layered_icon(TURRET_ICON_PATH, tint, nil, 64, 4)
-	)
 
-	if do_items then
-		_lib.assign_icons_to_prototype("item", name, icon)
-		_lib.assign_icons_to_prototype("recipe", name, icon)
-	end
+	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+		tier = tier,
+		name = name,
+		type_name = "artillery-turret",
+		icon_data = artillery_turret_icon_creator_fn(tint),
+	})
 
-	if do_entities then
-		local entity = data.raw["artillery-turret"] and data.raw["artillery-turret"][name]
+	_assets.icons.assign_deferrable_icon(deferrable_icon)
 
-		if entity then
-			_lib.assign_icons_to_prototype("artillery-turret", name, icon)
-			entity.corpse = assign_remnant(name, tint)
-			entity.base_picture = make_base_picture(tint)
-		end
+	local entity = data.raw["artillery-turret"] and data.raw["artillery-turret"][name]
+	if entity then
+		entity.corpse = assign_remnant(name, tint)
+		entity.base_picture = make_base_picture(tint)
 	end
 end
 
 for name, options in pairs(carriers) do
 	local tier = _framework.tiers.get_tier(options)
 	local tint = _framework.tiers.get_tint(tier)
-	local icon = _lib.add_tier_labels_to_icons(
-		tier,
-		_lib.make_layered_icon(CARRIER_ICON_PATH, tint, nil, 64, 4)
-	)
 
-	if do_items then
-		_lib.assign_icons_to_prototype("item-with-entity-data", name, icon)
-		_lib.assign_icons_to_prototype("recipe", name, icon)
-	end
+	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+		tier = tier,
+		name = name,
+		type_name = "artillery-wagon",
+		icon_data = artillery_wagon_icon_creator_fn(tint),
+	})
 
-	if do_entities then
-		local entity = data.raw["artillery-wagon"] and data.raw["artillery-wagon"][name]
+	_assets.icons.assign_deferrable_icon(deferrable_icon)
 
-		if entity then
-			_lib.assign_icons_to_prototype("artillery-wagon", name, icon)
-			entity.color = tint
-			entity.pictures = make_carrier_pictures(tint)
-		end
+	local entity = data.raw["artillery-wagon"] and data.raw["artillery-wagon"][name]
+
+	if entity then
+		entity.color = tint
+		entity.pictures = make_carrier_pictures(tint)
 	end
 end

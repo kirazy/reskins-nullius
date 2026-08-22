@@ -24,10 +24,38 @@ local tier_map = {
 	["nullius-hangar-2"] = { tier = 2, prog_tier = 3, image_index = 2, scale = 0.75 },
 	["nullius-hangar-3"] = { tier = 3, prog_tier = 4, image_index = 3, scale = 0.75 },
 	["nullius-hangar-4"] = { tier = 4, prog_tier = 5, image_index = 4, scale = 0.5 },
-	["nullius-hangar-construction-1"] = { tier = 1, prog_tier = 2, image_index = 1, scale = 0.75, antenna_image_index = 4, antenna_tint = { 0.9, 0.8, 0.7 } },
-	["nullius-hangar-construction-2"] = { tier = 2, prog_tier = 3, image_index = 2, scale = 0.75, antenna_image_index = 3, antenna_tint = { 0.85, 1, 0.9 } },
-	["nullius-hangar-construction-3"] = { tier = 3, prog_tier = 4, image_index = 3, scale = 0.75, antenna_image_index = 3, antenna_tint = { 1, 1, 0.75 } },
-	["nullius-hangar-construction-4"] = { tier = 4, prog_tier = 5, image_index = 4, scale = 0.5, antenna_image_index = 3, antenna_tint = { 0.7, 0.7, 0.7 } },
+	["nullius-hangar-construction-1"] = {
+		tier = 1,
+		prog_tier = 2,
+		image_index = 1,
+		scale = 0.75,
+		antenna_image_index = 4,
+		antenna_tint = { 0.9, 0.8, 0.7 },
+	},
+	["nullius-hangar-construction-2"] = {
+		tier = 2,
+		prog_tier = 3,
+		image_index = 2,
+		scale = 0.75,
+		antenna_image_index = 3,
+		antenna_tint = { 0.85, 1, 0.9 },
+	},
+	["nullius-hangar-construction-3"] = {
+		tier = 3,
+		prog_tier = 4,
+		image_index = 3,
+		scale = 0.75,
+		antenna_image_index = 3,
+		antenna_tint = { 1, 1, 0.75 },
+	},
+	["nullius-hangar-construction-4"] = {
+		tier = 4,
+		prog_tier = 5,
+		image_index = 4,
+		scale = 0.5,
+		antenna_image_index = 3,
+		antenna_tint = { 0.7, 0.7, 0.7 },
+	},
 }
 
 for name, map in pairs(tier_map) do
@@ -84,14 +112,14 @@ for name, map in pairs(tier_map) do
 				filename = base_path .. "roboport-base.png",
 				width = 228,
 				height = 277,
-				shift = _lib.scaled_pixel(2, 7.75, map.scale),
+				shift = util.mul_shift({ 2, 7.75 }, map.scale),
 				scale = 0.5 * map.scale,
 			},
 			{
 				filename = base_path .. "roboport-base-mask.png",
 				width = 228,
 				height = 277,
-				shift = _lib.scaled_pixel(2, 7.75, map.scale),
+				shift = util.mul_shift({ 2, 7.75 }, map.scale),
 				tint = inputs.tint,
 				scale = 0.5 * map.scale,
 			},
@@ -99,7 +127,7 @@ for name, map in pairs(tier_map) do
 				filename = base_path .. "roboport-base-highlights.png",
 				width = 228,
 				height = 277,
-				shift = _lib.scaled_pixel(2, 7.75, map.scale),
+				shift = util.mul_shift({ 2, 7.75 }, map.scale),
 				blend_mode = "additive-soft",
 				scale = 0.5 * map.scale,
 			},
@@ -108,7 +136,7 @@ for name, map in pairs(tier_map) do
 				width = 294,
 				height = 201,
 				draw_as_shadow = true,
-				shift = _lib.scaled_pixel(28.5, 19.25, map.scale),
+				shift = util.mul_shift({ 28.5, 19.25 }, map.scale),
 				scale = 0.5 * map.scale,
 			},
 		},
@@ -121,7 +149,7 @@ for name, map in pairs(tier_map) do
 				priority = "medium",
 				width = 138,
 				height = 100,
-				shift = _lib.scaled_pixel(1.5, 5, map.scale),
+				shift = util.mul_shift({ 1.5, 5 }, map.scale),
 				scale = 0.5 * map.scale,
 			},
 			{
@@ -129,7 +157,7 @@ for name, map in pairs(tier_map) do
 				priority = "medium",
 				width = 138,
 				height = 100,
-				shift = _lib.scaled_pixel(1.5, 5, map.scale),
+				shift = util.mul_shift({ 1.5, 5 }, map.scale),
 				tint = inputs.tint,
 				scale = 0.5 * map.scale,
 			},
@@ -138,7 +166,7 @@ for name, map in pairs(tier_map) do
 				priority = "medium",
 				width = 138,
 				height = 100,
-				shift = _lib.scaled_pixel(1.5, 5, map.scale),
+				shift = util.mul_shift({ 1.5, 5 }, map.scale),
 				blend_mode = "additive-soft",
 				scale = 0.5 * map.scale,
 			},
@@ -146,13 +174,16 @@ for name, map in pairs(tier_map) do
 	}
 
 	entity.base_animation = {
-		filename = bobs_path .. "antennas/roboport-" .. (map.antenna_image_index or map.image_index) .. "-base-animation.png",
+		filename = bobs_path
+			.. "antennas/roboport-"
+			.. (map.antenna_image_index or map.image_index)
+			.. "-base-animation.png",
 		priority = "medium",
 		width = 83,
 		height = 59,
 		frame_count = 8,
 		animation_speed = 0.5,
-		shift = _lib.scaled_pixel(-17.75, -61.25, map.scale),
+		shift = util.mul_shift({ -17.75, -61.25 }, map.scale),
 		tint = map.antenna_tint,
 		scale = 0.5 * map.scale,
 	}
@@ -163,7 +194,7 @@ for name, map in pairs(tier_map) do
 		width = 97,
 		height = 38,
 		frame_count = 16,
-		shift = _lib.scaled_pixel(-0.25, -29.5, map.scale),
+		shift = util.mul_shift({ -0.25, -29.5 }, map.scale),
 		scale = 0.5 * map.scale,
 	}
 
@@ -173,7 +204,7 @@ for name, map in pairs(tier_map) do
 		width = 97,
 		height = 41,
 		frame_count = 16,
-		shift = _lib.scaled_pixel(-0.25, -9.75, map.scale),
+		shift = util.mul_shift({ -0.25, -9.75 }, map.scale),
 		scale = 0.5 * map.scale,
 	}
 

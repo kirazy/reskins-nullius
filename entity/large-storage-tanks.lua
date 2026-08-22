@@ -12,9 +12,9 @@ local _assets = {
 
 local MOD_PATH = "__reskins-nullius__"
 
-local LARGE_TANK_PATH = MOD_PATH .. "/graphics/entity/large_tank/"
+local LARGE_TANK_PATH = MOD_PATH .. "/graphics/entity/large-tank/"
 
-local LARGE_TANK_ICON_PATH = MOD_PATH .. "/graphics/icons/large_tank/"
+local LARGE_TANK_ICON_PATH = MOD_PATH .. "/graphics/icons/large-tank/"
 
 local large_tanks = {
 	["nullius-large-tank-1"] = {
@@ -61,17 +61,17 @@ local function make_large_tank_sheets(tint, nullius_tint)
 			scale = 0.5,
 		},
 
-		-- Mask 2 uses Reskins tier tint
-		{
-			filename = LARGE_TANK_PATH .. "large-tank-mask-2.png",
-			priority = "extra-high",
-			frames = 1,
-			width = 334,
-			height = 387,
-			shift = util.by_pixel(-0.5, -6),
-			tint = tint,
-			scale = 0.5,
-		},
+		-- -- Mask 2 uses Reskins tier tint
+		-- {
+		-- 	filename = LARGE_TANK_PATH .. "large-tank-mask-2.png",
+		-- 	priority = "extra-high",
+		-- 	frames = 1,
+		-- 	width = 334,
+		-- 	height = 387,
+		-- 	shift = util.by_pixel(-0.5, -6),
+		-- 	tint = tint,
+		-- 	scale = 0.5,
+		-- },
 
 		{
 			filename = LARGE_TANK_PATH .. "large-tank-highlights.png",
@@ -103,7 +103,6 @@ local function make_large_tank_icon(tint, nullius_tint)
 		{
 			icon = "__angelspetrochemgraphics__/graphics/icons/" .. "/petrochem-gas-tank.png",
 			icon_size = 64,
-			mipmap_count = 4,
 		},
 
 		-- Main Reskins tier-color mask
@@ -111,16 +110,14 @@ local function make_large_tank_icon(tint, nullius_tint)
 			icon = LARGE_TANK_ICON_PATH .. "large-tank-mask.png",
 			icon_size = 64,
 			tint = tint,
-			mipmap_count = 4,
 		},
 
 		-- Secondary Nullius tint mask
-		{
-			icon = LARGE_TANK_ICON_PATH .. "large-tank-mask-2.png",
-			icon_size = 64,
-			tint = nullius_tint,
-			mipmap_count = 4,
-		},
+		-- {
+		-- 	icon = LARGE_TANK_ICON_PATH .. "large-tank-mask-2.png",
+		-- 	icon_size = 64,
+		-- 	tint = nullius_tint,
+		-- },
 	}
 end
 
@@ -155,7 +152,7 @@ for name, options in pairs(large_tanks) do
 	_assets.icons.assign_deferrable_icon({
 		name = name,
 		type_name = options.type,
-		icon_data = table.deepcopy(icon),
+		icon_data = util.copy(icon),
 	})
 
 	-- Corresponding placeable item icon
@@ -163,7 +160,7 @@ for name, options in pairs(large_tanks) do
 		_assets.icons.assign_deferrable_icon({
 			name = name,
 			type_name = "item",
-			icon_data = table.deepcopy(icon),
+			icon_data = util.copy(icon),
 		})
 	end
 
@@ -326,7 +323,7 @@ local function make_small_tank_direction(direction, tint, nullius_tint)
 
 		-- Main Reskins tier mask
 		layers[#layers + 1] = make_small_tank_layer(SMALL_TANK_PATH .. "small-tank-mask.png", geometry, tint)
-		layers[#layers + 1] = make_small_tank_layer(SMALL_TANK_PATH .. "small-tank-mask-2.png", geometry, nullius_tint)
+		-- layers[#layers + 1] = make_small_tank_layer(SMALL_TANK_PATH .. "small-tank-mask-2.png", geometry, nullius_tint)
 	end
 
 	local shadow = small_tank_shadow_geometry[direction]
@@ -400,11 +397,7 @@ local function make_small_tank_icon(tint, nullius_tint)
 			icon_size = 64,
 			tint = tint,
 		},
-		{
-			icon = SMALL_TANK_ICON_PATH .. "small-tank-mask-2.png",
-			icon_size = 64,
-			tint = nullius_tint,
-		},
+		-- FIXME: The highlights layer is MIA.
 	}
 end
 
@@ -437,7 +430,7 @@ for name, options in pairs(small_tanks) do
 	_assets.icons.assign_deferrable_icon({
 		name = name,
 		type_name = options.type,
-		icon_data = table.deepcopy(icon),
+		icon_data = util.copy(icon),
 	})
 
 	-- Placeable item icon
@@ -445,7 +438,7 @@ for name, options in pairs(small_tanks) do
 		_assets.icons.assign_deferrable_icon({
 			name = name,
 			type_name = "item",
-			icon_data = table.deepcopy(icon),
+			icon_data = util.copy(icon),
 		})
 	end
 
@@ -454,7 +447,7 @@ for name, options in pairs(small_tanks) do
 		_assets.icons.assign_deferrable_icon({
 			name = name,
 			type_name = "recipe",
-			icon_data = table.deepcopy(icon),
+			icon_data = util.copy(icon),
 		})
 	end
 

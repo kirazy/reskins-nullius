@@ -1,14 +1,10 @@
-local _framework = {
-	tiers = require("__reskins-framework__.api.tiers"),
-}
 local _lib = require("_lib")
+local _framework = { tiers = require("__reskins-framework__.api.tiers") }
+local _assets = { icons = require("__reskins-assets-api__.api.icons") }
 
 local THERMAL_TANK_PATH = "__reskins-nullius__/graphics/entity/thermal-tank/thermal-tank-"
 local THERMAL_TANK_ICON_PATH = "__reskins-nullius__/graphics/icons/thermal-tank/thermal-tank-"
 local NULLIUS_THERMAL_TANK_PATH = "__nullius__/graphics/entity/thermaltank/"
-
-local do_entities = _lib.is_scope_enabled("entities")
-local do_items = _lib.is_scope_enabled("items-and-fluids")
 
 local thermal_tanks = {}
 
@@ -22,43 +18,25 @@ end
 
 for tier = 1, 3 do
 	-- Hidden/base reactor prototype
-	add_thermal_tank(
-		"nullius-thermal-tank-" .. tier,
-		"reactor",
-		tier
-	)
+	add_thermal_tank("nullius-thermal-tank-" .. tier, "reactor", tier)
 
 	-- Actual placeable reactor variants
-	add_thermal_tank(
-		"nullius-thermal-tank-horizontal-" .. tier,
-		"reactor",
-		tier
-	)
+	add_thermal_tank("nullius-thermal-tank-horizontal-" .. tier, "reactor", tier)
 
-	add_thermal_tank(
-		"nullius-thermal-tank-vertical-" .. tier,
-		"reactor",
-		tier
-	)
+	add_thermal_tank("nullius-thermal-tank-vertical-" .. tier, "reactor", tier)
 
 	-- Temporary construction/storage-tank prototype
-	add_thermal_tank(
-		"nullius-thermal-tank-build-" .. tier,
-		"storage-tank",
-		tier
-	)
+	add_thermal_tank("nullius-thermal-tank-build-" .. tier, "storage-tank", tier)
 end
 
 local function make_thermal_tank_layer(filename, overrides)
-	local layer = table.deepcopy(
-		{
-			priority = "extra-high",
-			width = 180,
-			height = 180,
-			scale = 0.73,
-			shift = { 0.3, -0.3 },
-		}
-	)
+	local layer = util.copy({
+		priority = "extra-high",
+		width = 180,
+		height = 180,
+		scale = 0.73,
+		shift = { 0.3, -0.3 },
+	})
 	layer.filename = filename
 
 	for key, value in pairs(overrides or {}) do
@@ -125,55 +103,48 @@ local function make_thermal_tank_icon(tint)
 	}
 end
 
-local function assign_thermal_tank_icons(tier, icon_data)
-	if not do_items then
-		return
+local function assign_thermal_tank_icons(building_tier, label_tier, icon_data)
+	local function assign_to(prefix, type_name)
+		local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+			tier = label_tier,
+			name = prefix .. "-" .. building_tier,
+			type_name = type_name,
+			icon_data = icon_data,
+		})
+
+		_assets.icons.assign_deferrable_icon(deferrable_icon)
 	end
 
-	local base_name = "nullius-thermal-tank-" .. tier
-
-	_lib.assign_icons_to_prototype("item", base_name, icon_data)
-	_lib.assign_icons_to_prototype("recipe", base_name, icon_data)
-	_lib.assign_icons_to_prototype("reactor", base_name, icon_data)
-	_lib.assign_icons_to_prototype("reactor", "nullius-thermal-tank-horizontal-" .. tier, icon_data)
-	_lib.assign_icons_to_prototype("reactor", "nullius-thermal-tank-vertical-" .. tier, icon_data)
-	_lib.assign_icons_to_prototype("storage-tank", "nullius-thermal-tank-build-" .. tier, icon_data)
+	assign_to("nullius-thermal-tank", "reactor")
+	assign_to("nullius-thermal-tank-horizontal", "reactor")
+	assign_to("nullius-thermal-tank-vertical", "reactor")
+	assign_to("nullius-thermal-tank-build", "storage-tank")
 end
 
 for tier = 1, 3 do
-	local icon_tier =
-		_framework.tiers.get_tier({
-			tier = tier,
-			prog_tier = tier + 1,
-		})
-	local tint =
-		_framework.tiers.get_tint(icon_tier)
+	local icon_tier = _framework.tiers.get_tier({
+		tier = tier,
+		prog_tier = tier + 1,
+	})
+	local tint = _framework.tiers.get_tint(icon_tier)
 
-	assign_thermal_tank_icons(
-		tier,
-		_lib.add_tier_labels_to_icons(
-			icon_tier,
-			make_thermal_tank_icon(tint)
-		)
-	)
+	assign_thermal_tank_icons(tier, icon_tier, make_thermal_tank_icon(tint))
 end
 
-if do_entities then
-	for name, options in pairs(thermal_tanks) do
-		local entity = data.raw[options.type] and data.raw[options.type][name]
-		if not entity then
-			goto continue
-		end
-
-		local tier = _framework.tiers.get_tier(options)
-		local tint = _framework.tiers.get_tint(tier)
-
-		if options.type == "reactor" then
-			entity.picture = make_thermal_tank_picture(tint)
-		else
-			entity.pictures = make_thermal_tank_pictures(tint)
-		end
-
-		::continue::
+for name, options in pairs(thermal_tanks) do
+	local entity = data.raw[options.type] and data.raw[options.type][name]
+	if not entity then
+		goto continue
 	end
+
+	local tier = _framework.tiers.get_tier(options)
+	local tint = _framework.tiers.get_tint(tier)
+
+	if options.type == "reactor" then
+		entity.picture = make_thermal_tank_picture(tint)
+	else
+		entity.pictures = make_thermal_tank_pictures(tint)
+	end
+
+	::continue::
 end

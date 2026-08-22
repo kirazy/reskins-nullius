@@ -20,6 +20,4 @@ require("entity.solar-collector")
 require("entity.steam-turbine")
 require("entity.stirling-engine")
 
-if mods["lambent-nil"] then
-	require("entity.vacuum-chamber")
-end
+require("entity.vacuum-chamber")

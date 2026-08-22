@@ -1,22 +1,11 @@
 local _lib = require("_lib")
-local _framework = {
-	tiers = require("__reskins-framework__.api.tiers"),
-}
+local _framework = { tiers = require("__reskins-framework__.api.tiers") }
+local _assets = { icons = require("__reskins-assets-api__.api.icons") }
 
 local ENTITY_PATH = "__reskins-assets-bobs__/graphics/entity/robo-charge-port/"
 local ICON_PATH = "__reskins-assets-bobs__/graphics/icons/roboport-charge-pad/"
 local EQUIPMENT_PATH = "__reskins-assets-bobs__/graphics/equipment/equipment-part-charge-pad/"
 local BASE_ROBOPORT_PATH = "__reskins-assets-base__/graphics/entity/roboport/"
-
-local blend_mode = _lib.get_setting("reskins-lib-blend-mode") or "additive"
-
-local do_entities = _lib.is_scope_enabled("entities")
-local do_items = _lib.is_scope_enabled("items-and-fluids")
-local do_equipment = _lib.is_scope_enabled("equipment")
-
-if not (do_entities or do_items or do_equipment) then
-	return
-end
 
 local chargers = {
 	["nullius-charger-1"] = { tier = 1, prog_tier = 2, image_index = 1, scale = 1, equipment_scale = 1 },
@@ -75,7 +64,7 @@ local function make_equipment_sprite(image_index, tint, scale)
 				size = 64,
 				priority = "medium",
 				flags = { "no-crop" },
-				blend_mode = blend_mode,
+				blend_mode = "additive-soft",
 				scale = scale,
 			},
 		},
@@ -116,7 +105,7 @@ local function make_charge_port_layers(shift_x, shift_y, image_index, tint, scal
 			height = 56,
 			repeat_count = 12,
 			shift = shift,
-			blend_mode = blend_mode,
+			blend_mode = "additive-soft",
 			scale = sprite_scale,
 		},
 		{
@@ -161,14 +150,7 @@ local function make_triangle_layers(image_index, tint, scale)
 	local layers = {}
 
 	for _, offset in ipairs(triangle_offsets) do
-		local charge_port_layers =
-			make_charge_port_layers(
-				offset[1] * scale,
-				offset[2] * scale,
-				image_index,
-				tint,
-				scale
-			)
+		local charge_port_layers = make_charge_port_layers(offset[1] * scale, offset[2] * scale, image_index, tint, scale)
 
 		for _, layer in ipairs(charge_port_layers) do
 			layers[#layers + 1] = layer
@@ -191,62 +173,30 @@ local function make_recharging_animation(scale)
 end
 
 for name, options in pairs(chargers) do
-	local entity =
-		data.raw["roboport"]
-		and data.raw["roboport"][name]
+	local entity = data.raw["roboport"] and data.raw["roboport"][name]
 
 	local tier = _framework.tiers.get_tier(options)
 	local tint = _framework.tiers.get_tint(tier)
 
-	if do_entities or do_items then
-		local icon =
-			_lib.add_tier_labels_to_icons(
-				tier,
-				make_icon(options.image_index, tint)
-			)
+	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+		tier = tier,
+		name = name,
+		type_name = "roboport",
+		icon_data = make_icon(options.image_index, tint),
+	})
 
-		if do_entities then
-			_lib.assign_icons_to_prototype("roboport", name, icon)
-		end
+	_assets.icons.assign_deferrable_icon(deferrable_icon)
 
-		if do_items then
-			local boxed_icon = _lib.make_boxed_icon(icon)
-			local index = tostring(options.image_index)
-
-			_lib.assign_icons_to_prototype("item", name, icon)
-			_lib.assign_icons_to_prototype("recipe", name, icon)
-			_lib.assign_icons_to_prototype("item", "nullius-box-charger-" .. index, boxed_icon)
-			_lib.assign_icons_to_prototype("recipe", "nullius-boxed-charger-" .. index, boxed_icon)
-			_lib.assign_icons_to_prototype("recipe", "nullius-box-charger-" .. index, boxed_icon)
-			_lib.assign_icons_to_prototype("recipe", "nullius-unbox-charger-" .. index, boxed_icon)
-		end
+	local equipment = data.raw["roboport-equipment"] and data.raw["roboport-equipment"][name]
+	if equipment then
+		equipment.sprite = make_equipment_sprite(options.image_index, tint, options.equipment_scale)
 	end
 
-	if do_equipment then
-		local equipment =
-			data.raw["roboport-equipment"]
-			and data.raw["roboport-equipment"][name]
-
-		if equipment then
-			equipment.sprite =
-				make_equipment_sprite(
-					options.image_index,
-					tint,
-					options.equipment_scale
-				)
-		end
-	end
-
-	if do_entities and entity then
+	if entity then
 		entity.base_animation = {
-			layers = make_triangle_layers(
-				options.image_index,
-				tint,
-				options.scale
-			),
+			layers = make_triangle_layers(options.image_index, tint, options.scale),
 		}
 
-		entity.recharging_animation =
-			make_recharging_animation(options.scale)
+		entity.recharging_animation = make_recharging_animation(options.scale)
 	end
 end

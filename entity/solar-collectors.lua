@@ -1,16 +1,9 @@
 local _lib = require("_lib")
+local _framework = { tiers = require("__reskins-framework__.api.tiers") }
+local _assets = { icons = require("__reskins-assets-api__.api.icons") }
 
 local ENTITY_PATH = "__reskins-nullius__/graphics/entity/collector/"
 local ICON_PATH = "__reskins-nullius__/graphics/icons/collector/"
-
-local blend_mode = _lib.get_setting("reskins-lib-blend-mode") or "additive"
-
-local do_entities = _lib.is_scope_enabled("entities")
-local do_items = _lib.is_scope_enabled("items-and-fluids")
-
-if not (do_entities or do_items) then
-	return
-end
 
 local collectors = {
 	["nullius-solar-collector-1"] = {
@@ -50,7 +43,7 @@ local function make_collector_layers(tint)
 			height = 280,
 			scale = 0.45,
 			shift = { 0, -0.25 },
-			blend_mode = blend_mode,
+			blend_mode = "additive-soft",
 		},
 	}
 end
@@ -64,7 +57,7 @@ local function replace_collector_body(picture, tint)
 	local layers = make_collector_layers(tint)
 
 	for i = 2, #original_layers do
-		layers[#layers + 1] = util.table.deepcopy(original_layers[i])
+		layers[#layers + 1] = util.copy(original_layers[i])
 	end
 
 	picture.layers = layers
@@ -92,36 +85,18 @@ local function make_icon(tint)
 end
 
 for name, options in pairs(collectors) do
-	local entity =
-		data.raw.reactor
-		and data.raw.reactor[name]
-
-	if do_entities and entity then
+	local entity = data.raw.reactor and data.raw.reactor[name]
+	if entity ~= nil then
 		replace_collector_body(entity.picture, options.tint)
 		replace_collector_body(entity.working_light_picture, options.tint)
-	end
 
-	if do_entities or do_items then
-		local icon =
-			_lib.add_tier_labels_to_icons(
-				options.tier,
-				make_icon(options.tint)
-			)
+		local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+			tier = options.tier,
+			name = name,
+			type_name = "reactor",
+			icon_data = make_icon(options.tint),
+		})
 
-		if do_entities then
-			_lib.assign_icons_to_prototype("reactor", name, icon)
-		end
-
-		if do_items then
-			local index = tostring(options.tier)
-			local boxed_icon = _lib.make_boxed_icon(icon)
-
-			_lib.assign_icons_to_prototype("item", name, icon)
-			_lib.assign_icons_to_prototype("recipe", name, icon)
-			_lib.assign_icons_to_prototype("item", "nullius-box-solar-collector-" .. index, boxed_icon)
-			_lib.assign_icons_to_prototype("recipe", "nullius-boxed-solar-collector-" .. index, boxed_icon)
-			_lib.assign_icons_to_prototype("recipe", "nullius-box-solar-collector-" .. index, boxed_icon)
-			_lib.assign_icons_to_prototype("recipe", "nullius-unbox-solar-collector-" .. index, boxed_icon)
-		end
+		_assets.icons.assign_deferrable_icon(deferrable_icon)
 	end
 end

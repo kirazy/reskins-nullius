@@ -1,4 +1,8 @@
 local _lib = require("_lib")
+local _framework = { tiers = require("__reskins-framework__.api.tiers") }
+local _assets = { icons = require("__reskins-assets-api__.api.icons") }
+
+local icon_helpers = require("__reskins-assets-api__.api.icon-helpers")
 
 local BASE_EQUIPMENT_PATH = "__reskins-assets-base__/graphics/equipment/"
 local BASE_ICON_PATH = "__reskins-assets-base__/graphics/icons/"
@@ -7,17 +11,6 @@ local BOBS_EQUIPMENT_PATH = "__reskins-assets-bobs__/graphics/equipment/"
 local BOBS_ICON_PATH = "__reskins-assets-bobs__/graphics/icons/"
 
 local NULLIUS_ICON_PATH = "__nullius__/graphics/icons/"
-
-local do_equipment = _lib.is_scope_enabled("equipment")
-local do_items = _lib.is_scope_enabled("items-and-fluids")
-
-local function assign_icons(type_name, name, icon_data)
-	if not do_items then
-		return
-	end
-
-	_lib.assign_icons_to_prototype(type_name, name, icon_data)
-end
 
 local function make_equipment_sprite(path, width, height, scale, tint)
 	return {
@@ -49,11 +42,6 @@ local function make_equipment_sprite(path, width, height, scale, tint)
 	}
 end
 
-local function assign_item_and_recipe_icons(name, item_type, icon_data)
-	assign_icons(item_type or "item", name, icon_data)
-	assign_icons("recipe", name, icon_data)
-end
-
 -- ============================================================================
 -- Leg augmentation equipment
 -- ============================================================================
@@ -65,31 +53,33 @@ local leg_augmentations = {
 	["nullius-leg-augmentation-4"] = { tier = 4, scale = 0.55 },
 }
 
+local exoskeleton_icon_creator_fn = icon_helpers.make_tinted_three_layer_icon_creator_fn({
+	folder = "__reskins-assets-base__/graphics/icons",
+	icon_name = "equipment-exoskeleton",
+})
+
 for name, options in pairs(leg_augmentations) do
-	local tint = _lib.get_tier_tint(options.tier)
-	local icon = _lib.add_tier_labels_to_icons(
-		options.tier,
-		_lib.make_layered_icon(BASE_ICON_PATH .. "equipment-exoskeleton/equipment-exoskeleton-icon-", tint)
-	)
+	local tint = _framework.tiers.get_tint(options.tier)
+	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+		tier = options.tier,
+		name = name,
+		type_name = "movement-bonus-equipment",
+		icon_data = exoskeleton_icon_creator_fn(tint),
+	})
 
-	assign_item_and_recipe_icons(name, "item", icon)
+	_assets.icons.assign_deferrable_icon(deferrable_icon)
 
-	local equipment =
-		data.raw["movement-bonus-equipment"]
-		and data.raw["movement-bonus-equipment"][name]
-
-	if do_equipment and equipment then
-		equipment.sprite =
-			make_equipment_sprite(
-				BASE_EQUIPMENT_PATH .. "equipment-exoskeleton/equipment-exoskeleton-",
-				128,
-				256,
-				options.scale,
-				tint
-			)
+	local equipment = data.raw["movement-bonus-equipment"] and data.raw["movement-bonus-equipment"][name]
+	if equipment ~= nil then
+		equipment.sprite = make_equipment_sprite(
+			BASE_EQUIPMENT_PATH .. "equipment-exoskeleton/equipment-exoskeleton-",
+			128,
+			256,
+			options.scale,
+			tint
+		)
 	end
 end
-
 
 -- ============================================================================
 -- Night vision equipment
@@ -101,31 +91,33 @@ local night_vision_equipment = {
 	["nullius-night-vision-3"] = { tier = 3, scale = 0.5 },
 }
 
+local night_vision_icon_creator_fn = icon_helpers.make_tinted_three_layer_icon_creator_fn({
+	folder = "__reskins-assets-base__/graphics/icons",
+	icon_name = "equipment-night-vision",
+})
+
 for name, options in pairs(night_vision_equipment) do
-	local tint = _lib.get_tier_tint(options.tier)
-	local icon = _lib.add_tier_labels_to_icons(
-		options.tier,
-		_lib.make_layered_icon(BASE_ICON_PATH .. "equipment-night-vision/equipment-night-vision-icon-", tint)
-	)
+	local tint = _framework.tiers.get_tint(options.tier)
+	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+		tier = options.tier,
+		name = name,
+		type_name = "night-vision-equipment",
+		icon_data = night_vision_icon_creator_fn(tint),
+	})
 
-	assign_item_and_recipe_icons(name, "item", icon)
+	_assets.icons.assign_deferrable_icon(deferrable_icon)
 
-	local equipment =
-		data.raw["night-vision-equipment"]
-		and data.raw["night-vision-equipment"][name]
-
-	if do_equipment and equipment then
-		equipment.sprite =
-			make_equipment_sprite(
-				BASE_EQUIPMENT_PATH .. "equipment-night-vision/equipment-night-vision-",
-				128,
-				128,
-				options.scale,
-				tint
-			)
+	local equipment = data.raw["night-vision-equipment"] and data.raw["night-vision-equipment"][name]
+	if equipment ~= nil then
+		equipment.sprite = make_equipment_sprite(
+			BASE_EQUIPMENT_PATH .. "equipment-night-vision/equipment-night-vision-",
+			128,
+			128,
+			options.scale,
+			tint
+		)
 	end
 end
-
 
 -- ============================================================================
 -- Generator equipment
@@ -138,65 +130,30 @@ local generator_equipment = {
 	["nullius-portable-reactor"] = { tier = 4, scale = 1 },
 }
 
+local fission_reactor_icon_creator_fn = icon_helpers.make_tinted_three_layer_icon_creator_fn({
+	folder = "__reskins-assets-base__/graphics/icons",
+	icon_name = "equipment-fission-reactor",
+})
+
 for name, options in pairs(generator_equipment) do
-	local tint = _lib.get_tier_tint(options.tier)
-	local icon = _lib.add_tier_labels_to_icons(
-		options.tier,
-		_lib.make_layered_icon(BOBS_ICON_PATH .. "equipment-fission-reactor/equipment-fission-reactor-icon-", tint)
-	)
+	local tint = _framework.tiers.get_tint(options.tier)
+	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+		tier = options.tier,
+		name = name,
+		type_name = "generator-equipment",
+		icon_data = fission_reactor_icon_creator_fn(tint),
+	})
 
-	assign_item_and_recipe_icons(name, "item", icon)
+	_assets.icons.assign_deferrable_icon(deferrable_icon)
 
-	local equipment =
-		data.raw["generator-equipment"]
-		and data.raw["generator-equipment"][name]
-
-	if do_equipment and equipment then
-		equipment.sprite =
-			make_equipment_sprite(
-				BOBS_EQUIPMENT_PATH .. "equipment-fission-reactor/equipment-fission-reactor-",
-				256,
-				256,
-				options.scale,
-				tint
-			)
+	local equipment = data.raw["generator-equipment"] and data.raw["generator-equipment"][name]
+	if equipment ~= nil then
+		equipment.sprite = make_equipment_sprite(
+			BOBS_EQUIPMENT_PATH .. "equipment-fission-reactor/equipment-fission-reactor-",
+			256,
+			256,
+			options.scale,
+			tint
+		)
 	end
 end
-
-local backup_generator_icon =
-	data.raw.item
-	and data.raw.item["nullius-portable-generator-backup"]
-	and data.raw.item["nullius-portable-generator-backup"].icons
-
-if do_items and backup_generator_icon then
-	local reprioritization_icons =
-		util.table.deepcopy(backup_generator_icon)
-
-	-- Keep Nullius' existing up-arrow overlay for the backup generator reprioritization recipe.
-	reprioritization_icons[#reprioritization_icons + 1] = {
-		icon = NULLIUS_ICON_PATH .. "up.png",
-		icon_size = 64,
-		scale = 0.3,
-		shift = { 8, -6 },
-	}
-
-	assign_icons(
-		"recipe",
-		"nullius-portable-generator-reprioritization",
-		reprioritization_icons
-	)
-end
-
-
--- ============================================================================
--- Repair pack
--- ============================================================================
-
-local self_repair_icon =
-	_lib.make_layered_icon(
-		BASE_ICON_PATH .. "repair-pack/repair-pack-icon-",
-		_lib.get_tier_tint(4)
-	)
-
-assign_icons("capsule", "nullius-self-repair-pack", self_repair_icon)
-assign_icons("recipe", "nullius-self-repair-pack", self_repair_icon)

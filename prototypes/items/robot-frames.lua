@@ -1,13 +1,15 @@
 local _lib = require("_lib")
-local _framework = {
-	tiers = require("__reskins-framework__.api.tiers"),
-}
+local _framework = { tiers = require("__reskins-framework__.api.tiers") }
+local _assets = { icons = require("__reskins-assets-api__.api.icons") }
 
-if not _lib.is_scope_enabled("items-and-fluids") then
-	return
-end
+local icon_helpers = require("__reskins-assets-api__.api.icon-helpers")
 
 local ICON_PATH = "__reskins-assets-base__/graphics/icons/flying-robot-frame/flying-robot-frame-icon-"
+
+local robot_frame_icon_creator_fn = icon_helpers.make_tinted_three_layer_icon_creator_fn({
+	folder = "__reskins-assets-base__/graphics/icons",
+	icon_name = "flying-robot-frame",
+})
 
 local robot_frames = {
 	["nullius-robot-frame-1"] = { tier = 1, prog_tier = 2 },
@@ -16,27 +18,23 @@ local robot_frames = {
 	["nullius-robot-frame-4"] = { tier = 4, prog_tier = 5 },
 }
 
-local function assign_icon(type_name, name, icon)
-	_lib.assign_icons_to_prototype(type_name, name, icon)
-end
-
 for name, options in pairs(robot_frames) do
 	local tier = _framework.tiers.get_tier(options)
 	local tint = _framework.tiers.get_tint(tier)
 	local index = name:match("(%d+)$")
-	local icon = _lib.add_tier_labels_to_icons(
-		tier,
-		_lib.make_layered_icon(ICON_PATH, tint, nil, 64, 4)
-	)
-	local boxed_icon = _lib.make_boxed_icon(icon)
 
-	assign_icon("item", name, icon)
-	assign_icon("recipe", name, icon)
-	assign_icon("recipe", "nullius-legacy-robot-frame-" .. index, icon)
+	local legacy_item_name = "nullius-legacy-robot-frame-" .. index
 
-	assign_icon("item", "nullius-box-robot-frame-" .. index, boxed_icon)
-	assign_icon("recipe", "nullius-boxed-robot-frame-" .. index, boxed_icon)
-	assign_icon("recipe", "nullius-box-robot-frame-" .. index, boxed_icon)
-	assign_icon("recipe", "nullius-unbox-robot-frame-" .. index, boxed_icon)
-	assign_icon("recipe", "nullius-legacy-boxed-robot-frame-" .. index, boxed_icon)
+	local function assign_to(name)
+		local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+			tier = tier,
+			name = name,
+			type_name = "item",
+			icon_data = robot_frame_icon_creator_fn(tint),
+		})
+		_assets.icons.assign_deferrable_icon(deferrable_icon)
+	end
+
+	assign_to(name)
+	assign_to(legacy_item_name)
 end
