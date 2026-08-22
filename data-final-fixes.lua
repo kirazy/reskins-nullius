@@ -9,3 +9,6 @@ require("prototypes.entities.inserters-bulk")
 
 -- After all entity updates.
 require("prototypes.items.broken")
+
+-- After all entity and item updates.
+require("prototypes.recipe-final-fixes")
