@@ -1,4 +1,12 @@
+---@using data
+
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
+local _assets = {
+	icons = require("__reskins-assets-api__.api.icons"),
+	sprites = require("__reskins-assets-api__.api.sprites"),
+	defines = require("__reskins-assets-api__.api.defines"),
+	create_icon = require("__reskins-assets-api__.assets.base.base-icons"),
+}
 local _lib = require("_lib")
 
 local turbines = {
@@ -105,9 +113,6 @@ for closure, modes in pairs(turbines) do
 	for mode, tiers in pairs(modes) do
 		for tier, prototype in pairs(tiers) do
 			local color_tier = tier
-			if closure == "closed" then
-				color_tier = color_tier + 3
-			end
 			local tint = _framework.tiers.get_tint(color_tier)
 
 			for direction, animation in pairs(prototype.graphics_set.idle_animation) do
@@ -188,16 +193,25 @@ end
 
 for _, modes in pairs(turbines) do
 	for _, prototype in pairs(modes.standard) do
-		for _, animation in pairs(prototype.graphics_set.idle_animation) do
-			table.remove(animation.layers, 2)
+		if prototype.graphics_set and prototype.graphics_set.idle_animation then
+			for _, animation in pairs(prototype.graphics_set.idle_animation) do
+				if animation.layers then
+					table.remove(animation.layers, 2)
+				end
+			end
 		end
 	end
 end
 
 for _, modes in pairs(generators) do
 	for _, prototype in pairs(modes.standard) do
-		table.remove(prototype.vertical_animation.layers, 2)
-		table.remove(prototype.horizontal_animation.layers, 2)
+		if prototype.vertical_animation and prototype.vertical_animation.layers then
+			table.remove(prototype.vertical_animation.layers, 2)
+		end
+
+		if prototype.horizontal_animation and prototype.horizontal_animation.layers then
+			table.remove(prototype.horizontal_animation.layers, 2)
+		end
 	end
 end
 
@@ -207,9 +221,6 @@ local inputs = {
 	icon_name = "steam-turbine",
 	graphics_mod = "assets-base",
 }
-
--- Setup defaults.
-_lib.set_inputs_defaults(inputs)
 
 local tier_map = {
 	["nullius-turbine-open-1"] = { tier = 1, prog_tier = 1 },
@@ -224,23 +235,37 @@ local tier_map = {
 	["nullius-turbine-open-backup-1"] = { tier = 1, prog_tier = 1 },
 	["nullius-turbine-open-backup-2"] = { tier = 2, prog_tier = 2 },
 	["nullius-turbine-open-backup-3"] = { tier = 3, prog_tier = 3 },
-	["nullius-turbine-closed-1"] = { tier = 1, prog_tier = 4 },
-	["nullius-turbine-closed-2"] = { tier = 2, prog_tier = 5 },
-	["nullius-turbine-closed-3"] = { tier = 3, prog_tier = 6 },
-	["nullius-turbine-closed-standard-1"] = { tier = 1, prog_tier = 4 },
-	["nullius-turbine-closed-standard-2"] = { tier = 2, prog_tier = 5 },
-	["nullius-turbine-closed-standard-3"] = { tier = 3, prog_tier = 6 },
-	["nullius-turbine-closed-exhaust-1"] = { tier = 1, prog_tier = 4 },
-	["nullius-turbine-closed-exhaust-2"] = { tier = 2, prog_tier = 5 },
-	["nullius-turbine-closed-exhaust-3"] = { tier = 3, prog_tier = 6 },
-	["nullius-turbine-closed-backup-1"] = { tier = 1, prog_tier = 4 },
-	["nullius-turbine-closed-backup-2"] = { tier = 2, prog_tier = 5 },
-	["nullius-turbine-closed-backup-3"] = { tier = 3, prog_tier = 6 },
+	["nullius-turbine-closed-1"] = { tier = 1, prog_tier = 1 },
+	["nullius-turbine-closed-2"] = { tier = 2, prog_tier = 2 },
+	["nullius-turbine-closed-3"] = { tier = 3, prog_tier = 3 },
+	["nullius-turbine-closed-standard-1"] = { tier = 1, prog_tier = 1 },
+	["nullius-turbine-closed-standard-2"] = { tier = 2, prog_tier = 2 },
+	["nullius-turbine-closed-standard-3"] = { tier = 3, prog_tier = 3 },
+	["nullius-turbine-closed-exhaust-1"] = { tier = 1, prog_tier = 1 },
+	["nullius-turbine-closed-exhaust-2"] = { tier = 2, prog_tier = 2 },
+	["nullius-turbine-closed-exhaust-3"] = { tier = 3, prog_tier = 3 },
+	["nullius-turbine-closed-backup-1"] = { tier = 1, prog_tier = 1 },
+	["nullius-turbine-closed-backup-2"] = { tier = 2, prog_tier = 2 },
+	["nullius-turbine-closed-backup-3"] = { tier = 3, prog_tier = 3 },
 }
 
-for name, map in pairs(tier_map) do
-	local tier = _framework.tiers.get_tier(map)
-	inputs.tint = map.tint or _framework.tiers.get_tint(tier)
+for name, options in pairs(tier_map) do
+	local tier = _framework.tiers.get_tier(options)
+	local tint = _framework.tiers.get_tint(tier)
 
-	_lib.construct_icon(name, tier, inputs)
+	local symbol = name:find("open") and _assets.defines.symbol.aperture_open or _assets.defines.symbol.aperture_closed
+	local icon_data = _assets.icons.compose_icons(
+		"default",
+		_assets.create_icon.steam_turbine(tint),
+		_assets.icons.get_symbol(symbol, tint)
+	)
+
+	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+		tier = tier,
+		name = name,
+		type_name = "furnace",
+		icon_data = icon_data,
+	})
+
+	_assets.icons.assign_deferrable_icon(deferrable_icon)
 end

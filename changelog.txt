@@ -8,6 +8,8 @@ Date: ????
     - Revised support for combustion chambers and boilers:
       - Fire and fire glow animations now work correctly.
       - Combustion chambers and boilers now use different icons; as such, boiler tiers are now independent and are 2 and 3 when using progression.
+    - Open and Closed turbines are now presented as independent tiers from 1 to 3. Icons now include a symbol to distinguish the open and closed variants. 
+      - Note: the in-world entities are not yet visually distinct except when running.
   Bugfixes:
     - Fixed that some items would show tier labels when on belts and on the ground, unintentionally.
     - Fixed that pipes and underground pipes did not respect the "Show tier labels on pipes" setting.
