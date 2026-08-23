@@ -1,6 +1,6 @@
 local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
-local _assets = { icons = require("__reskins-assets-api__.api.icons") }
+local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
 local ENTITY_PATH = "__reskins-nullius__/graphics/entity/collector/"
 local ICON_PATH = "__reskins-nullius__/graphics/icons/collector/"
@@ -97,6 +97,6 @@ for name, options in pairs(collectors) do
 			icon_data = make_icon(options.tint),
 		})
 
-		_assets.icons.assign_deferrable_icon(deferrable_icon)
+		_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
 	end
 end

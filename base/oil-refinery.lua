@@ -1,6 +1,6 @@
 ---@using data
 
-local _sprites = require("__reskins-sprite-utils__.sprites")
+local _sprite_utils = { sprites = require("__reskins-sprite-utils__.sprites") }
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _lib = require("_lib")
 
@@ -8,7 +8,7 @@ local _lib = require("_lib")
 ---@param tint Color
 ---@return Animation4Way
 local function entity_animation(tint)
-	return _sprites.make_4way_animation_from_spritesheet({
+	return _sprite_utils.sprites.make_4way_animation_from_spritesheet({
 		layers = {
 			-- Base
 			{
@@ -88,7 +88,7 @@ local function corpse_animation(tint)
 		},
 	}
 
-	return _sprites.make_rotated_animation_variations_from_spritesheet(1, animation)
+	return _sprite_utils.sprites.make_rotated_animation_variations_from_spritesheet(1, animation)
 end
 
 ---Reskins the named assembling machine with vanilla-style oil refinery sprites and color masking, and sets up appropriate corpse, explosion, and particle prototypes

@@ -1,9 +1,7 @@
 local _lib = require("_lib")
 local _sprites = require("__reskins-sprite-utils__.sprites")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
-local _assets = {
-	icons = require("__reskins-assets-api__.api.icons"),
-}
+local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
 local BASE_ENTITY_PATH = "__reskins-assets-base__/graphics/entity/mining-drill-electric/"
 local BASE_ICON_PATH = "__reskins-assets-base__/graphics/icons/mining-drill-electric/"
@@ -825,6 +823,6 @@ for name, options in pairs(entities) do
 			icon_data = make_icon(icon_path, icon_name, tint),
 		})
 
-		_assets.icons.assign_deferrable_icon(deferrable_icon)
+		_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
 	end
 end

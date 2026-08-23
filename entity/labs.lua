@@ -1,8 +1,6 @@
 local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
-local _assets = {
-	icons = require("__reskins-assets-api__.api.icons"),
-}
+local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
 local LAB_BASE = "__base__/graphics/entity/lab/"
 local LAB_RESKINS = "__reskins-nullius__/graphics/entity/lab/"
@@ -122,10 +120,10 @@ for name, options in pairs(lab_tiers) do
 		tier = tier,
 		name = name,
 		type_name = options.type,
-		icon_data = _assets.icons.get_icon_from_prototype(entity),
+		icon_data = _sprite_utils.icons.get_icon_from_prototype(entity),
 	})
 
-	_assets.icons.assign_deferrable_icon(deferrable_icon)
+	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
 
 	::continue::
 end

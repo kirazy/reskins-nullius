@@ -1,4 +1,4 @@
-local _framework = { tiers = require("__reskins-framework__.api.tiers") }
+local Framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _lib = require("_lib")
 local _sprites = require("__reskins-sprite-utils__.sprites")
 
@@ -10,7 +10,7 @@ local tier_map = {
 
 -- Reskin entities, create and assign extra details
 for name, map in pairs(tier_map) do
-	local tier = _framework.tiers.get_tier(map)
+	local tier = Framework.tiers.get_tier(map)
 
 	---@type LibHack.SetupStandardEntityInputs
 	local inputs = {
@@ -20,7 +20,7 @@ for name, map in pairs(tier_map) do
 		graphics_mod = "assets-angels",
 		particles = { ["big"] = 1, ["medium"] = 2 },
 		make_remnants = false,
-		tint = _framework.tiers.get_tint(tier),
+		tint = Framework.tiers.get_tint(tier),
 	}
 
 	---@type data.AssemblingMachinePrototype

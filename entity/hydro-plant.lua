@@ -1,6 +1,6 @@
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _lib = require("_lib")
-local _sprites = require("__reskins-sprite-utils__.sprites")
+local _sprite_utils = { sprites = require("__reskins-sprite-utils__.sprites") }
 
 local tier_map = {
 	["nullius-hydro-plant-1"] = { tier = 1 },
@@ -36,7 +36,7 @@ for name, map in pairs(tier_map) do
 	entity.graphics_set.animation = {
 		layers = {
 			-- Base
-			_sprites.get_rescaled_prototype({
+			_sprite_utils.sprites.get_rescaled_prototype({
 				filename = "__angelsrefininggraphics__/graphics/entity/hydro-plant/hydro-plant-base.png",
 				priority = "extra-high",
 				width = 459,
@@ -45,7 +45,7 @@ for name, map in pairs(tier_map) do
 				scale = 0.5,
 			}, 0.725),
 			-- Mask
-			_sprites.get_rescaled_prototype({
+			_sprite_utils.sprites.get_rescaled_prototype({
 				filename = "__reskins-assets-angels__/graphics/entity/hydro-plant/hydro-plant-mask.png",
 				priority = "extra-high",
 				width = 459,
@@ -55,7 +55,7 @@ for name, map in pairs(tier_map) do
 				scale = 0.5,
 			}, 0.725),
 			-- Highlights
-			_sprites.get_rescaled_prototype({
+			_sprite_utils.sprites.get_rescaled_prototype({
 				filename = "__reskins-assets-angels__/graphics/entity/hydro-plant/hydro-plant-highlights.png",
 				priority = "extra-high",
 				width = 459,

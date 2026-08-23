@@ -3,7 +3,7 @@
 
 ---@using Reskins.SpriteUtils
 
-local sprite_utils = {
+local _sprite_utils = {
 	icons = require("__reskins-sprite-utils__.icons"),
 	colors = require("__reskins-sprite-utils__.colors"),
 	defines = require("__reskins-sprite-utils__.defines"),
@@ -470,15 +470,15 @@ function lib.construct_technology_icon(name, inputs)
 	-- It may be necessary to put icons back in final fixes, allow for that
 	local stage
 	if inputs_copy.defer_to_data_final_fixes then
-		stage = sprite_utils.defines.stage.data_final_fixes
+		stage = _sprite_utils.defines.stage.data_final_fixes
 	elseif inputs_copy.defer_to_data_updates then
-		stage = sprite_utils.defines.stage.data_updates
+		stage = _sprite_utils.defines.stage.data_updates
 	end
 
 	if stage then
-		sprite_utils.icons.store_icon_for_deferred_assignment_in_stage(_deferred_icon_store, stage, deferrable_icon)
+		_sprite_utils.icons.store_icon_for_deferred_assignment_in_stage(_deferred_icon_store, stage, deferrable_icon)
 	else
-		sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
+		_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
 	end
 end
 
@@ -732,15 +732,15 @@ function lib.construct_icon(name, tier, inputs)
 	-- It may be necessary to put icons back in final fixes, allow for that
 	local stage
 	if inputs_copy.defer_to_data_final_fixes then
-		stage = sprite_utils.defines.stage.data_final_fixes
+		stage = _sprite_utils.defines.stage.data_final_fixes
 	elseif inputs_copy.defer_to_data_updates then
-		stage = sprite_utils.defines.stage.data_updates
+		stage = _sprite_utils.defines.stage.data_updates
 	end
 
 	if stage then
-		sprite_utils.icons.store_icon_for_deferred_assignment_in_stage(_deferred_icon_store, stage, deferrable_icon)
+		_sprite_utils.icons.store_icon_for_deferred_assignment_in_stage(_deferred_icon_store, stage, deferrable_icon)
 	else
-		sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
+		_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
 	end
 end
 

@@ -1,6 +1,6 @@
 local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
-local _assets = { icons = require("__reskins-assets-api__.api.icons") }
+local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
 local icon_helpers = require("__reskins-assets-api__.api.icon-helpers")
 
@@ -149,7 +149,7 @@ for name, options in pairs(launchers) do
 		icon_data = artillery_turret_icon_creator_fn(tint),
 	})
 
-	_assets.icons.assign_deferrable_icon(deferrable_icon)
+	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
 
 	local entity = data.raw["artillery-turret"] and data.raw["artillery-turret"][name]
 	if entity then
@@ -169,7 +169,7 @@ for name, options in pairs(carriers) do
 		icon_data = artillery_wagon_icon_creator_fn(tint),
 	})
 
-	_assets.icons.assign_deferrable_icon(deferrable_icon)
+	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
 
 	local entity = data.raw["artillery-wagon"] and data.raw["artillery-wagon"][name]
 

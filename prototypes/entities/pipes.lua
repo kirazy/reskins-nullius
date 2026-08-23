@@ -5,6 +5,7 @@ local _assets = {
 	icons = require("__reskins-assets-api__.api.icons"),
 	create_icon = require("__reskins-assets-api__.assets.base.base-icons"),
 }
+local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
 local pipe_material_tints = {
 	[_assets.defines.pipe_material.aluminum] = util.color("#ffffff"),
@@ -87,7 +88,7 @@ for name, options in pairs(pipe_entities) do
 		type_name = "pipe",
 		icon_data = _assets.create_icon.pipe(options.pipe_material),
 	})
-	_assets.icons.assign_deferrable_icon(deferrable_icon)
+	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
 
 	::continue::
 end
@@ -152,7 +153,7 @@ for name, options in pairs(pipe_to_ground_entities) do
 		icon_data = _assets.create_icon.pipe_to_ground(options.pipe_material),
 	})
 
-	_assets.icons.assign_deferrable_icon(deferrable_icon)
+	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
 
 	::continue::
 end

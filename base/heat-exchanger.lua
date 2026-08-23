@@ -1,5 +1,5 @@
 -- cspell: words heatex
-local _sprites = require("__reskins-sprite-utils__.sprites")
+local _sprite_utils = { sprites = require("__reskins-sprite-utils__.sprites") }
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _lib = require("_lib")
 
@@ -207,7 +207,7 @@ local function corpse_animation(tint)
 		},
 	}
 
-	return _sprites.make_rotated_animation_variations_from_spritesheet(1, animation)
+	return _sprite_utils.sprites.make_rotated_animation_variations_from_spritesheet(1, animation)
 end
 
 ---@param name string # [Prototype name](https://wiki.factorio.com/PrototypeBase#name)

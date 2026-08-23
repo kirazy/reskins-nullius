@@ -1,6 +1,6 @@
 local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
-local _assets = { icons = require("__reskins-assets-api__.api.icons") }
+local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
 local icon_helpers = require("__reskins-assets-api__.api.icon-helpers")
 
@@ -67,7 +67,7 @@ for name, options in pairs(leg_augmentations) do
 		icon_data = exoskeleton_icon_creator_fn(tint),
 	})
 
-	_assets.icons.assign_deferrable_icon(deferrable_icon)
+	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
 
 	local equipment = data.raw["movement-bonus-equipment"] and data.raw["movement-bonus-equipment"][name]
 	if equipment ~= nil then
@@ -105,7 +105,7 @@ for name, options in pairs(night_vision_equipment) do
 		icon_data = night_vision_icon_creator_fn(tint),
 	})
 
-	_assets.icons.assign_deferrable_icon(deferrable_icon)
+	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
 
 	local equipment = data.raw["night-vision-equipment"] and data.raw["night-vision-equipment"][name]
 	if equipment ~= nil then
@@ -144,7 +144,7 @@ for name, options in pairs(generator_equipment) do
 		icon_data = fission_reactor_icon_creator_fn(tint),
 	})
 
-	_assets.icons.assign_deferrable_icon(deferrable_icon)
+	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
 
 	local equipment = data.raw["generator-equipment"] and data.raw["generator-equipment"][name]
 	if equipment ~= nil then

@@ -1,6 +1,6 @@
 ---@using data
 
-local _sprites = require("__reskins-sprite-utils__.sprites")
+local _sprite_utils = { sprites = require("__reskins-sprite-utils__.sprites") }
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _lib = require("_lib")
 
@@ -156,7 +156,7 @@ end
 ---@param tint Color
 ---@nodiscard
 local function get_chemical_plant_standard_animation(tint)
-	return _sprites.make_4way_animation_from_spritesheet({
+	return _sprite_utils.sprites.make_4way_animation_from_spritesheet({
 		layers = {
 			-- Base
 			{

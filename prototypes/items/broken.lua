@@ -3,11 +3,9 @@
 ---@using data
 ---@using Reskins.SpriteUtils
 
-local _colors = require("__reskins-sprite-utils__.colors")
-local _assets = {
-	defines = require("__reskins-assets-api__.api.defines"),
-	icons = require("__reskins-assets-api__.api.icons"),
-	create_icon = require("__reskins-assets-api__.assets.base.base-icons"),
+local _sprite_utils = {
+	icons = require("__reskins-sprite-utils__.icons"),
+	colors = require("__reskins-sprite-utils__.colors"),
 }
 
 local broken_symbol = {
@@ -35,14 +33,14 @@ for name, options in pairs(broken_items) do
 		goto continue
 	end
 
-	local source_icon = _assets.icons.get_icon_from_prototype(source_item)
+	local source_icon = _sprite_utils.icons.get_icon_from_prototype(source_item)
 
 	-- HACK: this is unsafe; prefer to construct clean icons with the appropriate tints.
 	-- Needs additional work around icon generation in the assets-api.
-	local icon = _assets.icons.compose_icons("default", source_icon, broken_symbol)
+	local icon = _sprite_utils.icons.compose_icons("default", source_icon, broken_symbol)
 	assert(icon[1] and icon[2])
 	icon[1].tint = util.color("CBCBCBFF") --[[@as Color]]
-	icon[2].tint = _colors.blend(icon[2].tint --[[@as Color]], icon[1].tint, 0.25)
+	icon[2].tint = _sprite_utils.colors.blend(icon[2].tint --[[@as Color]], icon[1].tint, 0.25) --[[@as Color]]
 
 	---@type DeferrableIconData
 	local deferrable_icon = {
@@ -51,7 +49,7 @@ for name, options in pairs(broken_items) do
 		icon_data = icon,
 	}
 
-	_assets.icons.assign_deferrable_icon(deferrable_icon)
+	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
 
 	local recipe = data.raw.recipe[name]
 	if recipe then
@@ -62,8 +60,8 @@ for name, options in pairs(broken_items) do
 			shift = { -8, 8 },
 		}
 
-		_assets.icons.clear_icon_from_prototype(recipe)
-		recipe.icons = _assets.icons.compose_icons("default", icon, repair_pack_icon)
+		_sprite_utils.icons.clear_icon_from_prototype(recipe)
+		recipe.icons = _sprite_utils.icons.compose_icons("default", icon, repair_pack_icon)
 	end
 
 	::continue::

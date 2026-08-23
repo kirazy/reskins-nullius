@@ -2,11 +2,7 @@
 ---@using Reskins.SpriteUtils
 
 local _lib = require("_lib")
-local _assets = {
-	defines = require("__reskins-assets-api__.api.defines"),
-	icons = require("__reskins-assets-api__.api.icons"),
-	create_icon = require("__reskins-assets-api__.assets.base.base-icons"),
-}
+local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
 local icon_helpers = require("__reskins-assets-api__.api.icon-helpers")
 
@@ -64,7 +60,7 @@ for name, options in pairs(entities) do
 		icon_data = options.icon_creator_fn(options.tint),
 	}
 
-	_assets.icons.assign_deferrable_icon(deferrable_icon)
+	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
 
 	::continue::
 end

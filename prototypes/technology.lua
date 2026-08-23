@@ -2,10 +2,8 @@ local _framework = {
 	tiers = require("__reskins-framework__.api.tiers"),
 }
 local _lib = require("_lib")
-local _assets = {
-	icons = require("__reskins-assets-api__.api.icons"),
-	create_icon = require("__reskins-assets-api__.assets.base.base-icons"),
-}
+local _assets = { create_icon = require("__reskins-assets-api__.assets.base.base-icons") }
+local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
 local BASE_ICON_PATH = "__base__/graphics/icons/"
 
@@ -613,9 +611,9 @@ for name, options in pairs(technologies) do
 	end
 
 	local icon_data =
-		_assets.icons.transform_icons(make_technology_icons(options), options.scale, options.shift, nil, "technology")
+		_sprite_utils.icons.transform_icons(make_technology_icons(options), options.scale, options.shift, nil, "technology")
 
-	_assets.icons.assign_icons_to_prototype_and_related_prototypes(name, "technology", icon_data)
+	_sprite_utils.icons.assign_icons_to_prototype_and_related_prototypes(name, "technology", icon_data)
 
 	::continue::
 end
@@ -815,7 +813,7 @@ local function apply_checkpoint_overlay(options)
 		return
 	end
 
-	local overlay_icons = _assets.icons.transform_icons(
+	local overlay_icons = _sprite_utils.icons.transform_icons(
 		make_technology_icons(options),
 		options.overlay_scale,
 		options.overlay_shift,
@@ -840,7 +838,11 @@ local function apply_checkpoint_overlay(options)
 		end
 	end
 
-	_assets.icons.assign_icons_to_prototype_and_related_prototypes(options.checkpoint_name, "technology", combined_icons)
+	_sprite_utils.icons.assign_icons_to_prototype_and_related_prototypes(
+		options.checkpoint_name,
+		"technology",
+		combined_icons
+	)
 end
 
 for _, options in ipairs(checkpoint_overlays) do

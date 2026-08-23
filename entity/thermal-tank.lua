@@ -1,6 +1,6 @@
 local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
-local _assets = { icons = require("__reskins-assets-api__.api.icons") }
+local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
 local THERMAL_TANK_PATH = "__reskins-nullius__/graphics/entity/thermal-tank/thermal-tank-"
 local THERMAL_TANK_ICON_PATH = "__reskins-nullius__/graphics/icons/thermal-tank/thermal-tank-"
@@ -112,7 +112,7 @@ local function assign_thermal_tank_icons(building_tier, label_tier, icon_data)
 			icon_data = icon_data,
 		})
 
-		_assets.icons.assign_deferrable_icon(deferrable_icon)
+		_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
 	end
 
 	assign_to("nullius-thermal-tank", "reactor")

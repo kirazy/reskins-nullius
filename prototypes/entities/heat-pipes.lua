@@ -3,13 +3,8 @@
 local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _sprite_utils = {
-	colors = require("__reskins-sprite-utils__.colors"),
-}
-local _assets = {
-	defines = require("__reskins-assets-api__.api.defines"),
-	icons = require("__reskins-assets-api__.api.icons"),
-	sprites = require("__reskins-assets-api__.api.sprites"),
-	create_icon = require("__reskins-assets-api__.assets.base.base-icons"),
+	icons = require("__reskins-sprite-utils__.icons"),
+	sprites = require("__reskins-sprite-utils__.sprites"),
 }
 
 ---@class TileSpriteOptions
@@ -157,7 +152,7 @@ end
 ---@param plate_tint Color
 ---@return RotatedAnimationVariations
 local function make_corpse_animation(pipe_tint, plate_tint)
-	return _assets.sprites.make_rotated_animation_variations_from_spritesheet(6, {
+	return _sprite_utils.sprites.make_rotated_animation_variations_from_spritesheet(6, {
 		layers = {
 			make_corpse_animation_layer("heat-pipe-remnants", {}),
 			make_corpse_animation_layer("heat-pipe-remnants-mask", { tint = pipe_tint }),
@@ -212,8 +207,6 @@ for name, options in pairs(entities) do
 		goto continue
 	end
 
-	local tier = _framework.tiers.get_tier(options)
-
 	-- Create particles and explosions
 	_lib.create_explosion(name, {
 		type = "heat-pipe",
@@ -238,7 +231,7 @@ for name, options in pairs(entities) do
 		icon_data = heat_pipe_icon_creator_fn(options.pipe_tint, options.plate_tint),
 	})
 
-	_assets.icons.assign_deferrable_icon(deferrable_icon)
+	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
 
 	::continue::
 end

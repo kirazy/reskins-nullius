@@ -1,11 +1,8 @@
 -- cspell: words togglable
 local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
-local _assets = {
-	defines = require("__reskins-assets-api__.api.defines"),
-	icons = require("__reskins-assets-api__.api.icons"),
-	create_icon = require("__reskins-assets-api__.assets.base.base-icons"),
-}
+local _assets = { create_icon = require("__reskins-assets-api__.assets.base.base-icons") }
+local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
 local PumpGraphicsPack = require("__reskins-assets-api__.graphics-packs.base.pump-graphics-pack")
 
@@ -55,7 +52,7 @@ for name, options in pairs(entities) do
 		icon_data = _assets.create_icon.pump(tint),
 	})
 
-	_assets.icons.assign_deferrable_icon(deferrable_icon)
+	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
 
 	::continue::
 end

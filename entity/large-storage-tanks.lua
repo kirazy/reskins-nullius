@@ -1,10 +1,6 @@
 local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
-local _assets = {
-	defines = require("__reskins-assets-api__.api.defines"),
-	icons = require("__reskins-assets-api__.api.icons"),
-	create_icon = require("__reskins-assets-api__.assets.base.base-icons"),
-}
+local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
 -- ============================================================================
 -- Nullius large tanks
@@ -21,19 +17,19 @@ local large_tanks = {
 		type = "storage-tank",
 		tier = 2,
 		prog_tier = 2,
-		nullius_tint = util.color("#D9E6FF"), --{0.85, 0.9, 1} --pipe_material_tints[_assets.defines.pipe_material.aluminum]
+		nullius_tint = util.color("#D9E6FF"), --{0.85, 0.9, 1} --pipe_material_tints[Assets.defines.pipe_material.aluminum]
 	},
 	["nullius-large-tank-2"] = {
 		type = "storage-tank",
 		tier = 3,
 		prog_tier = 3,
-		nullius_tint = util.color("#B3B3D9"), --pipe_material_tints[_assets.defines.pipe_material.plastic]
+		nullius_tint = util.color("#B3B3D9"), --pipe_material_tints[Assets.defines.pipe_material.plastic]
 	},
 	["nullius-large-tank-3"] = {
 		type = "storage-tank",
 		tier = 4,
 		prog_tier = 4,
-		nullius_tint = util.color("#6D6D6D"), --pipe_material_tints[_assets.defines.pipe_material.tungsten]tint = {0.85, 0.9, 1},tint = {0.8, 0.8, 0.4}tint = {0.7, 0.7, 0.85}
+		nullius_tint = util.color("#6D6D6D"), --pipe_material_tints[Assets.defines.pipe_material.tungsten]tint = {0.85, 0.9, 1},tint = {0.8, 0.8, 0.4}tint = {0.7, 0.7, 0.85}
 	},
 }
 
@@ -149,7 +145,7 @@ for name, options in pairs(large_tanks) do
 	local icon = _framework.tiers.add_tier_labels_to_icons(tier, make_large_tank_icon(tint, options.nullius_tint))
 
 	-- Storage-tank entity icon
-	_assets.icons.assign_deferrable_icon({
+	_sprite_utils.icons.assign_deferrable_icon({
 		name = name,
 		type_name = options.type,
 		icon_data = util.copy(icon),
@@ -157,7 +153,7 @@ for name, options in pairs(large_tanks) do
 
 	-- Corresponding placeable item icon
 	if item then
-		_assets.icons.assign_deferrable_icon({
+		_sprite_utils.icons.assign_deferrable_icon({
 			name = name,
 			type_name = "item",
 			icon_data = util.copy(icon),
@@ -180,13 +176,13 @@ local small_tanks = {
 		type = "storage-tank",
 		tier = 2,
 		prog_tier = 2,
-		nullius_tint = util.color("#D9E6FF"), --pipe_material_tints[_assets.defines.pipe_material.aluminum],
+		nullius_tint = util.color("#D9E6FF"), --pipe_material_tints[Assets.defines.pipe_material.aluminum],
 	},
 	["nullius-small-tank-2"] = {
 		type = "storage-tank",
 		tier = 3,
 		prog_tier = 3,
-		nullius_tint = util.color("#B3B3D9"), --pipe_material_tints[_assets.defines.pipe_material.plastic],
+		nullius_tint = util.color("#B3B3D9"), --pipe_material_tints[Assets.defines.pipe_material.plastic],
 	},
 }
 
@@ -427,7 +423,7 @@ for name, options in pairs(small_tanks) do
 	local icon = _framework.tiers.add_tier_labels_to_icons(tier, make_small_tank_icon(tint, options.nullius_tint))
 
 	-- Storage-tank prototype icon
-	_assets.icons.assign_deferrable_icon({
+	_sprite_utils.icons.assign_deferrable_icon({
 		name = name,
 		type_name = options.type,
 		icon_data = util.copy(icon),
@@ -435,7 +431,7 @@ for name, options in pairs(small_tanks) do
 
 	-- Placeable item icon
 	if item then
-		_assets.icons.assign_deferrable_icon({
+		_sprite_utils.icons.assign_deferrable_icon({
 			name = name,
 			type_name = "item",
 			icon_data = util.copy(icon),
@@ -444,7 +440,7 @@ for name, options in pairs(small_tanks) do
 
 	-- Normal recipe icon
 	if data.raw.recipe and data.raw.recipe[name] then
-		_assets.icons.assign_deferrable_icon({
+		_sprite_utils.icons.assign_deferrable_icon({
 			name = name,
 			type_name = "recipe",
 			icon_data = util.copy(icon),

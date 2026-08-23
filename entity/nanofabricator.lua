@@ -1,7 +1,7 @@
 -- cspell: words nanofabricator
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _lib = require("_lib")
-local _sprites = require("__reskins-sprite-utils__.sprites")
+local _sprite_utils = { sprites = require("__reskins-sprite-utils__.sprites") }
 
 local tier_map = {
 	["nullius-nanofabricator-1"] = { tier = 1, prog_tier = 1 },
@@ -37,7 +37,7 @@ for name, map in pairs(tier_map) do
 	entity.graphics_set.animation = {
 		layers = {
 			-- Base
-			_sprites.get_rescaled_prototype({
+			_sprite_utils.sprites.get_rescaled_prototype({
 				filename = "__angelsrefininggraphics__/graphics/entity/crystallizer/crystallizer.png",
 				priority = "extra-high",
 				width = 390,
@@ -46,7 +46,7 @@ for name, map in pairs(tier_map) do
 				scale = 0.5,
 			}, 0.775),
 			-- Mask
-			_sprites.get_rescaled_prototype({
+			_sprite_utils.sprites.get_rescaled_prototype({
 				filename = "__reskins-assets-angels__/graphics/entity/crystallizer/crystallizer-mask.png",
 				priority = "extra-high",
 				width = 390,
@@ -56,7 +56,7 @@ for name, map in pairs(tier_map) do
 				scale = 0.5,
 			}, 0.775),
 			-- Highlights
-			_sprites.get_rescaled_prototype({
+			_sprite_utils.sprites.get_rescaled_prototype({
 				filename = "__reskins-assets-angels__/graphics/entity/crystallizer/crystallizer-highlights.png",
 				priority = "extra-high",
 				width = 390,
@@ -66,7 +66,7 @@ for name, map in pairs(tier_map) do
 				scale = 0.5,
 			}, 0.775),
 			-- Shadow
-			_sprites.get_rescaled_prototype({
+			_sprite_utils.sprites.get_rescaled_prototype({
 				filename = "__angelsrefininggraphics__/graphics/entity/crystallizer/crystallizer-shadow.png",
 				priority = "extra-high",
 				width = 390,

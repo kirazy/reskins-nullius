@@ -1,10 +1,8 @@
 local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
-local _assets = { icons = require("__reskins-assets-api__.api.icons") }
+local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
 local icon_helpers = require("__reskins-assets-api__.api.icon-helpers")
-
-local ICON_PATH = "__reskins-assets-base__/graphics/icons/flying-robot-frame/flying-robot-frame-icon-"
 
 local robot_frame_icon_creator_fn = icon_helpers.make_tinted_three_layer_icon_creator_fn({
 	folder = "__reskins-assets-base__/graphics/icons",
@@ -25,14 +23,14 @@ for name, options in pairs(robot_frames) do
 
 	local legacy_item_name = "nullius-legacy-robot-frame-" .. index
 
-	local function assign_to(name)
+	local function assign_to(item_name)
 		local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
 			tier = tier,
-			name = name,
+			name = item_name,
 			type_name = "item",
 			icon_data = robot_frame_icon_creator_fn(tint),
 		})
-		_assets.icons.assign_deferrable_icon(deferrable_icon)
+		_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
 	end
 
 	assign_to(name)

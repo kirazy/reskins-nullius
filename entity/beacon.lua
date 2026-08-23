@@ -5,9 +5,7 @@
 
 local _lib = require("_lib")
 
-local _framework = {
-	tiers = require("__reskins-framework__.api.tiers"),
-}
+local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 
 local asset_path = "__reskins-assets-base__/graphics/entity/beacon/"
 local blend_mode = "additive-soft"

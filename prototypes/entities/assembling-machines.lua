@@ -1,10 +1,8 @@
 local _lib = require("_lib")
-local _sprites = require("__reskins-sprite-utils__.sprites")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
-local _assets = {
-	defines = require("__reskins-assets-api__.api.defines"),
-	icons = require("__reskins-assets-api__.api.icons"),
-	create_icon = require("__reskins-assets-api__.assets.base.base-icons"),
+local _sprite_utils = {
+	icons = require("__reskins-sprite-utils__.icons"),
+	sprites = require("__reskins-sprite-utils__.sprites"),
 }
 
 local icon_helpers = require("__reskins-assets-api__.api.icon-helpers")
@@ -51,11 +49,11 @@ end
 
 local function resolve_icon(tint, machine_tier, scale_factor)
 	if not scale_factor then
-		return _assets.icons.compose_icons("default", medium_icon(tint), medium_gear(machine_tier))
+		return _sprite_utils.icons.compose_icons("default", medium_icon(tint), medium_gear(machine_tier))
 	elseif scale_factor > 1 then
-		return _assets.icons.compose_icons("default", standard_icon(tint), standard_gear(machine_tier))
+		return _sprite_utils.icons.compose_icons("default", standard_icon(tint), standard_gear(machine_tier))
 	else
-		return _assets.icons.compose_icons("default", mini_icon(tint), mini_gear(machine_tier))
+		return _sprite_utils.icons.compose_icons("default", mini_icon(tint), mini_gear(machine_tier))
 	end
 end
 
@@ -150,7 +148,7 @@ for name, options in pairs(entities) do
 	graphics_pack:apply_to_entity(entity)
 	graphics_pack:apply_to_corpse(corpse)
 	if options.scale_factor then
-		_sprites.rescale_prototype(corpse, options.scale_factor)
+		_sprite_utils.sprites.rescale_prototype(corpse, options.scale_factor)
 	end
 
 	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
@@ -160,7 +158,7 @@ for name, options in pairs(entities) do
 		icon_data = resolve_icon(tint, options.machine_tier, options.scale_factor),
 	})
 
-	_assets.icons.assign_deferrable_icon(deferrable_icon)
+	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
 
 	::continue::
 end
