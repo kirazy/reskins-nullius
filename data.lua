@@ -1,5 +1,4 @@
 require("entity.air-filter")
-require("entity.beacon")
 require("entity.chemical-plant")
 require("entity.compressor")
 require("entity.crusher")

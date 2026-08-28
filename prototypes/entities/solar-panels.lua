@@ -4,6 +4,7 @@ local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
 local Applicators = require("__reskins-assets-api__.api.applicators")
 local SolarPanelLarge = require("__reskins-assets-api__.assets.base.entities.solar-panel-large")
+local SolarPanel = require("__reskins-assets-api__.assets.base.entities.solar-panel-standard")
 
 local entities = {
 	["nullius-solar-panel-1"] = { type = "solar-panel", tier = 1, prog_tier = 1 },
@@ -44,7 +45,7 @@ for name, options in pairs(entities) do
 		tier = tier,
 		name = name,
 		type_name = options.type,
-		icon_data = SolarPanelLarge.get_icon(tint),
+		icon_data = SolarPanel.get_icon(tint),
 	})
 
 	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
