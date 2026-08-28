@@ -13,6 +13,7 @@ require("prototypes.entities.combustion-chambers")
 require("prototypes.entities.boilers")
 require("prototypes.entities.heat-pipes")
 require("prototypes.entities.beacon")
+require("prototypes.entities.chemical-plants")
 
 require("entity.hangars")
 require("entity.relays")
