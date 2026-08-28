@@ -184,6 +184,12 @@ local small_tanks = {
 		prog_tier = 3,
 		nullius_tint = util.color("#B3B3D9"), --pipe_material_tints[Assets.defines.pipe_material.plastic],
 	},
+	["nullius-small-tank-3"] = {
+		type = "storage-tank",
+		tier = 4,
+		prog_tier = 4,
+		nullius_tint = nil, --pipe_material_tints[Assets.defines.pipe_material.plastic],
+	},
 }
 
 -- Each entry matches one visible section of the original Angel's sprite sheet.
