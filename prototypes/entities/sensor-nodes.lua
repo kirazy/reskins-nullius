@@ -1,9 +1,9 @@
 local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
-local _assets = { create_icon = require("__reskins-assets-api__.assets.base.base-icons") }
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
-local RadarGraphicsPack = require("__reskins-assets-api__.graphics-packs.base.radar-graphics-pack")
+local Applicators = require("__reskins-assets-api__.api.applicators")
+local Radar = require("__reskins-assets-api__.assets.base.entities.radar")
 
 local entities = {
 	["radar"] = { type = "radar", tier = 1, prog_tier = 1 },
@@ -34,18 +34,16 @@ for name, options in pairs(entities) do
 		type = options.type,
 	})
 
-	local graphics_pack = RadarGraphicsPack:configure({
-		tint = tint,
-	})
+	local sprite_set = Radar.get_sprite_set({ tint = tint })
 
-	graphics_pack:apply_to_entity(entity)
-	graphics_pack:apply_to_corpse(corpse)
+	Applicators.apply_sprite_set(entity, sprite_set)
+	Applicators.apply_sprite_set(corpse, sprite_set)
 
 	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
 		tier = tier,
 		name = name,
 		type_name = options.type,
-		icon_data = _assets.create_icon.radar(tint),
+		icon_data = Radar.get_icon(tint),
 	})
 
 	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)

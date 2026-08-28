@@ -1,9 +1,9 @@
 local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
-local _assets = { create_icon = require("__reskins-assets-api__.assets.base.base-icons") }
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
-local RobotLogisticGraphicsPack = require("__reskins-assets-api__.graphics-packs.base.robot-logistic-graphics-pack")
+local Applicators = require("__reskins-assets-api__.api.applicators")
+local LogisticRobot = require("__reskins-assets-api__.assets.base.entities.robot-logistic")
 
 local entities = {
 	["nullius-logistic-bot-1"] = { type = "logistic-robot", tier = 1, prog_tier = 2 },
@@ -35,12 +35,10 @@ for name, options in pairs(entities) do
 		type = "logistic-robot",
 	})
 
-	local graphics_pack = RobotLogisticGraphicsPack:configure({
-		tint = tint,
-	})
+	local sprite_set = LogisticRobot.get_sprite_set({ tint = tint })
 
-	graphics_pack:apply_to_entity(entity)
-	graphics_pack:apply_to_corpse(corpse)
+	Applicators.apply_sprite_set(entity, sprite_set)
+	Applicators.apply_sprite_set(corpse, sprite_set)
 
 	_lib.configure_robot_death_animation(entity, corpse.name)
 
@@ -48,7 +46,7 @@ for name, options in pairs(entities) do
 		tier = tier,
 		name = name,
 		type_name = options.type,
-		icon_data = _assets.create_icon.robot_logistic(tint),
+		icon_data = LogisticRobot.get_icon(tint),
 	})
 
 	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)

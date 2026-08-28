@@ -1,10 +1,12 @@
 local _lib = require("_lib")
-local _sprites = require("__reskins-sprite-utils__.sprites")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
-local _assets = { create_icon = require("__reskins-assets-api__.assets.base.base-icons") }
-local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
+local _sprite_utils = {
+	icons = require("__reskins-sprite-utils__.icons"),
+	sprites = require("__reskins-sprite-utils__.sprites"),
+}
 
-local AccumulatorGraphicsPack = require("__reskins-assets-api__.graphics-packs.base.accumulator-graphics-pack")
+local Applicators = require("__reskins-assets-api__.api.applicators")
+local Accumulator = require("__reskins-assets-api__.assets.base.entities.accumulator")
 
 local entities = {
 	["nullius-grid-battery-1"] = { type = "accumulator", tier = 1, prog_tier = 1, scale_factor = 3 / 2 },
@@ -35,22 +37,20 @@ for name, options in pairs(entities) do
 		base_entity_name = "accumulator",
 		type = "accumulator",
 	})
-
-	local graphics_pack = AccumulatorGraphicsPack:configure({
-		tint = tint,
-	})
-
-	graphics_pack:apply_to_entity(entity)
-	graphics_pack:apply_to_corpse(corpse)
 	if options.scale_factor then
-		_sprites.rescale_prototype(corpse, options.scale_factor)
+		_sprite_utils.sprites.rescale_prototype(corpse, options.scale_factor)
 	end
+
+	local sprite_set = Accumulator.get_sprite_set({ tint = tint })
+
+	Applicators.apply_sprite_set(entity, sprite_set)
+	Applicators.apply_sprite_set(corpse, sprite_set)
 
 	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
 		tier = tier,
 		name = name,
 		type_name = options.type,
-		icon_data = _assets.create_icon.accumulator(tint),
+		icon_data = Accumulator.get_icon("base", tint),
 	})
 
 	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)

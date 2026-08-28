@@ -1,10 +1,10 @@
 -- cspell: words togglable
 local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
-local _assets = { create_icon = require("__reskins-assets-api__.assets.base.base-icons") }
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
-local PumpGraphicsPack = require("__reskins-assets-api__.graphics-packs.base.pump-graphics-pack")
+local Applicators = require("__reskins-assets-api__.api.applicators")
+local Pump = require("__reskins-assets-api__.assets.base.entities.pump")
 
 local entities = {
 	["nullius-pump-1"] = { tier = 1, prog_tier = 1 },
@@ -38,18 +38,16 @@ for name, options in pairs(entities) do
 		type = "pump",
 	})
 
-	local graphics_pack = PumpGraphicsPack:configure({
-		tint = tint,
-	})
+	local sprite_set = Pump.get_sprite_set({ tint = tint })
 
-	graphics_pack:apply_to_entity(entity)
-	graphics_pack:apply_to_corpse(corpse)
+	Applicators.apply_sprite_set(entity, sprite_set)
+	Applicators.apply_sprite_set(corpse, sprite_set)
 
 	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
 		tier = tier,
 		name = name,
 		type_name = "pump",
-		icon_data = _assets.create_icon.pump(tint),
+		icon_data = Pump.get_icon(tint),
 	})
 
 	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)

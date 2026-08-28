@@ -1,11 +1,11 @@
 local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
-local _assets = {
-	defines = require("__reskins-assets-api__.api.defines"),
-	icons = require("__reskins-assets-api__.api.icons"),
-	create_icon = require("__reskins-assets-api__.assets.base.base-icons"),
-}
+local _assets = { defines = require("__reskins-assets-api__.api.defines") }
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
+
+local Applicators = require("__reskins-assets-api__.api.applicators")
+local Pipe = require("__reskins-assets-api__.assets.base.entities.pipe")
+local PipeToGround = require("__reskins-assets-api__.assets.base.entities.pipe-to-ground")
 
 local pipe_material_tints = {
 	[_assets.defines.pipe_material.aluminum] = util.color("#ffffff"),
@@ -25,9 +25,6 @@ local pipe_material_tints = {
 	[_assets.defines.pipe_material.tungsten_angels] = util.color("#7e5f45"),
 	[_assets.defines.pipe_material.nitinol_angels] = util.color("#7664a9"),
 }
-
-local PipeGraphicsPack = require("__reskins-assets-api__.graphics-packs.base.pipe-graphics-pack")
-local PipeToGroundGraphicsPack = require("__reskins-assets-api__.graphics-packs.base.pipe-to-ground-graphics-pack")
 
 local pipe_entities = {
 	["pipe"] = {
@@ -75,18 +72,16 @@ for name, options in pairs(pipe_entities) do
 
 	local tier = _framework.tiers.get_tier(options)
 
-	local graphics_pack = PipeGraphicsPack:configure({
-		pipe_material = options.pipe_material,
-	})
+	local sprite_set = Pipe.get_sprite_set({ pipe_material = options.pipe_material })
 
-	graphics_pack:apply_to_entity(entity)
-	graphics_pack:apply_to_corpse(corpse)
+	Applicators.apply_sprite_set(entity, sprite_set)
+	Applicators.apply_sprite_set(corpse, sprite_set)
 
 	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
 		tier = tier,
 		name = name,
 		type_name = "pipe",
-		icon_data = _assets.create_icon.pipe(options.pipe_material),
+		icon_data = Pipe.get_icon(options.pipe_material),
 	})
 	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
 
@@ -139,18 +134,16 @@ for name, options in pairs(pipe_to_ground_entities) do
 
 	local tier = _framework.tiers.get_tier(options)
 
-	local graphics_pack = PipeToGroundGraphicsPack:configure({
-		pipe_material = options.pipe_material,
-	})
+	local sprite_set = PipeToGround.get_sprite_set({ pipe_material = options.pipe_material })
 
-	graphics_pack:apply_to_entity(entity)
-	graphics_pack:apply_to_corpse(corpse)
+	Applicators.apply_sprite_set(entity, sprite_set)
+	Applicators.apply_sprite_set(corpse, sprite_set)
 
 	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
 		tier = tier,
 		name = name,
 		type_name = "pipe-to-ground",
-		icon_data = _assets.create_icon.pipe_to_ground(options.pipe_material),
+		icon_data = PipeToGround.get_icon(options.pipe_material),
 	})
 
 	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)

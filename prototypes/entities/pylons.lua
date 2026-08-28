@@ -1,10 +1,9 @@
 local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
-local _assets = { create_icon = require("__reskins-assets-api__.assets.base.base-icons") }
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
-local ElectricPoleBigGraphicsPack =
-	require("__reskins-assets-api__.graphics-packs.base.electric-pole-big-graphics-pack")
+local Applicators = require("__reskins-assets-api__.api.applicators")
+local ElectricPoleBig = require("__reskins-assets-api__.assets.base.entities.electric-pole-big")
 
 local entities = {
 	["big-electric-pole"] = { type = "electric-pole", tier = 1, prog_tier = 1 },
@@ -35,18 +34,16 @@ for name, options in pairs(entities) do
 		type = options.type,
 	})
 
-	local graphics_pack = ElectricPoleBigGraphicsPack:configure({
-		tint = tint,
-	})
+	local sprite_set = ElectricPoleBig.get_sprite_set({ tint = tint })
 
-	graphics_pack:apply_to_entity(entity)
-	graphics_pack:apply_to_corpse(corpse)
+	Applicators.apply_sprite_set(entity, sprite_set)
+	Applicators.apply_sprite_set(corpse, sprite_set)
 
 	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
 		tier = tier,
 		name = name,
 		type_name = options.type,
-		icon_data = _assets.create_icon.electric_pole_big(tint),
+		icon_data = ElectricPoleBig.get_icon(tint),
 	})
 
 	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)

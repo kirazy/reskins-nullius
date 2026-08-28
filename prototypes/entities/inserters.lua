@@ -3,18 +3,17 @@
 local _lib = require("_lib")
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
-local InserterPresetGraphicsPack = require("__reskins-assets-api__.graphics-packs.base.inserter-preset-graphics-pack")
+local Applicators = require("__reskins-assets-api__.api.applicators")
+local InserterPreset = require("__reskins-assets-api__.assets.base.entities.inserter-preset")
 
 local entities = {
 	["inserter"] = {
 		type = "inserter",
-		icon_filename = "__reskins-assets-bobs__/graphics/icons/inserters/inserter-icon.png",
 		particle_tint = util.color("#ffaa23"),
 		preset = "inserter",
 	},
 	["bob-turbo-inserter"] = {
 		type = "inserter",
-		icon_filename = "__reskins-assets-bobs__/graphics/icons/inserters/filter-inserter-icon.png",
 		particle_tint = util.color("#a26ae3"),
 		preset = "inserter-filter",
 	},
@@ -40,22 +39,19 @@ for name, options in pairs(entities) do
 		type = options.type,
 	})
 
-	local graphics_pack = InserterPresetGraphicsPack:configure({
+	local sprite_set = InserterPreset.get_sprite_set({
 		preset = options.preset,
 		is_long = true,
 	})
 
-	graphics_pack:apply_to_entity(entity)
-	graphics_pack:apply_to_corpse(corpse)
+	Applicators.apply_sprite_set(entity, sprite_set)
+	Applicators.apply_sprite_set(corpse, sprite_set)
 
-	---@type DeferrableIconDatum
+	---@type DeferrableIconData
 	local deferrable_icon = {
 		name = name,
 		type_name = options.type,
-		icon_datum = {
-			icon = options.icon_filename,
-			icon_size = 64,
-		},
+		icon_data = InserterPreset.get_icon(options.preset),
 	}
 
 	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)

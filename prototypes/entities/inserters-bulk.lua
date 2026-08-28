@@ -4,24 +4,17 @@
 local _lib = require("_lib")
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
-local icon_helpers = require("__reskins-assets-api__.api.icon-helpers")
-
-local InserterGraphicsPack = require("__reskins-assets-api__.graphics-packs.base.inserter-graphics-pack")
-local bulk_inserter_icon_creator_fn = icon_helpers.make_tinted_three_layer_icon_creator_fn({
-	folder = "__reskins-assets-bobs__/graphics/icons/inserters/",
-	icon_name = "inserter-bulk",
-})
+local Applicators = require("__reskins-assets-api__.api.applicators")
+local Inserter = require("__reskins-assets-api__.assets.base.entities.inserter")
 
 local entities = {
 	["bulk-inserter"] = {
 		type = "inserter",
 		tint = util.color("#45bcec") --[[@as Color]],
-		icon_creator_fn = bulk_inserter_icon_creator_fn,
 	},
 	["bob-express-bulk-inserter"] = {
 		type = "inserter",
 		tint = util.color("#9fd942") --[[@as Color]],
-		icon_creator_fn = bulk_inserter_icon_creator_fn,
 	},
 }
 
@@ -45,19 +38,19 @@ for name, options in pairs(entities) do
 		type = options.type,
 	})
 
-	local graphics_pack = InserterGraphicsPack:configure({
+	local sprite_set = Inserter.get_sprite_set({
 		tint = options.tint,
 		variant = "inserter-bulk",
 	})
 
-	graphics_pack:apply_to_entity(entity)
-	graphics_pack:apply_to_corpse(corpse)
+	Applicators.apply_sprite_set(entity, sprite_set)
+	Applicators.apply_sprite_set(corpse, sprite_set)
 
 	---@type DeferrableIconData
 	local deferrable_icon = {
 		name = name,
 		type_name = options.type,
-		icon_data = options.icon_creator_fn(options.tint),
+		icon_data = Inserter.get_bulk_icon(options.tint),
 	}
 
 	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)

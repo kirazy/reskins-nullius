@@ -1,3 +1,6 @@
+---@using data
+---@using Reskins.Assets.Base.Entities
+
 local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _sprite_utils = {
@@ -5,60 +8,11 @@ local _sprite_utils = {
 	sprites = require("__reskins-sprite-utils__.sprites"),
 }
 
-local icon_helpers = require("__reskins-assets-api__.api.icon-helpers")
+local Applicators = require("__reskins-assets-api__.api.applicators")
+local AssemblingMachine = require("__reskins-assets-api__.assets.base.entities.assembling-machine")
 
-local standard_icon = icon_helpers.make_tinted_three_layer_icon_creator_fn({
-	folder = "__reskins-assets-base__/graphics/icons",
-	icon_name = "assembling-machine",
-})
-
-local function standard_gear(machine_tier)
-	return {
-		icon = "__reskins-assets-base__/graphics/icons/assembling-machine/gear-" .. (machine_tier - 1) .. ".png",
-		icon_size = 64,
-	}
-end
-
-local mini_icon = icon_helpers.make_tinted_three_layer_icon_creator_fn({
-	folder = "__reskins-assets-assorted__/graphics/icons",
-	icon_name = "mini-assembling-machine",
-})
-
-local function mini_gear(machine_tier)
-	return {
-		icon = "__reskins-assets-assorted__/graphics/icons/mini-assembling-machine/gear-mini-"
-			.. (machine_tier - 1)
-			.. ".png",
-		icon_size = 64,
-	}
-end
-
-local medium_icon = icon_helpers.make_tinted_three_layer_icon_creator_fn({
-	folder = "__reskins-assets-assorted__/graphics/icons",
-	icon_name = "medium-assembling-machine",
-})
-
-local function medium_gear(machine_tier)
-	return {
-		icon = "__reskins-assets-assorted__/graphics/icons/medium-assembling-machine/gear-medium-"
-			.. (machine_tier - 1)
-			.. ".png",
-		icon_size = 64,
-	}
-end
-
-local function resolve_icon(tint, machine_tier, scale_factor)
-	if not scale_factor then
-		return _sprite_utils.icons.compose_icons("default", medium_icon(tint), medium_gear(machine_tier))
-	elseif scale_factor > 1 then
-		return _sprite_utils.icons.compose_icons("default", standard_icon(tint), standard_gear(machine_tier))
-	else
-		return _sprite_utils.icons.compose_icons("default", mini_icon(tint), mini_gear(machine_tier))
-	end
-end
-
-local AssemblingMachineGraphicsPack =
-	require("__reskins-assets-api__.graphics-packs.base.assembling-machine-graphics-pack")
+local small_icon_scale = 0.8
+local medium_icon_scale = 0.9
 
 local entities = {
 	["nullius-small-assembler-1"] = {
@@ -67,6 +21,7 @@ local entities = {
 		prog_tier = 1,
 		machine_tier = 1, -- crafting speed: 0.5
 		scale_factor = 2 / 3,
+		icon_scalar = small_icon_scale,
 	},
 	["nullius-small-assembler-2"] = {
 		type = "assembling-machine",
@@ -74,6 +29,7 @@ local entities = {
 		prog_tier = 2,
 		machine_tier = 2, -- crafting speed: 1
 		scale_factor = 2 / 3,
+		icon_scalar = small_icon_scale,
 	},
 	["nullius-small-assembler-3"] = {
 		type = "assembling-machine",
@@ -81,24 +37,28 @@ local entities = {
 		prog_tier = 3,
 		machine_tier = 3, -- crafting speed: 2
 		scale_factor = 2 / 3,
+		icon_scalar = small_icon_scale,
 	},
 	["nullius-medium-assembler-1"] = {
 		type = "assembling-machine",
 		tier = 1,
 		prog_tier = 2,
 		machine_tier = 2, -- crafting speed: 1
+		icon_scalar = medium_icon_scale,
 	},
 	["nullius-medium-assembler-2"] = {
 		type = "assembling-machine",
 		tier = 2,
 		prog_tier = 3,
 		machine_tier = 3, -- crafting speed: 2
+		icon_scalar = medium_icon_scale,
 	},
 	["nullius-medium-assembler-3"] = {
 		type = "assembling-machine",
 		tier = 3,
 		prog_tier = 4,
 		machine_tier = 4, -- crafting speed: 4
+		icon_scalar = medium_icon_scale,
 	},
 	["nullius-large-assembler-1"] = {
 		type = "assembling-machine",
@@ -139,23 +99,24 @@ for name, options in pairs(entities) do
 		base_entity_name = "assembling-machine-1",
 		type = "assembling-machine",
 	})
-
-	local graphics_pack = AssemblingMachineGraphicsPack:configure({
-		tint = tint,
-		machine_tier = options.machine_tier,
-	})
-
-	graphics_pack:apply_to_entity(entity)
-	graphics_pack:apply_to_corpse(corpse)
 	if options.scale_factor then
 		_sprite_utils.sprites.rescale_prototype(corpse, options.scale_factor)
 	end
 
+	local sprite_set = AssemblingMachine.get_sprite_set({
+		tint = tint,
+		machine_tier = options.machine_tier,
+	})
+
+	Applicators.apply_sprite_set(entity, sprite_set)
+	Applicators.apply_sprite_set(corpse, sprite_set)
+
+	local icon_data = AssemblingMachine.get_icon(options.machine_tier, tint)
 	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
 		tier = tier,
 		name = name,
 		type_name = options.type,
-		icon_data = resolve_icon(tint, options.machine_tier, options.scale_factor),
+		icon_data = options.icon_scalar and _sprite_utils.icons.minify_icon(icon_data, options.icon_scalar) or icon_data,
 	})
 
 	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)

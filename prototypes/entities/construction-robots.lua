@@ -1,10 +1,9 @@
 local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
-local _assets = { create_icon = require("__reskins-assets-api__.assets.base.base-icons") }
+local _assets = { applicators = require("__reskins-assets-api__.api.applicators") }
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
-local RobotConstructionGraphicsPack =
-	require("__reskins-assets-api__.graphics-packs.base.robot-construction-graphics-pack")
+local ConstructionRobot = require("__reskins-assets-api__.assets.base.entities.robot-construction")
 
 local entities = {
 	["nullius-construction-bot-1"] = { type = "construction-robot", tier = 1, prog_tier = 2 },
@@ -36,12 +35,9 @@ for name, options in pairs(entities) do
 		type = "construction-robot",
 	})
 
-	local graphics_pack = RobotConstructionGraphicsPack:configure({
-		tint = tint,
-	})
-
-	graphics_pack:apply_to_entity(entity)
-	graphics_pack:apply_to_corpse(corpse)
+	local sprite_set = ConstructionRobot.get_sprite_set({ tint = tint })
+	_assets.applicators.apply_sprite_set(entity, sprite_set)
+	_assets.applicators.apply_sprite_set(corpse, sprite_set)
 
 	_lib.configure_robot_death_animation(entity, corpse.name)
 
@@ -49,7 +45,7 @@ for name, options in pairs(entities) do
 		tier = tier,
 		name = name,
 		type_name = options.type,
-		icon_data = _assets.create_icon.robot_construction(tint),
+		icon_data = ConstructionRobot.get_icon(tint),
 	})
 
 	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)

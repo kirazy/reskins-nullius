@@ -1,9 +1,9 @@
 local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
-local _assets = { create_icon = require("__reskins-assets-api__.assets.base.base-icons") }
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
-local StorageTankGraphicsPack = require("__reskins-assets-api__.graphics-packs.base.storage-tank-graphics-pack")
+local Applicators = require("__reskins-assets-api__.api.applicators")
+local StorageTank = require("__reskins-assets-api__.assets.base.entities.storage-tank")
 
 local entities = {
 	["storage-tank"] = { type = "storage-tank", tier = 1, prog_tier = 1 },
@@ -35,19 +35,16 @@ for name, options in pairs(entities) do
 		type = options.type,
 	})
 
-	local graphics_pack = StorageTankGraphicsPack:configure({
-		tint = tint,
-		variant = "large",
-	})
+	local sprite_set = StorageTank.get_sprite_set({ tint = tint })
 
-	graphics_pack:apply_to_entity(entity)
-	graphics_pack:apply_to_corpse(corpse)
+	Applicators.apply_sprite_set(entity, sprite_set)
+	Applicators.apply_sprite_set(corpse, sprite_set)
 
 	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
 		tier = tier,
 		name = name,
 		type_name = options.type,
-		icon_data = _assets.create_icon.storage_tank(tint),
+		icon_data = StorageTank.get_icon(tint),
 	})
 
 	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
