@@ -1,16 +1,24 @@
--- cspell: words CBCBCBFF electrolyzer
+-- cspell: words electrolyzer
 
 ---@using data
 ---@using Reskins.SpriteUtils
 
+local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _sprite_utils = {
 	icons = require("__reskins-sprite-utils__.icons"),
 	colors = require("__reskins-sprite-utils__.colors"),
 }
 
+local broken_tint = util.color("#CBCBCB") --[[@as Color]]
 local broken_symbol = {
 	icon = "__nullius__/graphics/icons/broken.png",
 	icon_size = 64,
+}
+local repair_pack_icon = {
+	icon = "__base__/graphics/icons/repair-pack.png",
+	icon_size = 64,
+	scale = 0.25,
+	shift = { -8, 8 },
 }
 
 local broken_items = {
@@ -26,6 +34,34 @@ local broken_items = {
 	["nullius-broken-solar-panel"] = { source_item = "nullius-solar-panel-1" },
 }
 
+---@param icon_datum IconData
+---@param tint Color
+---@param weight float?
+local function apply_blended_tint(icon_datum, tint, weight)
+	-- Skip empty layers.
+	if icon_datum.icon:find("empty.png") then
+		return
+	end
+
+	local base_tint = icon_datum.tint
+	if not base_tint then
+		-- Apply new tint directly.
+		icon_datum.tint = tint
+	elseif not _sprite_utils.colors.are_equal(base_tint, { 1, 1, 1, 0 }) then
+		-- Blend non-highlights layers.
+		icon_datum.tint = _sprite_utils.colors.blend(base_tint, tint, weight) --[[@as Color]]
+	end
+end
+
+local function blend_in_color(icon_data, tint, weight, defaults_type)
+	local icon_data_copy, labels = _framework.tiers.remove_tier_labels_from_icons(icon_data)
+	for _, icon_layer in pairs(icon_data_copy) do
+		apply_blended_tint(icon_layer, tint, weight)
+	end
+
+	return labels and _sprite_utils.icons.compose_icons(defaults_type, icon_data_copy, labels) or icon_data_copy
+end
+
 for name, options in pairs(broken_items) do
 	local target_item = data.raw.item[name]
 	local source_item = data.raw.item[options.source_item]
@@ -34,34 +70,22 @@ for name, options in pairs(broken_items) do
 	end
 
 	local source_icon = _sprite_utils.icons.get_icon_from_prototype(source_item)
-
-	-- HACK: this is unsafe; prefer to construct clean icons with the appropriate tints.
-	-- Needs additional work around icon generation in the assets-api.
-	local icon = _sprite_utils.icons.compose_icons("default", source_icon, broken_symbol)
-	assert(icon[1] and icon[2])
-	icon[1].tint = util.color("CBCBCBFF") --[[@as Color]]
-	icon[2].tint = _sprite_utils.colors.blend(icon[2].tint --[[@as Color]], icon[1].tint, 0.25) --[[@as Color]]
+	local broken_icon =
+		_sprite_utils.icons.compose_icons("item", blend_in_color(source_icon, broken_tint, 0.5, "item"), broken_symbol)
 
 	---@type DeferrableIconData
 	local deferrable_icon = {
 		name = name,
 		type_name = "item",
-		icon_data = icon,
+		icon_data = broken_icon,
 	}
 
 	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
 
 	local recipe = data.raw.recipe[name]
 	if recipe then
-		local repair_pack_icon = {
-			icon = "__base__/graphics/icons/repair-pack.png",
-			icon_size = 64,
-			scale = 0.25,
-			shift = { -8, 8 },
-		}
-
 		_sprite_utils.icons.clear_icon_from_prototype(recipe)
-		recipe.icons = _sprite_utils.icons.compose_icons("default", icon, repair_pack_icon)
+		recipe.icons = _sprite_utils.icons.compose_icons("item", broken_icon, repair_pack_icon)
 	end
 
 	::continue::
