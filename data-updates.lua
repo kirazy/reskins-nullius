@@ -15,6 +15,8 @@ require("prototypes.entities.heat-pipes")
 require("prototypes.entities.beacon")
 require("prototypes.entities.chemical-plants")
 require("prototypes.entities.hangars")
+require("prototypes.entities.extractors")
+require("prototypes.entities.wells")
 
 require("entity.relays")
 require("entity.chargers")
