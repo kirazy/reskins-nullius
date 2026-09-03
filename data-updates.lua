@@ -25,3 +25,4 @@ require("entity.chargers")
 require("entity.solar-collectors")
 
 require("prototypes.recipe-updates")
+require("compatibility.advanced-fluid-handling")
