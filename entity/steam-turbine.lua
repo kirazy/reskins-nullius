@@ -4,7 +4,7 @@ local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _assets = {
 	defines = require("__reskins-assets-api__.api.defines"),
 	icons = require("__reskins-assets-api__.api.icons"),
-	create_icon = require("__reskins-assets-api__.assets.base.base-icons"),
+	create_icon = require("__reskins-assets-api__.assets.base.items.icons"),
 }
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 local _lib = require("_lib")
@@ -256,7 +256,7 @@ for name, options in pairs(tier_map) do
 	local symbol = name:find("open") and _assets.defines.symbol.aperture_open or _assets.defines.symbol.aperture_closed
 	local icon_data = _sprite_utils.icons.compose_icons(
 		"default",
-		_assets.create_icon.steam_turbine(tint),
+		_assets.create_icon.steam_turbine({ tint = tint }),
 		_assets.icons.get_symbol(symbol, tint)
 	)
 

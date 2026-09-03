@@ -1,5 +1,5 @@
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
-local _assets = { create_icon = require("__reskins-assets-api__.assets.base.base-icons") }
+local _assets = { create_icon = require("__reskins-assets-api__.assets.base.items.icons") }
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
 local entities = {
@@ -21,7 +21,7 @@ for name, options in pairs(entities) do
 		tier = tier,
 		name = name,
 		type_name = entity.type,
-		icon_data = _assets.create_icon.train_locomotive(tint),
+		icon_data = _assets.create_icon.train_locomotive({ tint = tint }),
 	})
 
 	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)

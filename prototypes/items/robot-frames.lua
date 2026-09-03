@@ -2,12 +2,7 @@ local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
-local icon_helpers = require("__reskins-assets-api__.api.icon-helpers")
-
-local robot_frame_icon_creator_fn = icon_helpers.make_tinted_three_layer_icon_creator_fn({
-	folder = "__reskins-assets-base__/graphics/icons",
-	icon_name = "flying-robot-frame",
-})
+local _base_icons = require("__reskins-assets-api__.assets.base.items.icons")
 
 local robot_frames = {
 	["nullius-robot-frame-1"] = { tier = 1, prog_tier = 2 },
@@ -28,7 +23,7 @@ for name, options in pairs(robot_frames) do
 			tier = tier,
 			name = item_name,
 			type_name = "item",
-			icon_data = robot_frame_icon_creator_fn(tint),
+			icon_data = _base_icons.flying_robot_frame({ tint = tint }),
 		})
 		_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
 	end

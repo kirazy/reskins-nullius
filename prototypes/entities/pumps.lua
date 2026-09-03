@@ -47,7 +47,7 @@ for name, options in pairs(entities) do
 		tier = tier,
 		name = name,
 		type_name = "pump",
-		icon_data = Pump.get_icon(tint),
+		icon_data = Pump.get_icon({ tint = tint }),
 	})
 
 	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)

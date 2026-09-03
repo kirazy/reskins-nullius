@@ -52,7 +52,7 @@ for name, options in pairs(entities) do
 		tier = tier,
 		name = name,
 		type_name = options.type,
-		icon_data = Boiler.get_icon(tint, fire_tint),
+		icon_data = Boiler.get_icon({ tint = tint, fire_tint = fire_tint }),
 	})
 
 	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)

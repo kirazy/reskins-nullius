@@ -111,7 +111,7 @@ for name, options in pairs(entities) do
 	Applicators.apply_sprite_set(entity, sprite_set)
 	Applicators.apply_sprite_set(corpse, sprite_set)
 
-	local icon_data = AssemblingMachine.get_icon(options.machine_tier, tint)
+	local icon_data = AssemblingMachine.get_icon({ machine_tier = options.machine_tier, tint = tint })
 	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
 		tier = tier,
 		name = name,

@@ -82,7 +82,7 @@ for name, options in pairs(entities) do
 		tier = tier,
 		name = entity.name,
 		type_name = entity.type,
-		icon_data = _sprite_utils.icons.minify_icon(Pumpjack.get_icon(tint), 0.8),
+		icon_data = _sprite_utils.icons.minify_icon(Pumpjack.get_icon({ tint = tint }), 0.8),
 	})
 
 	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)

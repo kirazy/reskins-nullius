@@ -58,7 +58,7 @@ for name, options in pairs(entities) do
 		tier = tier,
 		name = entity.name,
 		type_name = entity.type,
-		icon_data = Pumpjack.get_icon(tint),
+		icon_data = Pumpjack.get_icon({ tint = tint }),
 	})
 
 	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)

@@ -2,16 +2,7 @@ local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
-local icon_helpers = require("__reskins-assets-api__.api.icon-helpers")
-
-local artillery_wagon_icon_creator_fn = icon_helpers.make_tinted_three_layer_icon_creator_fn({
-	folder = "__reskins-assets-base__/graphics/icons",
-	icon_name = "train-artillery-wagon",
-})
-local artillery_turret_icon_creator_fn = icon_helpers.make_tinted_three_layer_icon_creator_fn({
-	folder = "__reskins-assets-base__/graphics/icons",
-	icon_name = "turret-artillery",
-})
+local _base_icons = require("__reskins-assets-api__.assets.base.items.icons")
 
 local TURRET_ENTITY_PATH = "__reskins-assets-base__/graphics/entity/turret-artillery/"
 
@@ -146,7 +137,7 @@ for name, options in pairs(launchers) do
 		tier = tier,
 		name = name,
 		type_name = "artillery-turret",
-		icon_data = artillery_turret_icon_creator_fn(tint),
+		icon_data = _base_icons.turret_artillery({ tint = tint }),
 	})
 
 	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
@@ -166,7 +157,7 @@ for name, options in pairs(carriers) do
 		tier = tier,
 		name = name,
 		type_name = "artillery-wagon",
-		icon_data = artillery_wagon_icon_creator_fn(tint),
+		icon_data = _base_icons.train_artillery_wagon({ tint = tint }),
 	})
 
 	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)

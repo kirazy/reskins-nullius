@@ -88,7 +88,7 @@ for name, options in pairs(entities) do
 	Applicators.apply_sprite_set(entity, sprite_set)
 	Applicators.apply_sprite_set(corpse, sprite_set)
 
-	local icon_data = options.get_icon(tint)
+	local icon_data = options.get_icon({ tint = tint })
 	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
 		tier = tier,
 		name = entity.name,
@@ -120,7 +120,6 @@ for name, options in pairs(burner_entities) do
 	local entity = data.raw["mining-drill"][name]
 	if entity then
 		local tier = _framework.tiers.get_tier(options)
-		local tint = _framework.tiers.get_tint(tier)
 
 		local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
 			tier = tier,

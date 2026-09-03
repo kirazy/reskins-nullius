@@ -81,7 +81,7 @@ for name, options in pairs(pipe_entities) do
 		tier = tier,
 		name = name,
 		type_name = "pipe",
-		icon_data = Pipe.get_icon(options.pipe_material),
+		icon_data = Pipe.get_icon({ material = options.pipe_material }),
 	})
 	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
 
@@ -143,7 +143,7 @@ for name, options in pairs(pipe_to_ground_entities) do
 		tier = tier,
 		name = name,
 		type_name = "pipe-to-ground",
-		icon_data = PipeToGround.get_icon(options.pipe_material),
+		icon_data = PipeToGround.get_icon({ material = options.pipe_material }),
 	})
 
 	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)

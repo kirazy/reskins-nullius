@@ -2,7 +2,7 @@ local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
-local icon_helpers = require("__reskins-assets-api__.api.icon-helpers")
+local _base_icons = require("__reskins-assets-api__.assets.base.items.icons")
 
 local BASE_EQUIPMENT_PATH = "__reskins-assets-base__/graphics/equipment/"
 local BASE_ICON_PATH = "__reskins-assets-base__/graphics/icons/"
@@ -53,18 +53,13 @@ local leg_augmentations = {
 	["nullius-leg-augmentation-4"] = { tier = 4, scale = 0.55 },
 }
 
-local exoskeleton_icon_creator_fn = icon_helpers.make_tinted_three_layer_icon_creator_fn({
-	folder = "__reskins-assets-base__/graphics/icons",
-	icon_name = "equipment-exoskeleton",
-})
-
 for name, options in pairs(leg_augmentations) do
 	local tint = _framework.tiers.get_tint(options.tier)
 	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
 		tier = options.tier,
 		name = name,
 		type_name = "movement-bonus-equipment",
-		icon_data = exoskeleton_icon_creator_fn(tint),
+		icon_data = _base_icons.equipment_exoskeleton({ tint = tint }),
 	})
 
 	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
@@ -91,18 +86,13 @@ local night_vision_equipment = {
 	["nullius-night-vision-3"] = { tier = 3, scale = 0.5 },
 }
 
-local night_vision_icon_creator_fn = icon_helpers.make_tinted_three_layer_icon_creator_fn({
-	folder = "__reskins-assets-base__/graphics/icons",
-	icon_name = "equipment-night-vision",
-})
-
 for name, options in pairs(night_vision_equipment) do
 	local tint = _framework.tiers.get_tint(options.tier)
 	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
 		tier = options.tier,
 		name = name,
 		type_name = "night-vision-equipment",
-		icon_data = night_vision_icon_creator_fn(tint),
+		icon_data = _base_icons.equipment_night_vision({ tint = tint }),
 	})
 
 	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
@@ -130,18 +120,13 @@ local generator_equipment = {
 	["nullius-portable-reactor"] = { tier = 4, scale = 1 },
 }
 
-local fission_reactor_icon_creator_fn = icon_helpers.make_tinted_three_layer_icon_creator_fn({
-	folder = "__reskins-assets-base__/graphics/icons",
-	icon_name = "equipment-fission-reactor",
-})
-
 for name, options in pairs(generator_equipment) do
 	local tint = _framework.tiers.get_tint(options.tier)
 	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
 		tier = options.tier,
 		name = name,
 		type_name = "generator-equipment",
-		icon_data = fission_reactor_icon_creator_fn(tint),
+		icon_data = _base_icons.equipment_fission_reactor({ tint = tint }),
 	})
 
 	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)

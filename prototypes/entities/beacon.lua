@@ -39,7 +39,7 @@ local function update_penalty_variants(base_entity, base_tint, tier, options)
 
 			Applicators.apply_sprite_set(entity, sprite_set, { scale = options.scale })
 
-			local icon = _sprite_utils.icons.minify_icon(Beacon.get_icon(tint), options.icon_scalar)
+			local icon = _sprite_utils.icons.minify_icon(Beacon.get_icon({ tint = tint }), options.icon_scalar)
 			local penalty_indicator = _sprite_utils.icons.transform_icons(
 				_sprite_utils.icons.float_icons(
 					_assets.icons.get_tinted_icon(
@@ -126,7 +126,7 @@ for name, options in pairs(entities) do
 	Applicators.apply_sprite_set(entity, sprite_set, { scale = options.scale })
 	Applicators.apply_sprite_set(corpse, sprite_set, { scale = options.scale })
 
-	local icon_data = Beacon.get_icon(tint)
+	local icon_data = Beacon.get_icon({ tint = tint })
 	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
 		tier = tier,
 		name = name,

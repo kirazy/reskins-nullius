@@ -50,7 +50,7 @@ for name, options in pairs(entities) do
 	local deferrable_icon = {
 		name = name,
 		type_name = options.type,
-		icon_data = Inserter.get_bulk_icon(options.tint),
+		icon_data = Inserter.get_bulk_icon({ tint = options.tint }),
 	}
 
 	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
