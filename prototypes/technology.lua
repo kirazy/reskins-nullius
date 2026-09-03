@@ -610,8 +610,9 @@ for name, options in pairs(technologies) do
 		goto continue
 	end
 
-	local icon_data =
-		_sprite_utils.icons.transform_icons(make_technology_icons(options), options.scale, options.shift, nil, "technology")
+	local icon_data = _sprite_utils.icons.transform_icons(make_technology_icons(options), {
+		scale = options.scale,
+	}, "technology")
 
 	_sprite_utils.icons.assign_icons_to_prototype_and_related_prototypes(name, "technology", icon_data)
 
@@ -813,13 +814,10 @@ local function apply_checkpoint_overlay(options)
 		return
 	end
 
-	local overlay_icons = _sprite_utils.icons.transform_icons(
-		make_technology_icons(options),
-		options.overlay_scale,
-		options.overlay_shift,
-		nil,
-		"technology"
-	)
+	local overlay_icons = _sprite_utils.icons.transform_icons(make_technology_icons(options), {
+		scale = options.overlay_scale,
+		shift = options.overlay_shift,
+	}, "technology")
 
 	if not overlay_icons then
 		return

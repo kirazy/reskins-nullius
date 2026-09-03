@@ -41,11 +41,13 @@ local function update_penalty_variants(base_entity, base_tint, tier, options)
 
 			local icon = _sprite_utils.icons.minify_icon(Beacon.get_icon(tint), options.icon_scalar)
 			local penalty_indicator = _sprite_utils.icons.transform_icons(
-				_assets.icons.get_tinted_icon(
-					"__reskins-framework__/graphics/icons/tiers/chevron/" .. idx .. ".png",
-					penalty_tints[idx]
+				_sprite_utils.icons.float_icons(
+					_assets.icons.get_tinted_icon(
+						"__reskins-framework__/graphics/icons/tiers/chevron/" .. idx .. ".png",
+						penalty_tints[idx]
+					)
 				),
-				{ shift = { 25, 0 }, floating = true }
+				{ shift = { 25, 0 } }
 			)
 
 			local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
