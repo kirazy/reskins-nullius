@@ -12,12 +12,12 @@ local BASE_RESKINS_ICON_PATH = "__reskins-assets-base__/graphics/icons/"
 local ANGELS_TECH_PATH = "__reskins-assets-angels__/graphics/technology/"
 local ANGELS_ICON_PATH = "__reskins-assets-angels__/graphics/icons/"
 local BOBS_TECH_PATH = "__reskins-assets-bobs__/graphics/technology/"
-local FLUID_TECH_PATH = RESKINS_TECH_PATH .. "fluid-handling/fluid-handling-technology-"
+local FLUID_TECH_PATH = RESKINS_TECH_PATH .. "fluid-handling/fluid-handling-"
 local LAB_TECH_PATH = "__reskins-nullius__/graphics/technology/lab/lab-"
 local THERMAL_TANK_TECH_PATH = "__reskins-nullius__/graphics/technology/thermal-tank/thermal-tank-"
 local ELECTRIC_CHEMICAL_FURNACE_TECH_PATH =
-	"__reskins-assets-bobs__/graphics/technology/furnace-electric-chemical/furnace-electric-chemical-technology-"
-local STEAM_ENGINE_TECH_PATH = "__reskins-assets-bobs__/graphics/technology/steam-engine/steam-engine-technology-"
+	"__reskins-assets-bobs__/graphics/technology/furnace-electric-chemical/furnace-electric-chemical-"
+local STEAM_ENGINE_TECH_PATH = "__reskins-assets-bobs__/graphics/technology/steam-engine/steam-engine-"
 local HEAT_EXCHANGER_TECH_PATH = "__reskins-assets-bobs__/graphics/technology/heat-exchanger/"
 
 local LARGE_TANK_TECH_PATH = "__reskins-nullius__/graphics/technology/large-tank/large-tank-"
@@ -95,119 +95,119 @@ local technologies = {
 	["nullius-solar-power-1"] = {
 		tier = 1,
 		prog_tier = 1,
-		path = RESKINS_TECH_PATH .. "solar-energy/solar-energy-technology-",
+		path = RESKINS_TECH_PATH .. "solar-energy/solar-energy-",
 	},
 	["nullius-solar-power-2"] = {
 		tier = 2,
 		prog_tier = 2,
-		path = RESKINS_TECH_PATH .. "solar-energy/solar-energy-technology-",
+		path = RESKINS_TECH_PATH .. "solar-energy/solar-energy-",
 	},
 	["nullius-solar-power-3"] = {
 		tier = 3,
 		prog_tier = 3,
-		path = RESKINS_TECH_PATH .. "solar-energy/solar-energy-technology-",
+		path = RESKINS_TECH_PATH .. "solar-energy/solar-energy-",
 	},
 	["nullius-solar-power-4"] = {
 		tier = 4,
 		prog_tier = 4,
-		path = RESKINS_TECH_PATH .. "solar-energy/solar-energy-technology-",
+		path = RESKINS_TECH_PATH .. "solar-energy/solar-energy-",
 	},
 	["nullius-automation"] = {
 		tier = 1,
 		prog_tier = 1,
-		path = RESKINS_TECH_PATH .. "automation/automation-technology-",
+		path = RESKINS_TECH_PATH .. "automation/automation-",
 		scale = 0.66,
 	},
 	["nullius-automation-2"] = {
 		tier = 2,
 		prog_tier = 2,
-		path = RESKINS_TECH_PATH .. "automation/automation-technology-",
+		path = RESKINS_TECH_PATH .. "automation/automation-",
 	},
 	["nullius-automation-3"] = {
 		tier = 3,
 		prog_tier = 3,
-		path = RESKINS_TECH_PATH .. "automation/automation-technology-",
+		path = RESKINS_TECH_PATH .. "automation/automation-",
 		scale = 1.25,
 	},
 	["nullius-mass-production-1"] = {
 		tier = 1,
 		prog_tier = 1,
-		path = RESKINS_TECH_PATH .. "automation/automation-technology-",
+		path = RESKINS_TECH_PATH .. "automation/automation-",
 	},
 	["nullius-mass-production-2"] = {
 		tier = 1,
 		prog_tier = 1,
-		path = RESKINS_TECH_PATH .. "automation/automation-technology-",
+		path = RESKINS_TECH_PATH .. "automation/automation-",
 	},
 	["nullius-mass-production-3"] = {
 		tier = 2,
 		prog_tier = 2,
-		path = RESKINS_TECH_PATH .. "automation/automation-technology-",
+		path = RESKINS_TECH_PATH .. "automation/automation-",
 		scale = 1.25,
 	},
 	["nullius-mass-production-4"] = {
 		tier = 4,
 		prog_tier = 4,
-		path = RESKINS_TECH_PATH .. "automation/automation-technology-",
+		path = RESKINS_TECH_PATH .. "automation/automation-",
 		scale = 1.25,
 	},
 	["nullius-mass-production-5"] = {
 		tier = 5,
 		prog_tier = 5,
-		path = RESKINS_TECH_PATH .. "automation/automation-technology-",
+		path = RESKINS_TECH_PATH .. "automation/automation-",
 		scale = 1.25,
 	},
 	["nullius-mass-production-6"] = {
 		tier = 6,
 		prog_tier = 6,
-		path = RESKINS_TECH_PATH .. "automation/automation-technology-",
+		path = RESKINS_TECH_PATH .. "automation/automation-",
 		scale = 1.25,
 	},
 	["nullius-mass-production-7"] = {
 		tier = 6,
 		prog_tier = 6,
-		path = RESKINS_TECH_PATH .. "automation/automation-technology-",
+		path = RESKINS_TECH_PATH .. "automation/automation-",
 		scale = 1.25,
 	},
 	["nullius-battery-storage-2"] = {
 		tier = 1,
 		prog_tier = 1,
-		path = RESKINS_TECH_PATH .. "electric-energy-accumulators/electric-energy-accumulators-technology-",
+		path = RESKINS_TECH_PATH .. "electric-energy-accumulators/electric-energy-accumulators-",
 	},
 	["nullius-battery-storage-4"] = {
 		tier = 2,
 		prog_tier = 3,
-		path = RESKINS_TECH_PATH .. "electric-energy-accumulators/electric-energy-accumulators-technology-",
+		path = RESKINS_TECH_PATH .. "electric-energy-accumulators/electric-energy-accumulators-",
 	},
 	["nullius-battery-storage-6"] = {
 		tier = 3,
 		prog_tier = 4,
-		path = RESKINS_TECH_PATH .. "electric-energy-accumulators/electric-energy-accumulators-technology-",
+		path = RESKINS_TECH_PATH .. "electric-energy-accumulators/electric-energy-accumulators-",
 	},
 	["nullius-energy-distribution-1"] = {
 		tier = 1,
 		prog_tier = 1,
-		path = RESKINS_TECH_PATH .. "power-poles/power-poles-technology-",
+		path = RESKINS_TECH_PATH .. "power-poles/power-poles-",
 	},
 	["nullius-energy-distribution-2"] = {
 		tier = 2,
 		prog_tier = 2,
-		path = RESKINS_TECH_PATH .. "power-poles/power-poles-technology-",
+		path = RESKINS_TECH_PATH .. "power-poles/power-poles-",
 	},
 	["nullius-energy-distribution-3"] = {
 		tier = 1,
 		prog_tier = 1,
-		path = RESKINS_TECH_PATH .. "substation/substation-technology-",
+		path = RESKINS_TECH_PATH .. "substation/substation-",
 	},
 	["nullius-energy-distribution-4"] = {
 		tier = 3,
 		prog_tier = 3,
-		path = RESKINS_TECH_PATH .. "power-poles/power-poles-technology-",
+		path = RESKINS_TECH_PATH .. "power-poles/power-poles-",
 	},
 	["nullius-energy-distribution-5"] = {
 		tier = 4,
 		prog_tier = 4,
-		path = RESKINS_TECH_PATH .. "substation/substation-technology-",
+		path = RESKINS_TECH_PATH .. "substation/substation-",
 	},
 	["nullius-geothermal-power-1"] = {
 		tier = 1,
@@ -248,85 +248,85 @@ local technologies = {
 		icon_type = "tinted-icon",
 		tier = 1,
 		prog_tier = 1,
-		path = ANGELS_ICON_PATH .. "air-filter/air-filter-icon-",
+		path = ANGELS_ICON_PATH .. "air-filter/air-filter-",
 	},
 	["nullius-air-filtration-2"] = {
 		icon_type = "tinted-icon",
 		tier = 2,
 		prog_tier = 2,
-		path = ANGELS_ICON_PATH .. "air-filter/air-filter-icon-",
+		path = ANGELS_ICON_PATH .. "air-filter/air-filter-",
 	},
 	["nullius-air-filtration-3"] = {
 		icon_type = "tinted-icon",
 		tier = 3,
 		prog_tier = 3,
-		path = ANGELS_ICON_PATH .. "air-filter/air-filter-icon-",
+		path = ANGELS_ICON_PATH .. "air-filter/air-filter-",
 	},
 	["nullius-flotation-1"] = {
 		tier = 1,
 		prog_tier = 1,
-		path = ANGELS_TECH_PATH .. "ore-flotation/ore-flotation-technology-",
+		path = ANGELS_TECH_PATH .. "ore-flotation/ore-flotation-",
 	},
 	["nullius-flotation-2"] = {
 		tier = 2,
 		prog_tier = 2,
-		path = ANGELS_TECH_PATH .. "ore-flotation/ore-flotation-technology-",
+		path = ANGELS_TECH_PATH .. "ore-flotation/ore-flotation-",
 	},
 	["nullius-flotation-3"] = {
 		tier = 3,
 		prog_tier = 3,
-		path = ANGELS_TECH_PATH .. "ore-flotation/ore-flotation-technology-",
+		path = ANGELS_TECH_PATH .. "ore-flotation/ore-flotation-",
 	},
 	["nullius-pumping-1"] = {
 		icon_type = "tinted-icon",
 		tier = 1,
 		prog_tier = 1,
-		path = BASE_RESKINS_ICON_PATH .. "pump/pump-icon-",
+		path = BASE_RESKINS_ICON_PATH .. "pump/pump-",
 	},
 	["nullius-pumping-2"] = {
 		icon_type = "tinted-icon",
 		tier = 2,
 		prog_tier = 2,
-		path = BASE_RESKINS_ICON_PATH .. "pump/pump-icon-",
+		path = BASE_RESKINS_ICON_PATH .. "pump/pump-",
 	},
 	["nullius-pumping-3"] = {
 		icon_type = "tinted-icon",
 		tier = 3,
 		prog_tier = 3,
-		path = BASE_RESKINS_ICON_PATH .. "pump/pump-icon-",
+		path = BASE_RESKINS_ICON_PATH .. "pump/pump-",
 	},
 	["nullius-mining-1"] = {
 		tier = 1,
 		prog_tier = 1,
-		path = "__reskins-assets-bobs__/graphics/technology/mining-drill/mining-drill-technology-",
+		path = "__reskins-assets-bobs__/graphics/technology/mining-drill/mining-drill-",
 		icon_size = 128,
 	},
 	["nullius-mining-2"] = {
 		tier = 2,
 		prog_tier = 2,
-		path = "__reskins-assets-bobs__/graphics/technology/mining-drill/mining-drill-technology-",
+		path = "__reskins-assets-bobs__/graphics/technology/mining-drill/mining-drill-",
 		icon_size = 128,
 	},
 	["nullius-mining-3"] = {
 		tier = 3,
 		prog_tier = 3,
-		path = "__reskins-assets-bobs__/graphics/technology/mining-drill/mining-drill-technology-",
+		path = "__reskins-assets-bobs__/graphics/technology/mining-drill/mining-drill-",
 		icon_size = 128,
 	},
 	["nullius-exploration-1"] = {
 		tier = 1,
 		prog_tier = 2,
-		path = RESKINS_TECH_PATH .. "turret-artillery/turret-artillery-technology-",
+		path = RESKINS_TECH_PATH .. "turret-artillery/turret-artillery-",
 	},
 	["nullius-exploration-2"] = {
 		tier = 2,
 		prog_tier = 3,
-		path = RESKINS_TECH_PATH .. "turret-artillery/turret-artillery-technology-",
+		path = RESKINS_TECH_PATH .. "turret-artillery/turret-artillery-",
 	},
 	["nullius-exploration-3"] = {
 		tier = 3,
 		prog_tier = 4,
-		path = RESKINS_TECH_PATH .. "turret-artillery/turret-artillery-technology-",
+		path = RESKINS_TECH_PATH .. "turret-artillery/turret-artillery-",
 	},
 	["nullius-thermal-storage-1"] = {
 		tier = 1,
@@ -345,82 +345,82 @@ local technologies = {
 	},
 	["nullius-locomotion-1"] = {
 		tier = 1,
-		path = RESKINS_TECH_PATH .. "equipment-exoskeleton/equipment-exoskeleton-technology-",
+		path = RESKINS_TECH_PATH .. "equipment-exoskeleton/equipment-exoskeleton-",
 	},
 	["nullius-locomotion-2"] = {
 		tier = 2,
-		path = RESKINS_TECH_PATH .. "equipment-exoskeleton/equipment-exoskeleton-technology-",
+		path = RESKINS_TECH_PATH .. "equipment-exoskeleton/equipment-exoskeleton-",
 	},
 	["nullius-locomotion-3"] = {
 		tier = 3,
-		path = RESKINS_TECH_PATH .. "equipment-exoskeleton/equipment-exoskeleton-technology-",
+		path = RESKINS_TECH_PATH .. "equipment-exoskeleton/equipment-exoskeleton-",
 	},
 	["nullius-locomotion-4"] = {
 		tier = 4,
-		path = RESKINS_TECH_PATH .. "equipment-exoskeleton/equipment-exoskeleton-technology-",
+		path = RESKINS_TECH_PATH .. "equipment-exoskeleton/equipment-exoskeleton-",
 	},
 	["nullius-locomotion-5"] = {
 		tier = 5,
-		path = RESKINS_TECH_PATH .. "equipment-exoskeleton/equipment-exoskeleton-technology-",
+		path = RESKINS_TECH_PATH .. "equipment-exoskeleton/equipment-exoskeleton-",
 	},
 	["nullius-cybernetics-2"] = {
 		tier = 1,
-		path = RESKINS_TECH_PATH .. "equipment-night-vision/equipment-night-vision-technology-",
+		path = RESKINS_TECH_PATH .. "equipment-night-vision/equipment-night-vision-",
 	},
 	["nullius-cybernetics-3"] = {
 		tier = 2,
-		path = BOBS_TECH_PATH .. "equipment-fission-reactor/equipment-fission-reactor-technology-",
+		path = BOBS_TECH_PATH .. "equipment-fission-reactor/equipment-fission-reactor-",
 	},
 	["nullius-cybernetics-4"] = {
 		tier = 1,
-		path = RESKINS_TECH_PATH .. "equipment-exoskeleton/equipment-exoskeleton-technology-",
+		path = RESKINS_TECH_PATH .. "equipment-exoskeleton/equipment-exoskeleton-",
 	},
 	["nullius-cybernetics-5"] = {
 		tier = 3,
-		path = RESKINS_TECH_PATH .. "equipment-night-vision/equipment-night-vision-technology-",
+		path = RESKINS_TECH_PATH .. "equipment-night-vision/equipment-night-vision-",
 	},
 	["nullius-insulation-1"] = {
 		tier = 1,
-		path = BOBS_TECH_PATH .. "equipment-fission-reactor/equipment-fission-reactor-technology-",
+		path = BOBS_TECH_PATH .. "equipment-fission-reactor/equipment-fission-reactor-",
 	},
 	["nullius-nuclear-power-1"] = {
 		tier = 4,
-		path = BOBS_TECH_PATH .. "equipment-fission-reactor/equipment-fission-reactor-technology-",
+		path = BOBS_TECH_PATH .. "equipment-fission-reactor/equipment-fission-reactor-",
 	},
 	["nullius-maintenance"] = {
 		tier = 4,
-		path = BOBS_TECH_PATH .. "repair-pack/repair-pack-technology-",
+		path = BOBS_TECH_PATH .. "repair-pack/repair-pack-",
 		icon_size = 128,
 	},
 	["nullius-hydrology-1"] = {
 		icon_type = "flat",
-		icon = BOBS_TECH_PATH .. "oil-gathering/water-pumpjack-technology-base.png",
+		icon = BOBS_TECH_PATH .. "oil-gathering/water-pumpjack-base.png",
 		icon_size = 256,
 	},
 	["nullius-hydrology-2"] = {
 		icon_type = "flat",
-		icon = BOBS_TECH_PATH .. "oil-gathering/water-pumpjack-technology-base.png",
+		icon = BOBS_TECH_PATH .. "oil-gathering/water-pumpjack-base.png",
 		icon_size = 256,
 	},
 	["nullius-robotics-1"] = {
 		tier = 1,
 		prog_tier = 2,
-		path = RESKINS_TECH_PATH .. "robotics/robotics-technology-",
+		path = RESKINS_TECH_PATH .. "robotics/robotics-",
 	},
 	["nullius-robotics-2"] = {
 		tier = 2,
 		prog_tier = 3,
-		path = RESKINS_TECH_PATH .. "robotics/robotics-technology-",
+		path = RESKINS_TECH_PATH .. "robotics/robotics-",
 	},
 	["nullius-robotics-3"] = {
 		tier = 3,
 		prog_tier = 4,
-		path = RESKINS_TECH_PATH .. "robotics/robotics-technology-",
+		path = RESKINS_TECH_PATH .. "robotics/robotics-",
 	},
 	["nullius-robotics-4"] = {
 		tier = 4,
 		prog_tier = 5,
-		path = RESKINS_TECH_PATH .. "robotics/robotics-technology-",
+		path = RESKINS_TECH_PATH .. "robotics/robotics-",
 	},
 	["nullius-sensors-2"] = {
 		icon_type = "radar",
@@ -435,15 +435,15 @@ local technologies = {
 		tier = 3,
 	},
 	["nullius-solar-thermal-power-1"] = {
-		path = "__reskins-nullius__/graphics/technology/collector/collector-technology-",
+		path = "__reskins-nullius__/graphics/technology/collector/collector-",
 		tint = util.color("#ff3333"),
 	},
 	["nullius-solar-thermal-power-2"] = {
-		path = "__reskins-nullius__/graphics/technology/collector/collector-technology-",
+		path = "__reskins-nullius__/graphics/technology/collector/collector-",
 		tint = util.color("#ff9f1c"),
 	},
 	["nullius-solar-thermal-power-3"] = {
-		path = "__reskins-nullius__/graphics/technology/collector/collector-technology-",
+		path = "__reskins-nullius__/graphics/technology/collector/collector-",
 		tint = util.color("#ffe55c"),
 	},
 }
@@ -545,16 +545,16 @@ local function make_heat_exchanger_technology_icon(options)
 
 	return {
 		{
-			icon = options.path .. icon_base .. "-technology-base.png",
+			icon = options.path .. icon_base .. "-base.png",
 			icon_size = size,
 		},
 		{
-			icon = options.path .. "heat-exchanger-technology-mask.png",
+			icon = options.path .. "heat-exchanger-mask.png",
 			icon_size = size,
 			tint = get_tier_tint(options),
 		},
 		{
-			icon = options.path .. "heat-exchanger-technology-highlights.png",
+			icon = options.path .. "heat-exchanger-highlights.png",
 			icon_size = size,
 		},
 	}
@@ -656,7 +656,7 @@ local checkpoint_overlays = {
 		checkpoint_name = "nullius-checkpoint-pumping",
 		background_icons = make_blueprint_background(),
 		icon_type = "tinted-icon",
-		path = BASE_RESKINS_ICON_PATH .. "pump/pump-icon-",
+		path = BASE_RESKINS_ICON_PATH .. "pump/pump-",
 		tier = 2,
 		prog_tier = 2,
 		overlay_scale = 4,
@@ -664,7 +664,7 @@ local checkpoint_overlays = {
 	{
 		checkpoint_name = "nullius-checkpoint-water",
 		background_icons = make_blueprint_background(),
-		path = ANGELS_TECH_PATH .. "water-treatment/water-treatment-technology-",
+		path = ANGELS_TECH_PATH .. "water-treatment/water-treatment-",
 		tier = 1,
 		prog_tier = 1,
 		overlay_scale = 4,
@@ -688,7 +688,7 @@ local checkpoint_overlays = {
 	{
 		checkpoint_name = "nullius-checkpoint-robotics",
 		background_icons = {},
-		path = RESKINS_TECH_PATH .. "robotics/robotics-technology-",
+		path = RESKINS_TECH_PATH .. "robotics/robotics-",
 		tier = 1,
 		prog_tier = 2,
 		overlay_scale = 4,
@@ -715,7 +715,7 @@ local checkpoint_overlays = {
 	{
 		checkpoint_name = "nullius-checkpoint-solar-panel",
 		background_icons = make_blueprint_background(),
-		path = RESKINS_TECH_PATH .. "solar-energy/solar-energy-technology-",
+		path = RESKINS_TECH_PATH .. "solar-energy/solar-energy-",
 		tier = 3,
 		prog_tier = 3,
 		overlay_scale = 4,
@@ -723,7 +723,7 @@ local checkpoint_overlays = {
 	{
 		checkpoint_name = "nullius-checkpoint-mass-production",
 		background_icons = make_blueprint_background(),
-		path = RESKINS_TECH_PATH .. "automation/automation-technology-",
+		path = RESKINS_TECH_PATH .. "automation/automation-",
 		tier = 1,
 		prog_tier = 2,
 		overlay_scale = 4,
@@ -731,20 +731,20 @@ local checkpoint_overlays = {
 	{
 		checkpoint_name = "nullius-checkpoint-automation",
 		background_icons = make_blueprint_background(),
-		path = RESKINS_TECH_PATH .. "automation/automation-technology-",
+		path = RESKINS_TECH_PATH .. "automation/automation-",
 		tier = 3,
 		prog_tier = 5,
 		overlay_scale = 4,
 	},
 	{
 		checkpoint_name = "nullius-checkpoint-grid-battery",
-		path = RESKINS_TECH_PATH .. "electric-energy-accumulators/electric-energy-accumulators-technology-",
+		path = RESKINS_TECH_PATH .. "electric-energy-accumulators/electric-energy-accumulators-",
 		tier = 3,
 		prog_tier = 4,
 	},
 	{
 		checkpoint_name = "nullius-checkpoint-substation",
-		path = RESKINS_TECH_PATH .. "substation/substation-technology-",
+		path = RESKINS_TECH_PATH .. "substation/substation-",
 		tier = 2,
 		prog_tier = 2,
 	},
@@ -762,7 +762,7 @@ local checkpoint_overlays = {
 	{
 		checkpoint_name = "nullius-checkpoint-large-miner",
 		background_icons = make_blueprint_background(),
-		path = "__reskins-assets-bobs__/graphics/technology/mining-drill/mining-drill-technology-",
+		path = "__reskins-assets-bobs__/graphics/technology/mining-drill/mining-drill-",
 		icon_size = 128,
 		tier = 2,
 		prog_tier = 4,

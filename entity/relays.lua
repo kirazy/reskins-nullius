@@ -28,8 +28,8 @@ local empty_animation = {
 local inputs = {
 	type = "roboport",
 	icon_name = "robo-zone-expander",
-	icon_mask = "zone-expander",
-	icon_highlights = "zone-expander",
+	icon_mask = "robo-zone-expander",
+	icon_highlights = "robo-zone-expander",
 	base_entity_name = "roboport",
 	graphics_mod = "assets-bobs",
 	particles = { ["medium"] = 2 },
@@ -83,7 +83,7 @@ for name, map in pairs(tier_map) do
 	end
 
 	local tier = _framework.tiers.get_tier(map)
-	inputs.icon_base = "zone-expander-" .. map.image_index
+	inputs.icon_base = "robo-zone-expander-" .. map.image_index
 	inputs.tint = _framework.tiers.get_tint(tier)
 
 	_lib.setup_standard_entity(name, tier, inputs)

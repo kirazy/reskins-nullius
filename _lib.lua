@@ -409,7 +409,7 @@ function lib.construct_technology_icon(name, inputs)
 				.. inputs_copy.icon_name
 				.. "/"
 				.. icon_base
-				.. "-technology-base.png",
+				.. "-base.png",
 		icon_size = inputs_copy.technology_icon_size,
 	}
 
@@ -423,7 +423,7 @@ function lib.construct_technology_icon(name, inputs)
 				.. inputs_copy.icon_name
 				.. "/"
 				.. icon_mask
-				.. "-technology-mask.png",
+				.. "-mask.png",
 			icon_size = inputs_copy.technology_icon_size,
 			tint = icon_tint,
 		}
@@ -435,7 +435,7 @@ function lib.construct_technology_icon(name, inputs)
 				.. inputs_copy.icon_name
 				.. "/"
 				.. icon_highlights
-				.. "-technology-highlights.png",
+				.. "-highlights.png",
 			icon_size = inputs_copy.technology_icon_size,
 			tint = { 1, 1, 1, 0 },
 		}
@@ -571,15 +571,15 @@ end
 ---The number of layers used to create the icon is determined by the `num_layers` field.
 ---@class LibHack.TintedCreatableIcon : LibHack.CreatableIconBase
 ---
----The prefix of the base icon file named `{icon_base}-icon-base.png`. Used in place of `mask_name`
+---The prefix of the base icon file named `{icon_base}-base.png`. Used in place of `mask_name`
 ---and `highlights_name` if neither is provided.
 ---@field icon_base string
 ---
----The prefix of the mask icon file named `{icon_mask}-icon-mask.png` Optional; uses `icon_base` if
+---The prefix of the mask icon file named `{icon_mask}-mask.png` Optional; uses `icon_base` if
 ---not provided.
 ---@field icon_mask? string
 ---
----The prefix of the highlights icon file named `{icon_highlights}-icon-highlights.png` Optional;
+---The prefix of the highlights icon file named `{icon_highlights}-highlights.png` Optional;
 ---uses `icon_base` if not provided.
 ---@field icon_highlights? string
 ---
@@ -671,7 +671,7 @@ function lib.construct_icon(name, tier, inputs)
 				.. inputs_copy.icon_name
 				.. "/"
 				.. icon_base
-				.. "-icon-base.png",
+				.. "-base.png",
 		icon_size = inputs_copy.icon_size,
 	}
 
@@ -685,7 +685,7 @@ function lib.construct_icon(name, tier, inputs)
 				.. inputs_copy.icon_name
 				.. "/"
 				.. icon_mask
-				.. "-icon-mask.png",
+				.. "-mask.png",
 			icon_size = inputs_copy.icon_size,
 			tint = icon_tint,
 		}
@@ -697,7 +697,7 @@ function lib.construct_icon(name, tier, inputs)
 				.. inputs_copy.icon_name
 				.. "/"
 				.. icon_highlights
-				.. "-icon-highlights.png",
+				.. "-highlights.png",
 			icon_size = inputs_copy.icon_size,
 			tint = { 1, 1, 1, 0 },
 		}

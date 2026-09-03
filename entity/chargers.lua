@@ -23,18 +23,18 @@ local triangle_offsets = {
 local function make_icon(image_index, tint)
 	return {
 		{
-			icon = ICON_PATH .. "roboport-charge-pad-" .. image_index .. "-icon-base.png",
+			icon = ICON_PATH .. "roboport-charge-pad-" .. image_index .. "-base.png",
 			icon_size = 64,
 			mipmap_count = 4,
 		},
 		{
-			icon = ICON_PATH .. "roboport-charge-pad-icon-mask.png",
+			icon = ICON_PATH .. "roboport-charge-pad-mask.png",
 			icon_size = 64,
 			mipmap_count = 4,
 			tint = tint,
 		},
 		{
-			icon = ICON_PATH .. "roboport-charge-pad-icon-highlights.png",
+			icon = ICON_PATH .. "roboport-charge-pad-highlights.png",
 			icon_size = 64,
 			mipmap_count = 4,
 		},

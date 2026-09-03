@@ -66,18 +66,18 @@ end
 local function make_icon(tint)
 	return {
 		{
-			icon = ICON_PATH .. "collector-icon-base.png",
+			icon = ICON_PATH .. "collector-base.png",
 			icon_size = 64,
 			mipmap_count = 4,
 		},
 		{
-			icon = ICON_PATH .. "collector-icon-mask.png",
+			icon = ICON_PATH .. "collector-mask.png",
 			icon_size = 64,
 			mipmap_count = 4,
 			tint = tint,
 		},
 		{
-			icon = ICON_PATH .. "collector-icon-highlights.png",
+			icon = ICON_PATH .. "collector-highlights.png",
 			icon_size = 64,
 			mipmap_count = 4,
 		},

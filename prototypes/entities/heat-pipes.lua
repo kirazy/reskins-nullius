@@ -168,10 +168,10 @@ end
 local function heat_pipe_icon_creator_fn(pipe_tint, plate_tint)
 	local BASE_PATH = "__reskins-assets-base__/graphics/icons/heat-pipe/"
 	return {
-		{ icon = BASE_PATH .. "heat-pipe-icon-base.png" },
-		{ icon = BASE_PATH .. "heat-pipe-icon-mask.png", tint = pipe_tint },
-		{ icon = BASE_PATH .. "heat-pipe-icon-plate-mask.png", tint = plate_tint },
-		{ icon = BASE_PATH .. "heat-pipe-icon-highlights.png", tint = { 1, 1, 1, 0 } },
+		{ icon = BASE_PATH .. "heat-pipe-base.png" },
+		{ icon = BASE_PATH .. "heat-pipe-mask.png", tint = pipe_tint },
+		{ icon = BASE_PATH .. "heat-pipe-plate-mask.png", tint = plate_tint },
+		{ icon = BASE_PATH .. "heat-pipe-highlights.png", tint = { 1, 1, 1, 0 } },
 	}
 end
 
