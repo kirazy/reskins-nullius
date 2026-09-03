@@ -18,10 +18,10 @@ require("prototypes.entities.hangars")
 require("prototypes.entities.extractors")
 require("prototypes.entities.wells")
 require("prototypes.entities.mining-drills")
+require("prototypes.entities.labs")
 
 require("entity.relays")
 require("entity.chargers")
 require("entity.solar-collectors")
-require("entity.labs")
 
 require("prototypes.recipe-updates")
