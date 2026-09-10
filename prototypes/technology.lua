@@ -826,12 +826,12 @@ local function apply_checkpoint_overlay(options)
 	local combined_icons = get_checkpoint_background_icons(checkpoint, options)
 
 	-- Append the generated overlay after the blueprint background.
-	for _, icon_layer in ipairs(overlay_icons) do
+	for _, icon_layer in pairs(overlay_icons) do
 		combined_icons[#combined_icons + 1] = util.copy(icon_layer)
 	end
 
 	if options.top_icons then
-		for _, icon_layer in ipairs(options.top_icons) do
+		for _, icon_layer in pairs(options.top_icons) do
 			combined_icons[#combined_icons + 1] = util.copy(icon_layer)
 		end
 	end
@@ -843,6 +843,6 @@ local function apply_checkpoint_overlay(options)
 	)
 end
 
-for _, options in ipairs(checkpoint_overlays) do
+for _, options in pairs(checkpoint_overlays) do
 	apply_checkpoint_overlay(options)
 end

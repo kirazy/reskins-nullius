@@ -149,10 +149,10 @@ end
 local function make_triangle_layers(image_index, tint, scale)
 	local layers = {}
 
-	for _, offset in ipairs(triangle_offsets) do
+	for _, offset in pairs(triangle_offsets) do
 		local charge_port_layers = make_charge_port_layers(offset[1] * scale, offset[2] * scale, image_index, tint, scale)
 
-		for _, layer in ipairs(charge_port_layers) do
+		for _, layer in pairs(charge_port_layers) do
 			layers[#layers + 1] = layer
 		end
 	end

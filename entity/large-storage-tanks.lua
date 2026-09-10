@@ -316,7 +316,7 @@ end
 local function make_small_tank_direction(direction, tint, nullius_tint)
 	local layers = {}
 
-	for _, geometry in ipairs(small_tank_geometry[direction]) do
+	for _, geometry in pairs(small_tank_geometry[direction]) do
 		-- Neutralized base
 		layers[#layers + 1] = make_small_tank_layer(
 			"__angelspetrochemgraphics__/graphics/entity/petrochem-inline-tank/petrochem-inline-tank.png",
