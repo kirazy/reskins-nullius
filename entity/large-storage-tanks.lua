@@ -45,7 +45,7 @@ local function make_large_tank_sheets(tint, nullius_tint)
 			scale = 0.5,
 		},
 
-		-- Mask 1 uses Nullius tint
+		-- Mask 1 uses Nullius tint.
 		{
 			filename = LARGE_TANK_PATH .. "large-tank-mask.png",
 			priority = "extra-high",
@@ -95,13 +95,12 @@ end
 
 local function make_large_tank_icon(tint, nullius_tint)
 	return {
-		-- Neutralized icon base
 		{
 			icon = "__angelspetrochemgraphics__/graphics/icons/" .. "/petrochem-gas-tank.png",
 			icon_size = 64,
 		},
 
-		-- Main Reskins tier-color mask
+		-- Main Reskins tier-color mask.
 		{
 			icon = LARGE_TANK_ICON_PATH .. "large-tank-mask.png",
 			icon_size = 64,
@@ -144,16 +143,15 @@ for name, options in pairs(large_tanks) do
 
 	local icon = _framework.tiers.add_tier_labels_to_icons(tier, make_large_tank_icon(tint, options.nullius_tint))
 
-	-- Storage-tank entity icon
-	_sprite_utils.icons.assign_deferrable_icon({
+	_sprite_utils.icons.apply_icon_assignment({
 		name = name,
 		type_name = options.type,
 		icon_data = util.copy(icon),
 	})
 
-	-- Corresponding placeable item icon
+	-- Corresponding placeable item icon.
 	if item then
-		_sprite_utils.icons.assign_deferrable_icon({
+		_sprite_utils.icons.apply_icon_assignment({
 			name = name,
 			type_name = "item",
 			icon_data = util.copy(icon),
@@ -317,13 +315,12 @@ local function make_small_tank_direction(direction, tint, nullius_tint)
 	local layers = {}
 
 	for _, geometry in pairs(small_tank_geometry[direction]) do
-		-- Neutralized base
 		layers[#layers + 1] = make_small_tank_layer(
 			"__angelspetrochemgraphics__/graphics/entity/petrochem-inline-tank/petrochem-inline-tank.png",
 			geometry
 		)
 
-		-- Main Reskins tier mask
+		-- Main Reskins tier mask.
 		layers[#layers + 1] = make_small_tank_layer(SMALL_TANK_PATH .. "small-tank-mask.png", geometry, tint)
 		-- layers[#layers + 1] = make_small_tank_layer(SMALL_TANK_PATH .. "small-tank-mask-2.png", geometry, nullius_tint)
 	end
@@ -428,25 +425,22 @@ for name, options in pairs(small_tanks) do
 
 	local icon = _framework.tiers.add_tier_labels_to_icons(tier, make_small_tank_icon(tint, options.nullius_tint))
 
-	-- Storage-tank prototype icon
-	_sprite_utils.icons.assign_deferrable_icon({
+	_sprite_utils.icons.apply_icon_assignment({
 		name = name,
 		type_name = options.type,
 		icon_data = util.copy(icon),
 	})
 
-	-- Placeable item icon
 	if item then
-		_sprite_utils.icons.assign_deferrable_icon({
+		_sprite_utils.icons.apply_icon_assignment({
 			name = name,
 			type_name = "item",
 			icon_data = util.copy(icon),
 		})
 	end
 
-	-- Normal recipe icon
 	if data.raw.recipe and data.raw.recipe[name] then
-		_sprite_utils.icons.assign_deferrable_icon({
+		_sprite_utils.icons.apply_icon_assignment({
 			name = name,
 			type_name = "recipe",
 			icon_data = util.copy(icon),

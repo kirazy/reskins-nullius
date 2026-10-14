@@ -9,7 +9,7 @@ local tier_map = {
 	["nullius-foundry-3"] = { tier = 3 },
 }
 
----@param is_flipped boolean?
+---@param is_flipped? boolean
 ---@param tint Color
 ---@return data.WorkingVisualisation
 local function get_color_mask_working_visualisation(is_flipped, tint)
@@ -50,7 +50,7 @@ local function get_color_mask_working_visualisation(is_flipped, tint)
 	return working_vis
 end
 
--- Reskin entities, create and assign extra details
+-- Reskin entities, create and assign extra details.
 for name, map in pairs(tier_map) do
 	local tier = _framework.tiers.get_tier(map)
 

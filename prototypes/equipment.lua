@@ -55,14 +55,14 @@ local leg_augmentations = {
 
 for name, options in pairs(leg_augmentations) do
 	local tint = _framework.tiers.get_tint(options.tier)
-	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+	local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 		tier = options.tier,
 		name = name,
 		type_name = "movement-bonus-equipment",
 		icon_data = _base_icons.equipment_exoskeleton({ tint = tint }),
 	})
 
-	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
+	_sprite_utils.icons.apply_icon_assignment(icon_assignment)
 
 	local equipment = data.raw["movement-bonus-equipment"] and data.raw["movement-bonus-equipment"][name]
 	if equipment ~= nil then
@@ -88,14 +88,14 @@ local night_vision_equipment = {
 
 for name, options in pairs(night_vision_equipment) do
 	local tint = _framework.tiers.get_tint(options.tier)
-	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+	local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 		tier = options.tier,
 		name = name,
 		type_name = "night-vision-equipment",
 		icon_data = _base_icons.equipment_night_vision({ tint = tint }),
 	})
 
-	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
+	_sprite_utils.icons.apply_icon_assignment(icon_assignment)
 
 	local equipment = data.raw["night-vision-equipment"] and data.raw["night-vision-equipment"][name]
 	if equipment ~= nil then
@@ -122,14 +122,14 @@ local generator_equipment = {
 
 for name, options in pairs(generator_equipment) do
 	local tint = _framework.tiers.get_tint(options.tier)
-	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+	local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 		tier = options.tier,
 		name = name,
 		type_name = "generator-equipment",
 		icon_data = _base_icons.equipment_fission_reactor({ tint = tint }),
 	})
 
-	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
+	_sprite_utils.icons.apply_icon_assignment(icon_assignment)
 
 	local equipment = data.raw["generator-equipment"] and data.raw["generator-equipment"][name]
 	if equipment ~= nil then

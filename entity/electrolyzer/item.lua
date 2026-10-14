@@ -8,7 +8,7 @@ local tier_map = {
 	["nullius-electrolyzer-3"] = { tier = 3 },
 }
 
--- Reskin entities, create and assign extra details
+-- Reskin entities, create and assign extra details.
 for name, map in pairs(tier_map) do
 	local tier = _framework.tiers.get_tier(map)
 	---@type LibHack.SetupStandardEntityInputs

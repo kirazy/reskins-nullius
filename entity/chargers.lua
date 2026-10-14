@@ -178,14 +178,14 @@ for name, options in pairs(chargers) do
 	local tier = _framework.tiers.get_tier(options)
 	local tint = _framework.tiers.get_tint(tier)
 
-	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+	local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 		tier = tier,
 		name = name,
 		type_name = "roboport",
 		icon_data = make_icon(options.image_index, tint),
 	})
 
-	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
+	_sprite_utils.icons.apply_icon_assignment(icon_assignment)
 
 	local equipment = data.raw["roboport-equipment"] and data.raw["roboport-equipment"][name]
 	if equipment then

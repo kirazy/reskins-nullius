@@ -11,7 +11,7 @@ local tier_map = {
 	["nullius-surge-electrolyzer-3"] = { tier = 3 },
 }
 
--- Reskin entities, create and assign extra details
+-- Reskin entities, create and assign extra details.
 for name, map in pairs(tier_map) do
 	local tier = _framework.tiers.get_tier(map)
 
@@ -34,7 +34,7 @@ for name, map in pairs(tier_map) do
 
 	_lib.setup_standard_entity(name, tier, inputs)
 
-	-- Setup shared layers
+	-- Setup shared layers.
 	local entity_mask = {
 		filename = "__reskins-assets-angels__/graphics/entity/electrolyser/electrolyser-mask.png",
 		priority = "extra-high",
@@ -84,7 +84,7 @@ for name, map in pairs(tier_map) do
 		scale = 0.75,
 	}
 
-	-- Reskin entities
+	-- Reskin entities.
 	entity.graphics_set = entity.graphics_set or {}
 	entity.graphics_set.animation = {
 		north = {

@@ -89,14 +89,14 @@ for name, options in pairs(entities) do
 	Applicators.apply_sprite_set(corpse, sprite_set)
 
 	local icon_data = options.get_icon({ tint = tint })
-	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+	local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 		tier = tier,
 		name = entity.name,
 		type_name = entity.type,
 		icon_data = options.icon_scalar and _sprite_utils.icons.minify_icon(icon_data, options.icon_scalar) or icon_data,
 	})
 
-	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
+	_sprite_utils.icons.apply_icon_assignment(icon_assignment)
 
 	::continue::
 end
@@ -121,13 +121,13 @@ for name, options in pairs(burner_entities) do
 	if entity then
 		local tier = _framework.tiers.get_tier(options)
 
-		local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+		local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 			tier = tier,
 			name = entity.name,
 			type_name = entity.type,
 			icon_data = _sprite_utils.icons.minify_icon(burner_icon, options.icon_scalar),
 		})
 
-		_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
+		_sprite_utils.icons.apply_icon_assignment(icon_assignment)
 	end
 end

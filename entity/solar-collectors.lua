@@ -90,13 +90,13 @@ for name, options in pairs(collectors) do
 		replace_collector_body(entity.picture, options.tint)
 		replace_collector_body(entity.working_light_picture, options.tint)
 
-		local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+		local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 			tier = options.tier,
 			name = name,
 			type_name = "reactor",
 			icon_data = make_icon(options.tint),
 		})
 
-		_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
+		_sprite_utils.icons.apply_icon_assignment(icon_assignment)
 	end
 end

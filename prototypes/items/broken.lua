@@ -36,7 +36,7 @@ local broken_items = {
 
 ---@param icon_datum IconData
 ---@param tint Color
----@param weight float?
+---@param weight? float
 local function apply_blended_tint(icon_datum, tint, weight)
 	-- Skip empty layers.
 	if icon_datum.icon:find("empty.png") then
@@ -73,14 +73,14 @@ for name, options in pairs(broken_items) do
 	local broken_icon =
 		_sprite_utils.icons.compose_icons("item", blend_in_color(source_icon, broken_tint, 0.5, "item"), broken_symbol)
 
-	---@type DeferrableIconData
-	local deferrable_icon = {
+	---@type IconDataAssignment
+	local icon_assignment = {
 		name = name,
 		type_name = "item",
 		icon_data = broken_icon,
 	}
 
-	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
+	_sprite_utils.icons.apply_icon_assignment(icon_assignment)
 
 	local recipe = data.raw.recipe[name]
 	if recipe then

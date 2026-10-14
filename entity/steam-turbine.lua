@@ -260,12 +260,12 @@ for name, options in pairs(tier_map) do
 		_assets.icons.get_symbol(symbol, tint)
 	)
 
-	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+	local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 		tier = tier,
 		name = name,
 		type_name = "furnace",
 		icon_data = icon_data,
 	})
 
-	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
+	_sprite_utils.icons.apply_icon_assignment(icon_assignment)
 end

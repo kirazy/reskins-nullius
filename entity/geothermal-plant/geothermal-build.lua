@@ -7,7 +7,7 @@ local tier_map = {
 	["nullius-geothermal-build-3"] = { tier = 3, prog_tier = 3 },
 }
 
--- Reskin entities, create and assign extra details
+-- Reskin entities, create and assign extra details.
 for name, map in pairs(tier_map) do
 	local tier = _framework.tiers.get_tier(map)
 
@@ -30,11 +30,10 @@ for name, map in pairs(tier_map) do
 
 	_lib.setup_standard_entity(name, tier, inputs)
 
-	-- Reskin entities
+	-- Reskin entities.
 	entity.graphics_set = entity.graphics_set or {}
 	entity.graphics_set.animation = {
 		layers = {
-			-- Base
 			{
 				priority = "extra-high",
 				width = 332,
@@ -56,7 +55,6 @@ for name, map in pairs(tier_map) do
 				shift = util.by_pixel(-1, -11.5),
 				scale = 0.5,
 			},
-			-- Mask
 			{
 				priority = "extra-high",
 				width = 332,
@@ -79,7 +77,6 @@ for name, map in pairs(tier_map) do
 				shift = util.by_pixel(-1, -11.5),
 				scale = 0.5,
 			},
-			-- Highlights
 			{
 				priority = "extra-high",
 				width = 332,
@@ -102,7 +99,6 @@ for name, map in pairs(tier_map) do
 				shift = util.by_pixel(-1, -11.5),
 				scale = 0.5,
 			},
-			-- Shadow
 			{
 				priority = "extra-high",
 				width = 448,

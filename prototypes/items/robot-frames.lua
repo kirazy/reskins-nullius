@@ -19,13 +19,13 @@ for name, options in pairs(robot_frames) do
 	local legacy_item_name = "nullius-legacy-robot-frame-" .. index
 
 	local function assign_to(item_name)
-		local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+		local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 			tier = tier,
 			name = item_name,
 			type_name = "item",
 			icon_data = _base_icons.flying_robot_frame({ tint = tint }),
 		})
-		_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
+		_sprite_utils.icons.apply_icon_assignment(icon_assignment)
 	end
 
 	assign_to(name)

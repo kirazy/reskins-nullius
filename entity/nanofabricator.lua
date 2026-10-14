@@ -9,7 +9,7 @@ local tier_map = {
 	["nullius-nanofabricator-3"] = { tier = 3, prog_tier = 3 },
 }
 
--- Reskin entities, create and assign extra details
+-- Reskin entities, create and assign extra details.
 for name, map in pairs(tier_map) do
 	local tier = _framework.tiers.get_tier(map)
 
@@ -32,11 +32,10 @@ for name, map in pairs(tier_map) do
 
 	_lib.setup_standard_entity(name, tier, inputs)
 
-	-- Reskin entities
+	-- Reskin entities.
 	entity.graphics_set = entity.graphics_set or {}
 	entity.graphics_set.animation = {
 		layers = {
-			-- Base
 			_sprite_utils.sprites.get_rescaled_prototype({
 				filename = "__angelsrefininggraphics__/graphics/entity/crystallizer/crystallizer.png",
 				priority = "extra-high",
@@ -45,7 +44,6 @@ for name, map in pairs(tier_map) do
 				shift = util.by_pixel(16, 0),
 				scale = 0.5,
 			}, 0.775),
-			-- Mask
 			_sprite_utils.sprites.get_rescaled_prototype({
 				filename = "__reskins-assets-angels__/graphics/entity/crystallizer/crystallizer-mask.png",
 				priority = "extra-high",
@@ -55,7 +53,6 @@ for name, map in pairs(tier_map) do
 				tint = inputs.tint,
 				scale = 0.5,
 			}, 0.775),
-			-- Highlights
 			_sprite_utils.sprites.get_rescaled_prototype({
 				filename = "__reskins-assets-angels__/graphics/entity/crystallizer/crystallizer-highlights.png",
 				priority = "extra-high",
@@ -65,7 +62,6 @@ for name, map in pairs(tier_map) do
 				blend_mode = "additive-soft",
 				scale = 0.5,
 			}, 0.775),
-			-- Shadow
 			_sprite_utils.sprites.get_rescaled_prototype({
 				filename = "__angelsrefininggraphics__/graphics/entity/crystallizer/crystallizer-shadow.png",
 				priority = "extra-high",

@@ -17,15 +17,13 @@ local function add_thermal_tank(name, type_name, tier)
 end
 
 for tier = 1, 3 do
-	-- Hidden/base reactor prototype
 	add_thermal_tank("nullius-thermal-tank-" .. tier, "reactor", tier)
 
-	-- Actual placeable reactor variants
+	-- Actual placeable reactor variants.
 	add_thermal_tank("nullius-thermal-tank-horizontal-" .. tier, "reactor", tier)
 
 	add_thermal_tank("nullius-thermal-tank-vertical-" .. tier, "reactor", tier)
 
-	-- Temporary construction/storage-tank prototype
 	add_thermal_tank("nullius-thermal-tank-build-" .. tier, "storage-tank", tier)
 end
 
@@ -105,14 +103,14 @@ end
 
 local function assign_thermal_tank_icons(building_tier, label_tier, icon_data)
 	local function assign_to(prefix, type_name)
-		local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+		local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 			tier = label_tier,
 			name = prefix .. "-" .. building_tier,
 			type_name = type_name,
 			icon_data = icon_data,
 		})
 
-		_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
+		_sprite_utils.icons.apply_icon_assignment(icon_assignment)
 	end
 
 	assign_to("nullius-thermal-tank", "reactor")

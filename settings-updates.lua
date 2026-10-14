@@ -1,6 +1,6 @@
 ---@using data
 
--- util global is not available during settings stage and must be imported.
+-- The `util` global is not available during the settings stage and must be imported.
 local util = require("util")
 
 data.raw["color-setting"]["reskins-framework-custom-colors-tier-4"].default_value = util.color("#67e55c") --[[@as Color]]

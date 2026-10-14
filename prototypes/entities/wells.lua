@@ -58,8 +58,8 @@ for name, options in pairs(entities) do
 			---@cast sprite_set MiningDrillSpriteSet
 			---@type CraftingMachineSpriteSet
 			local crafting_machine_sprite_set = {
-				-- In general, a mining drill graphics set is not compatible due to the animation
-				-- translating, but for pumpjacks which are simple, a straight passthrough will be useful.
+				-- A mining drill graphics set translates its animation and is not compatible in general. The pumpjack
+				-- graphics set is simple enough to pass through.
 				graphics_set = sprite_set.graphics_set --[[@as CraftingMachineGraphicsSet]],
 				graphics_set_flipped = sprite_set.graphics_set_flipped --[[@as CraftingMachineGraphicsSet]],
 				integration_patch = sprite_set.integration_patch,
@@ -78,14 +78,14 @@ for name, options in pairs(entities) do
 	Applicators.apply_sprite_set(entity, sprite_set)
 	Applicators.apply_sprite_set(corpse, sprite_set)
 
-	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+	local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 		tier = tier,
 		name = entity.name,
 		type_name = entity.type,
 		icon_data = _sprite_utils.icons.minify_icon(Pumpjack.get_icon({ tint = tint }), 0.8),
 	})
 
-	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
+	_sprite_utils.icons.apply_icon_assignment(icon_assignment)
 
 	::continue::
 end

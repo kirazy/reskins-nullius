@@ -77,13 +77,13 @@ for name, options in pairs(pipe_entities) do
 	Applicators.apply_sprite_set(entity, sprite_set)
 	Applicators.apply_sprite_set(corpse, sprite_set)
 
-	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+	local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 		tier = tier,
 		name = name,
 		type_name = "pipe",
 		icon_data = Pipe.get_icon({ material = options.pipe_material }),
 	})
-	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
+	_sprite_utils.icons.apply_icon_assignment(icon_assignment)
 
 	::continue::
 end
@@ -139,14 +139,14 @@ for name, options in pairs(pipe_to_ground_entities) do
 	Applicators.apply_sprite_set(entity, sprite_set)
 	Applicators.apply_sprite_set(corpse, sprite_set)
 
-	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+	local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 		tier = tier,
 		name = name,
 		type_name = "pipe-to-ground",
 		icon_data = PipeToGround.get_icon({ material = options.pipe_material }),
 	})
 
-	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
+	_sprite_utils.icons.apply_icon_assignment(icon_assignment)
 
 	::continue::
 end

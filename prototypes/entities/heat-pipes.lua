@@ -7,6 +7,7 @@ local _sprite_utils = {
 	sprites = require("__reskins-sprite-utils__.sprites"),
 }
 
+---Defines the options of a tile sprite.
 ---@class TileSpriteOptions
 ---@field name? string
 ---@field omit_number? boolean
@@ -207,7 +208,7 @@ for name, options in pairs(entities) do
 		goto continue
 	end
 
-	-- Create particles and explosions
+	-- Create particles and explosions.
 	_lib.create_explosion(name, {
 		type = "heat-pipe",
 		base_entity_name = "heat-pipe",
@@ -216,22 +217,22 @@ for name, options in pairs(entities) do
 	_lib.create_particle(name, "heat-pipe", _lib.particle_index["small"], 1, options.pipe_tint)
 	_lib.create_particle(name, "heat-pipe", _lib.particle_index["medium"], 2, options.plate_tint)
 
-	-- Create and skin remnants
+	-- Create and skin remnants.
 	local corpse = _lib.create_remnant(name, inputs)
 	corpse.animation = make_corpse_animation(options.pipe_tint, options.plate_tint)
 
-	-- Reskin entities
+	-- Reskin entities.
 	entity.connection_sprites = make_connection_sprites(options.pipe_tint, options.plate_tint)
 	entity.heat_glow_sprites = make_heat_glow_sprites()
 
-	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+	local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 		tier = _framework.tiers.get_tier(options),
 		name = name,
 		type_name = "heat-pipe",
 		icon_data = heat_pipe_icon_creator_fn(options.pipe_tint, options.plate_tint),
 	})
 
-	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
+	_sprite_utils.icons.apply_icon_assignment(icon_assignment)
 
 	::continue::
 end

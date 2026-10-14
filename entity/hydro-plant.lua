@@ -8,7 +8,7 @@ local tier_map = {
 	["nullius-hydro-plant-3"] = { tier = 3 },
 }
 
--- Reskin entities, create and assign extra details
+-- Reskin entities, create and assign extra details.
 for name, map in pairs(tier_map) do
 	local tier = _framework.tiers.get_tier(map)
 
@@ -31,11 +31,10 @@ for name, map in pairs(tier_map) do
 
 	_lib.setup_standard_entity(name, tier, inputs)
 
-	-- Reskin entities
+	-- Reskin entities.
 	entity.graphics_set = entity.graphics_set or {}
 	entity.graphics_set.animation = {
 		layers = {
-			-- Base
 			_sprite_utils.sprites.get_rescaled_prototype({
 				filename = "__angelsrefininggraphics__/graphics/entity/hydro-plant/hydro-plant-base.png",
 				priority = "extra-high",
@@ -44,7 +43,6 @@ for name, map in pairs(tier_map) do
 				shift = util.by_pixel(0, 0),
 				scale = 0.5,
 			}, 0.725),
-			-- Mask
 			_sprite_utils.sprites.get_rescaled_prototype({
 				filename = "__reskins-assets-angels__/graphics/entity/hydro-plant/hydro-plant-mask.png",
 				priority = "extra-high",
@@ -54,7 +52,6 @@ for name, map in pairs(tier_map) do
 				tint = inputs.tint,
 				scale = 0.5,
 			}, 0.725),
-			-- Highlights
 			_sprite_utils.sprites.get_rescaled_prototype({
 				filename = "__reskins-assets-angels__/graphics/entity/hydro-plant/hydro-plant-highlights.png",
 				priority = "extra-high",

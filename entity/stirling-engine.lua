@@ -240,7 +240,6 @@ local function corpse_animation(tint)
 	---@type data.RotatedAnimation
 	local animation = {
 		layers = {
-			-- Base
 			{
 				filename = "__base__/graphics/entity/steam-engine/remnants/steam-engine-remnants.png",
 				line_length = 1,
@@ -250,7 +249,6 @@ local function corpse_animation(tint)
 				shift = util.by_pixel(17, 6.5),
 				scale = 0.475,
 			},
-			-- Mask
 			{
 				filename = "__reskins-assets-base__/graphics/entity/steam-engine/remnants/steam-engine-remnants-mask.png",
 				line_length = 1,
@@ -261,7 +259,6 @@ local function corpse_animation(tint)
 				tint = tint,
 				scale = 0.475,
 			},
-			-- Highlights
 			{
 				filename = "__reskins-assets-base__/graphics/entity/steam-engine/remnants/steam-engine-remnants-highlights.png",
 				line_length = 1,
@@ -305,15 +302,15 @@ for name, map in pairs(tier_map) do
 
 	_lib.setup_standard_entity(name, tier, inputs)
 
-	-- setup_standard_entity sets a corpse; the corpse field may be a table of corpses or the name of
-	-- a prototype, so narrow the type given we enforce a singular corpse.
+	-- `setup_standard_entity` sets a single corpse. The `corpse` field may be a table of corpses or a
+	-- prototype name; narrow the type to the single corpse.
 	assert(type(entity.corpse) == "string")
 	local corpse = data.raw["corpse"][entity.corpse]
 
-	-- Reskin corpse
+	-- Reskin corpse.
 	corpse.animation = corpse_animation(inputs.tint)
 
-	-- Reskin entity
+	-- Reskin entity.
 	entity.pictures = entity_picture(inputs.tint)
 
 	local vertical_animation = data.raw["animation"]["nullius-stirling-vertical-turbine-" .. map.tier]

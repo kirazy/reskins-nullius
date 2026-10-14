@@ -11,7 +11,7 @@ local tier_map = {
 	["nullius-vacuum-chamber-3"] = { tier = 3 },
 }
 
--- Reskin entities, create and assign extra details
+-- Reskin entities, create and assign extra details.
 for name, map in pairs(tier_map) do
 	local tier = _framework.tiers.get_tier(map)
 
@@ -34,11 +34,10 @@ for name, map in pairs(tier_map) do
 
 	_lib.setup_standard_entity(name, tier, inputs)
 
-	-- Reskin entities
+	-- Reskin entities.
 	entity.graphics_set = entity.graphics_set or {}
 	entity.graphics_set.animation = {
 		layers = {
-			-- Base
 			{
 				-- cspell: disable-next-line
 				filename = "__angelsrefininggraphics__/graphics/entity/liquifier/liquifier.png",
@@ -50,7 +49,6 @@ for name, map in pairs(tier_map) do
 				shift = { 0, 0 },
 				animation_speed = 0.5,
 			},
-			-- Mask
 			{
 				filename = "__reskins-assets-angels__/graphics/entity/liquefier/liquefier-mask.png",
 				priority = "extra-high",
@@ -61,7 +59,6 @@ for name, map in pairs(tier_map) do
 				animation_speed = 0.5,
 				tint = inputs.tint,
 			},
-			-- Highlights
 			{
 				filename = "__reskins-assets-angels__/graphics/entity/liquefier/liquefier-highlights.png",
 				priority = "extra-high",

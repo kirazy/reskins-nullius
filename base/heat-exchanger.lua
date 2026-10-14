@@ -1,4 +1,7 @@
 -- cspell: words heatex
+---@using data
+---@using Reskins.Framework
+
 local _sprite_utils = { sprites = require("__reskins-sprite-utils__.sprites") }
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _lib = require("_lib")
@@ -172,7 +175,6 @@ local function corpse_animation(tint)
 	---@type data.RotatedAnimation
 	local animation = {
 		layers = {
-			-- Base
 			{
 				filename = "__base__/graphics/entity/heat-exchanger/remnants/heat-exchanger-remnants.png",
 				line_length = 1,
@@ -182,7 +184,6 @@ local function corpse_animation(tint)
 				shift = util.by_pixel(0.5, 8),
 				scale = 0.5,
 			},
-			-- Mask
 			{
 				filename = "__reskins-assets-base__/graphics/entity/heat-exchanger/remnants/heat-exchanger-remnants-mask.png",
 				line_length = 1,
@@ -193,7 +194,6 @@ local function corpse_animation(tint)
 				tint = tint,
 				scale = 0.5,
 			},
-			-- Highlights
 			{
 				filename = "__reskins-assets-base__/graphics/entity/heat-exchanger/remnants/heat-exchanger-remnants-highlights.png",
 				line_length = 1,
@@ -210,10 +210,10 @@ local function corpse_animation(tint)
 	return _sprite_utils.sprites.make_rotated_animation_variations_from_spritesheet(1, animation)
 end
 
----@param name string # [Prototype name](https://wiki.factorio.com/PrototypeBase#name)
----@param tier integer # 1-6 are supported, 0 to disable
----@param tint? data.Color
----@param make_tier_labels? boolean
+---@param name string The name of the prototype.
+---@param tier Tier The tier. An integer between 1 and 6, or 0 for no tier label.
+---@param tint? Color The tint of the mask layers.
+---@param make_tier_labels? boolean When `true`, indicates that tier labels are added to the icon.
 local heat_exchanger = function(name, tier, tint, make_tier_labels)
 	---@type LibHack.SetupStandardEntityInputs
 	local inputs = {
@@ -227,23 +227,22 @@ local heat_exchanger = function(name, tier, tint, make_tier_labels)
 		tint = tint and tint or _framework.tiers.get_tint(tier),
 	}
 
-	---@type data.AssemblingMachinePrototype
-	local entity = data.raw[inputs.type][name]
+	local entity = data.raw["assembling-machine"][name]
 	if not entity then
 		return
 	end
 
 	_lib.setup_standard_entity(name, tier, inputs)
 
-	-- setup_standard_entity sets a corpse; the corpse field may be a table of corpses or the name of
-	-- a prototype, so narrow the type given we enforce a singular corpse.
+	-- `setup_standard_entity` sets a single corpse. The `corpse` field may be a table of corpses or a
+	-- prototype name; narrow the type to the single corpse.
 	assert(type(entity.corpse) == "string")
 	local corpse = data.raw["corpse"][entity.corpse]
 
-	-- Reskin corpse
+	-- Reskin corpse.
 	corpse.animation = corpse_animation(inputs.tint)
 
-	-- Reskin entity
+	-- Reskin entity.
 	entity.graphics_set = entity.graphics_set or {}
 	entity.graphics_set.animation = entity_animation(inputs.tint)
 end

@@ -1,5 +1,8 @@
 -- HACK: To avoid pulling in the Artisanal Reskins: Library sprite overrides and until Artisanal
 -- Reskins: Framework and Artisanal Reskins: Assets API are both ready for use.
+--
+-- IMPORTANT: This module is a bridge between the old and new frameworks, and and every effort
+-- should be made to eliminate usage of it. No new code should be added to this module.
 
 ---@using Reskins.SpriteUtils
 
@@ -14,10 +17,11 @@ local _framework = {
 	tiers = require("__reskins-framework__.api.tiers"),
 }
 
--- This is expected by the functions but AR: Nullius does not use icon deferral.
+-- The functions expect an icon store, but Artisanal Reskins: Nullius does not use icon deferral.
 ---@type Reskins.SpriteUtils.DeferredIconStore
 local _deferred_icon_store = {}
 
+---Provides methods for reskinning entities, icons, and technologies.
 ---@class LibHack
 local lib = {}
 
@@ -31,46 +35,55 @@ local asset_mod_names = {
 -- functions.lua
 ---------------------------------------------------------------------------------------------------
 
+---Defines the inputs of `setup_standard_entity`.
 ---@class LibHack.SetupStandardEntityInputs : LibHack.ParseInputsInputs, LibHack.CreateExplosionsAndParticlesInputs, LibHack.CreateRemnantInputs, LibHack.ConstructIconInputsOld
 
----Most entities have a common process for reskinning, so consolidate the other functions under one super-function for
----ease of use
----@param name string # The name of the entity prototype to be reskinned.
----@param tier integer # The tier of the entity. An integer value from 0 to 6. Default `0`.
----@param inputs LibHack.SetupStandardEntityInputs
+---Reskins the entity prototype with the given `name`. The defaults of `inputs` are filled in, and the explosions,
+---particles, remnants, and icons that `inputs` enables are created.
+---@param name string The name of the entity prototype to be reskinned.
+---@param tier integer The tier of the entity. An integer between 0 and 6. Default `0`.
+---@param inputs LibHack.SetupStandardEntityInputs The inputs that select what is created.
 ---@deprecated
 function lib.setup_standard_entity(name, tier, inputs)
-	-- Parse inputs
+	-- Parse inputs.
 	lib.set_inputs_defaults(inputs)
 
-	-- Create particles and explosions
+	-- Create particles and explosions.
 	if inputs.make_explosions then
 		lib.create_explosions_and_particles(name, inputs)
 	end
 
-	-- Create remnants
+	-- Create remnants.
 	if inputs.make_remnants then
 		lib.create_remnant(name, inputs)
 	end
 
-	-- Create icons
+	-- Create icons.
 	if inputs.make_icons then
 		lib.construct_icon(name, tier, inputs)
 	end
 end
 
+---Defines the inputs that select what `setup_standard_entity` creates.
 ---@class LibHack.ParseInputsInputs
----@field icon_size? data.SpriteSizeType # Default `64`.
----@field technology_icon_size? data.SpriteSizeType # Default `128`.
----@field make_explosions? boolean # Default `true`, creates explosions in `standard_setup_entity`.
----@field make_remnants? boolean # Default `true`, creates corpses in `standard_setup_entity`.
----@field make_icons? boolean # Default `true`, create icons in `standard_setup_entity`.
----@field tier_labels? boolean # Default `true`, displays tier labels on icons.
----@field make_icon_pictures? boolean # Default `true`, creates pictures for item-on-ground icons.
+---The size of the icon. Default `64`.
+---@field icon_size? data.SpriteSizeType
+---The size of the technology icon. Default `128`.
+---@field technology_icon_size? data.SpriteSizeType
+---When `true`, indicates that explosions are created. Default `true`.
+---@field make_explosions? boolean
+---When `true`, indicates that corpses are created. Default `true`.
+---@field make_remnants? boolean
+---When `true`, indicates that icons are created. Default `true`.
+---@field make_icons? boolean
+---When `true`, indicates that tier labels are added to icons. Default `true`.
+---@field tier_labels? boolean
+---When `true`, indicates that pictures for item-on-ground icons are created. Default `true`.
+---@field make_icon_pictures? boolean
 
 ---Adds missing default values to the given `inputs` table.
----@param inputs LibHack.ParseInputsInputs
----@return LibHack.ParseInputsInputs inputs
+---@param inputs LibHack.ParseInputsInputs The inputs that receive the default values.
+---@return LibHack.ParseInputsInputs # `inputs`, with missing default values added.
 ---@deprecated
 function lib.set_inputs_defaults(inputs)
 	inputs.icon_size = inputs.icon_size or 64
@@ -84,21 +97,18 @@ function lib.set_inputs_defaults(inputs)
 	return inputs
 end
 
+---Defines the inputs of `create_remnant`.
 ---@class LibHack.CreateRemnantInputs
----@field base_entity_name string # The type name of the entity to copy an existing `CorpsePrototype` from.
----@field type string # The type name of the entity to be assigned the new `CorpsePrototype`.
+---The name of the source entity prototype from which the corpse is copied, such as `"stone-furnace"`.
+---@field base_entity_name string
+---The type name of the entity to which the new `CorpsePrototype` is assigned.
+---@field type string
 
----Copies the Factorio corpse specified by `inputs.base_entity_name`, extends `data` with a new
----corpse with the name `ar-[name]-remnants`, and assigns it to the named entity
----@param name string
----@param inputs LibHack.CreateRemnantInputs
----```
---- inputs = {
----     base_entity_name = string -- Name of Factorio reference entity to copy from, e.g. `stone-furnace`
----     type = string -- See https://wiki.factorio.com/Prototype_definitions
---- }
----```
----@return data.CorpsePrototype
+---Copies the corpse of the entity named by `inputs.base_entity_name`, extends `data` with the copy under the name
+---`ar-[name]-remnants`, and assigns it to the entity with the given `name`.
+---@param name string The name of the entity prototype.
+---@param inputs LibHack.CreateRemnantInputs The entity from which the corpse is copied and the type of the entity to which it is assigned.
+---@return data.CorpsePrototype # The new corpse prototype.
 ---@deprecated
 function lib.create_remnant(name, inputs)
 	---@type data.CorpsePrototype
@@ -106,37 +116,33 @@ function lib.create_remnant(name, inputs)
 	remnant.name = "ar-" .. name .. "-remnants"
 	data:extend({ remnant })
 
-	-- Assign corpse to originating entity
+	-- Assign corpse to originating entity.
 	data.raw[inputs.type][name]["corpse"] = remnant.name
 
 	return remnant
 end
 
+---Defines the inputs of `create_explosion`.
 ---@class LibHack.CreateExplosionInputs : LibHack.CreateRemnantInputs
 
----Copies the Factorio explosion specified by `inputs.base_entity_name`, extends `data` with a new
----explosion with the name `ar-[name]-explosion`, and assigns it to the named entity
----@param name string
----@param inputs LibHack.CreateExplosionInputs
----```
---- inputs = {
----     base_entity_name = string -- Name of Factorio reference entity to copy from, e.g. `stone-furnace`
----     type = string -- See https://wiki.factorio.com/Prototype_definitions
---- }
----```
+---Copies the explosion of the entity named by `inputs.base_entity_name`, extends `data` with the copy under the name
+---`ar-[name]-explosion`, and assigns it to the entity with the given `name`.
+---@param name string The name of the entity prototype.
+---@param inputs LibHack.CreateExplosionInputs The entity from which the explosion is copied and the type of the entity to which it is assigned.
 ---@deprecated
 function lib.create_explosion(name, inputs)
 	local explosion_copy = util.copy(data.raw["explosion"][inputs.base_entity_name .. "-explosion"])
 	explosion_copy.name = "ar-" .. name .. "-explosion"
 	data:extend({ explosion_copy })
 
-	-- Assign explosion to originating entity
+	-- Assign explosion to originating entity.
 	data.raw[inputs.type][name]["dying_explosion"] = explosion_copy.name
 end
 
---- @param root table The table from which to begin the search.
---- @param ... string|integer A list of keys defining the path to traverse within the root table.
---- @return any #The value at the end of the key sequence if it exists; otherwise, `nil`.
+---Gets the value at the end of the given key path under `root`.
+---@param root table The table from which the path starts.
+---@param ... string|integer The keys of the path.
+---@return any # The value at the end of the path if it exists; otherwise, `nil`.
 local function try_get_value(root, ...)
 	for i = 1, select("#", ...) do
 		if type(root) ~= "table" then
@@ -152,12 +158,11 @@ local function try_get_value(root, ...)
 	return root
 end
 
----Gets the preferred explosion for a given `explosion`, preferring the indirect base explosion, if it exists.
+---Gets the base explosion the given `explosion` redirects to, if it exists; otherwise, `explosion`.
 ---@param explosion data.ExplosionPrototype The explosion to check for a base explosion.
----@return data.ExplosionPrototype
+---@return data.ExplosionPrototype # The base explosion, or `explosion`.
 local function get_preferred_explosion(explosion)
-	-- Several entities have a redirection to a base explosion entity, so we need to check for that and use it
-	-- preferentially.
+	-- Several entities redirect to a base explosion entity. The base explosion is used when it exists.
 
 	---@type data.TriggerEffect[]|nil
 	local target_effects = try_get_value(explosion, "created_effect", "action_delivery", "target_effects")
@@ -167,8 +172,8 @@ local function get_preferred_explosion(explosion)
 	end
 
 	if target_effects[1] and target_effects[1].type == "create-explosion" then
-		-- Copy the explosion reference and update our explosion, if it doesn't already exist, as we may visit the same
-		-- explosion multiple times.
+		-- Copy the explosion reference and update the explosion, if the copy does not already exist. The same
+		-- explosion may be visited more than once.
 		local explosion_base_name = target_effects[1].entity_name
 
 		local base_explosion = data.raw["explosion"][explosion_base_name]
@@ -188,17 +193,17 @@ local function get_preferred_explosion(explosion)
 	return explosion
 end
 
----A map of particle names to particle exclusions to prevent false positives.
+---A map of base particle names to the particle names that are excluded from matching them.
 local particle_exclusions_map = {
 	["metal-particle-medium"] = {
 		"long-metal-particle-medium",
 	},
 }
 
----Checks if the given `particle_name` is a match for the `base_particle_name`, excepting any exclusions.
+---Checks if the given `particle_name` matches `base_particle_name` and is not excluded from matching it.
 ---@param particle_name data.ParticleID The particle name to check.
----@param base_particle_name string The base particle name to check against.
----@return boolean # `true` if the particle name is a match for the base particle name, otherwise `false`.
+---@param base_particle_name string The base particle name against which `particle_name` is checked.
+---@return boolean # `true` if the particle name matches; otherwise, `false`.
 local function is_particle_name_intended_match(particle_name, base_particle_name)
 	if particle_name:find(base_particle_name, 1, true) then
 		local exclusions = particle_exclusions_map[base_particle_name]
@@ -216,13 +221,12 @@ local function is_particle_name_intended_match(particle_name, base_particle_name
 	return false
 end
 
----Gets the preferred particle by checking for a particle name in `particle_effects` that contains the given
----`base_particle_name`. The method will preferentially select the particle at the index matching `key`, if it exists.
----Otherwise, the method will select the first particle that matches the `base_particle_name`.
----@param particle_effects data.CreateParticleTriggerEffectItem[] The particle effects to search through.
----@param base_particle_name string The base particle name to search for.
----@param key integer The key to preferentially select, if it exists.
----@return data.CreateParticleTriggerEffectItem|nil # The preferred particle effect, or `nil` if none are found.
+---Gets the particle effect from `particle_effects` with name matching the given `base_particle_name`. When `key` is
+---provided, a matching effect at that index is selected; otherwise, the first matching effect is selected.
+---@param particle_effects data.CreateParticleTriggerEffectItem[] The particle effects to search.
+---@param base_particle_name string The base particle name that the selected effect matches.
+---@param key integer The index of the effect to prefer.
+---@return data.CreateParticleTriggerEffectItem|nil # The matching particle effect, or `nil` if none matches.
 local function get_preferred_particle(particle_effects, base_particle_name, key)
 	local preferred_particle
 	local fallback_particle
@@ -240,14 +244,13 @@ local function get_preferred_particle(particle_effects, base_particle_name, key)
 	return preferred_particle or fallback_particle
 end
 
----Links a given `explosion` to the given `particle` by checking for particle effects in the explosion's target effects
----that match the `base_particle_name`. The method will preferentially select the particle at the index matching `key`,
----if it exists. Otherwise, the method will select the first particle that matches the `base_particle_name` to establish
----the link.
----@param explosion data.ExplosionPrototype The explosion to link the particle to.
+---Links the given `explosion` to the given `particle` through the particle effect from the target effects of the
+---explosion with name matching `base_particle_name`. When `key` is provided, a matching effect at that index is
+---selected; otherwise, the first matching effect is selected.
+---@param explosion data.ExplosionPrototype The explosion to which the particle is linked.
 ---@param particle data.ParticlePrototype The particle to link to the explosion.
----@param base_particle_name string The base particle name to search for.
----@param key integer The key to preferentially select, if it exists.
+---@param base_particle_name string The base particle name that the selected effect matches.
+---@param key integer The index of the effect to prefer.
 local function link_particle_to_explosion(explosion, particle, base_particle_name, key)
 	local target_effects = try_get_value(explosion, "created_effect", "action_delivery", "target_effects")
 	if not target_effects or #target_effects == 0 then
@@ -271,12 +274,12 @@ local function link_particle_to_explosion(explosion, particle, base_particle_nam
 	end
 end
 
----Copies the Factorio particle specified by `base_entity_name`, applies tints, extends `data`
----with a new particle with the name `ar-[name]-[base-particle-name]-tinted`, and links it to the named explosion
----@param name data.EntityID The name of the entity prototype for which an AR explosion exists.
----@param base_entity_name data.EntityID Name of Factorio reference entity to copy from, e.g. `stone-furnace`
----@param base_particle_name string A value from `lib.particle_index` used to find the particle to copy.
----@param key integer Index corresponding to the particle within the explosion target_effects table.
+---Copies the particle of the entity named by `base_entity_name`, applies `tint`, extends `data` with the copy under the
+---name `ar-[name]-[base-particle-name]-tinted`, and links it to the explosion of the entity with the given `name`.
+---@param name data.EntityID The name of an entity prototype that has an Artisanal Reskins explosion.
+---@param base_entity_name data.EntityID The name of the source entity prototype from which the particles are copied, such as `"stone-furnace"`.
+---@param base_particle_name string A key of `lib.particle_index` that selects the particle to copy.
+---@param key integer The index of the particle effect within the target effects of the explosion.
 ---@param tint data.Color The tint to apply to the particle.
 ---@deprecated
 function lib.create_particle(name, base_entity_name, base_particle_name, key, tint)
@@ -298,31 +301,25 @@ function lib.create_particle(name, base_entity_name, base_particle_name, key, ti
 	end
 end
 
+---Defines the inputs of `create_explosions_and_particles`.
 ---@class LibHack.CreateExplosionsAndParticlesInputs : LibHack.CreateExplosionInputs
----@field particles? table # Table of keys for `_lib.particle_index` and the target index within the explosion particle table to copy
----@field tint table # [Types/Color](https://wiki.factorio.com/Types/Color)
+---A map of `lib.particle_index` keys to the index of the particle effect to copy within the target effects of the
+---explosion.
+---@field particles? table
+---The tint applied to the particles.
+---@field tint table
 
----Batches the `create_explosion` and `create_particle` function together for ease of use
----@param name string # [Prototype name](https://wiki.factorio.com/PrototypeBase#name)
----@param inputs LibHack.CreateExplosionsAndParticlesInputs @
----```
---- inputs = {
----     base_entity_name = string -- Name of Factorio reference entity to copy from, e.g. `stone-furnace`
----     type = string -- See https://wiki.factorio.com/Prototype_definitions
----     tint = table -- See https://wiki.factorio.com/Types/Color
----     particles? = {
----         [string] = integer, -- _lib.particle_index key, and associated target particle index
----         ...
----     }
---- }
----```
+---Creates the explosion and the tinted particles of the entity with the given `name`, through `create_explosion` and
+---`create_particle`.
+---@param name string The name of the entity prototype.
+---@param inputs LibHack.CreateExplosionsAndParticlesInputs The entity to copy from, the type of the entity to assign to, the tint, and the particles.
 ---@deprecated
 function lib.create_explosions_and_particles(name, inputs)
 	lib.create_explosion(name, inputs)
 
 	if inputs.particles then
 		for particle, key in pairs(inputs.particles) do
-			-- Create and assign the particle
+			-- Create and assign the particle.
 			lib.create_particle(name, inputs.base_entity_name, lib.particle_index[particle], key, inputs.tint)
 		end
 	end
@@ -344,34 +341,52 @@ lib.particle_index = {
 -- icon-handling.lua
 ---------------------------------------------------------------------------------------------------
 
+---Defines the inputs of `construct_technology_icon`.
 ---@class LibHack.ConstructTechnologyIconInputsOld
----@field mod "assets-angels"|"assets-base"|"assets-bobs"|"assets-assorted
----@field group? string # Folder under the `graphics/technology` folder. Default `nil`.
----@field subgroup? string # Folder under the `group` folder, e.g. `group/subgroup`. Default `nil`.
----@field untinted_icon_mask? boolean # Overrides default tinting behavior; when `true`, will not apply `tint` to the mask layer.
----@field tint? data.Color # Expected if `untinted_icon_mask` is not `true`. If not provided, defaults to white ({1, 1, 1, 1}).
----@field technology_icon_filename? data.FileName # Required if `icon_name` is not defined.
----@field technology_icon_size? data.SpriteSizeType # Default `128`.
----@field icon_name? string # Required if `technology_icon_filename` is not defined. Specifies the folder/filenames to prepare the layered icon.
----@field icon_base? string # Override of `icon_name` for filename variants within the folder specified by `icon_name`, for the base layer
----@field icon_mask? string # Override of `icon_name` for filename variants within the folder specified by `icon_name`, for the mask layer
----@field icon_highlights? string # Override of `icon_name` for filename variants within the folder specified by `icon_name`, for the highlights layer
----@field technology_icon_extras? data.IconData[] # An array of `IconData` objects to append to the main icon.
----@field technology_icon_layers? 1|2|3 # Default 3 if used with `technology_icon_name`, 1 if used with `technology_icon_filename`, corresponds to the number of standard-form files to prepare
----@field defer_to_data_updates? boolean # When `true`, stores the icon for assignment at the end of data-updates. Expected if `defer_to_data_final_fixes` is not set.
----@field defer_to_data_final_fixes? boolean # When `true`, stores the icon for assignment at the end of data-final-fixes. Supersedes `defer_to_data_updates`. Expected if `defer_to_data_updates` is not set.
+---The assets mod that holds the icon files.
+---@field mod "assets-angels"|"assets-base"|"assets-bobs"|"assets-assorted"
+---The folder under the `graphics/technology` folder. Default `nil`.
+---@field group? string
+---The folder under the `group` folder, such as `group/subgroup`. Default `nil`.
+---@field subgroup? string
+---When `true`, indicates that `tint` is not applied to the mask layer.
+---@field untinted_icon_mask? boolean
+---The tint of the mask layer. Default white, `{1, 1, 1, 1}`.
+---@field tint? data.Color
+---The file name of a single-layer icon, required when `icon_name` is `nil`.
+---@field technology_icon_filename? data.FileName
+---The size of the icon. Default `128`.
+---@field technology_icon_size? data.SpriteSizeType
+---The folder and file name prefix of the layered icon, required when `technology_icon_filename` is `nil`.
+---@field icon_name? string
+---The file name prefix of the base layer within the folder named by `icon_name`. Default `icon_name`.
+---@field icon_base? string
+---The file name prefix of the mask layer within the folder named by `icon_name`. Default `icon_name`.
+---@field icon_mask? string
+---The file name prefix of the highlights layer within the folder named by `icon_name`. Default `icon_name`.
+---@field icon_highlights? string
+---An array of `IconData` objects appended to the icon.
+---@field technology_icon_extras? data.IconData[]
+---The number of standard-form layers. Default `3` with `icon_name`. Default `1` with `technology_icon_filename`.
+---@field technology_icon_layers? 1|2|3
+---When `true`, indicates that the icon is stored for assignment at the end of the data-updates stage.
+---@field defer_to_data_updates? boolean
+---When `true`, indicates that the icon is stored for assignment at the end of the data-final-fixes stage, which
+---supersedes `defer_to_data_updates`.
+---@field defer_to_data_final_fixes? boolean
 
----@param name string # The name of the technology prototype.
----@param inputs LibHack.ConstructTechnologyIconInputsOld
+---Constructs an icon from the given `inputs` and assigns it to the technology with the given `name`.
+---@param name string The name of the technology prototype.
+---@param inputs LibHack.ConstructTechnologyIconInputsOld The icon inputs.
 ---@deprecated
 function lib.construct_technology_icon(name, inputs)
 	---@type LibHack.ConstructTechnologyIconInputsOld
 	local inputs_copy = util.copy(inputs)
 
-	--Set defaults
+	-- Set defaults.
 	inputs_copy.technology_icon_size = inputs_copy.technology_icon_size or 128
 
-	-- Handle compatibility defaults
+	-- Handle compatibility defaults.
 	local subfolder_path = ""
 	if inputs_copy.group then
 		subfolder_path = inputs_copy.group .. "/"
@@ -380,13 +395,13 @@ function lib.construct_technology_icon(name, inputs)
 		subfolder_path = subfolder_path .. inputs_copy.subgroup .. "/"
 	end
 
-	-- Handle mask tinting defaults
+	-- Handle mask tinting defaults.
 	local icon_tint = inputs_copy.tint
 	if inputs_copy.untinted_icon_mask then
 		icon_tint = nil
 	end
 
-	-- Handle icon_layers defaults
+	-- Handle icon_layers defaults.
 	local icon_layers
 	if inputs_copy.technology_icon_filename then
 		icon_layers = inputs_copy.technology_icon_layers or 1
@@ -394,12 +409,12 @@ function lib.construct_technology_icon(name, inputs)
 		icon_layers = inputs_copy.technology_icon_layers or 3
 	end
 
-	-- Some entities have variable bases and masks
+	-- Some entities have variable bases and masks.
 	local icon_base = inputs_copy.icon_base or inputs_copy.icon_name
 	local icon_mask = inputs_copy.icon_mask or inputs_copy.icon_name
 	local icon_highlights = inputs_copy.icon_highlights or inputs_copy.icon_name
 
-	-- Setup icon layers
+	-- Setup icon layers.
 	---@type data.IconData
 	local icon_base_layer = {
 		icon = inputs_copy.technology_icon_filename
@@ -452,9 +467,9 @@ function lib.construct_technology_icon(name, inputs)
 		table.insert(icon_data, icon_highlights_layer)
 	end
 
-	-- Append icon extras as needed
+	-- Append icon extras as needed.
 	if inputs_copy.technology_icon_extras then
-		-- Append icon_extras
+		-- Append icon_extras.
 		for n = 1, #inputs_copy.technology_icon_extras do
 			table.insert(icon_data, inputs_copy.technology_icon_extras[n])
 		end
@@ -467,7 +482,7 @@ function lib.construct_technology_icon(name, inputs)
 		icon_data = icon_data,
 	}
 
-	-- It may be necessary to put icons back in final fixes, allow for that
+	-- The icon may be assigned again in the data-final-fixes stage.
 	local stage
 	if inputs_copy.defer_to_data_final_fixes then
 		stage = _sprite_utils.defines.stage.data_final_fixes
@@ -478,7 +493,7 @@ function lib.construct_technology_icon(name, inputs)
 	if stage then
 		_sprite_utils.icons.store_icon_for_deferred_assignment_in_stage(_deferred_icon_store, stage, deferrable_icon)
 	else
-		_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
+		_sprite_utils.icons.apply_icon_assignment(deferrable_icon)
 	end
 end
 
@@ -517,9 +532,10 @@ local technology_constants = {
 	["speed"] = { icon = "__core__/graphics/icons/technology/constants/constant-speed.png" },
 }
 
----@param constant LibHack.TechnologyConstant
----@param scale double?
----@return data.IconData
+---Gets the technology effect icon for the given `constant`.
+---@param constant LibHack.TechnologyConstant The technology constant the icon represents.
+---@param scale? double The scale of the icon.
+---@return data.IconData # The effect icon.
 ---@deprecated
 function lib.return_technology_effect_icon(constant, scale)
 	---@type data.IconData
@@ -534,7 +550,7 @@ function lib.return_technology_effect_icon(constant, scale)
 	return icon_data
 end
 
----The common base class for all creatable icons.
+---Defines the fields common to every creatable icon.
 ---@class LibHack.CreatableIconBase
 ---The path to the folder containing the icon files, relative to the mod's `graphics` folder.
 ---@field subfolder string
@@ -542,45 +558,39 @@ end
 ---
 ---Mandatory if `icon_size` is not specified outside of `icons`.
 ---
----[View Documentation](https://lua-api.factorio.com/latest/types/IconData.html#icon_size)
+---[IconData::icon_size](https://lua-api.factorio.com/latest/types/IconData.html#icon_size)
 ---@field icon_size data.SpriteSizeType
 ---
----Defaults to `32/icon_size` for items and recipes, and `256/icon_size` for technologies.
+---Default `32/icon_size` for items and recipes, and `256/icon_size` for technologies.
 ---
----Specifies the scale of the icon on the GUI scale. A scale of `2` means that the icon will be two
----times bigger on screen (and thus more pixelated).
+---Specifies the scale of the icon on the GUI scale. A scale of `2` means that the icon will be two times bigger on
+---screen (and thus more pixelated).
 ---
----[View Documentation](https://lua-api.factorio.com/latest/types/IconData.html#scale)
+---[IconData::scale](https://lua-api.factorio.com/latest/types/IconData.html#scale)
 ---@field scale? double
 ---
----Used to offset the icon "layer" from the overall icon. The shift is applied from the center (so
----negative shifts are left and up, respectively). Shift values are based on final size (`icon_size
----* scale`) of the first icon.
+---The shift of the icon layer from the center of the icon. Negative shifts are left and up. Shift values are based on
+---the final size (`icon_size * scale`) of the first icon.
 ---
----[View Documentation](https://lua-api.factorio.com/latest/types/IconData.html#shift)
+---[IconData::shift](https://lua-api.factorio.com/latest/types/IconData.html#shift)
 ---@field shift? data.Vector
 ---
 ---The tint to apply to the icon.
 ---
----[View Documentation](https://lua-api.factorio.com/latest/types/IconData.html#tint)
+---[IconData::tint](https://lua-api.factorio.com/latest/types/IconData.html#tint)
 ---@field tint? data.Color
 
----A creatable multi-layer icon that uses the standard form of a base layer, mask layer, and a
----highlights layer.
----
----The number of layers used to create the icon is determined by the `num_layers` field.
+---Defines a creatable icon in the standard form of a base layer, a mask layer, and a highlights layer.
 ---@class LibHack.TintedCreatableIcon : LibHack.CreatableIconBase
 ---
----The prefix of the base icon file named `{icon_base}-base.png`. Used in place of `mask_name`
----and `highlights_name` if neither is provided.
+---The prefix of the base icon file, `{icon_base}-base.png`. It is also the prefix of the mask and highlights files when
+---`icon_mask` and `icon_highlights` are `nil`.
 ---@field icon_base string
 ---
----The prefix of the mask icon file named `{icon_mask}-mask.png` Optional; uses `icon_base` if
----not provided.
+---The prefix of the mask icon file, `{icon_mask}-mask.png`. Default `icon_base`.
 ---@field icon_mask? string
 ---
----The prefix of the highlights icon file named `{icon_highlights}-highlights.png` Optional;
----uses `icon_base` if not provided.
+---The prefix of the highlights icon file, `{icon_highlights}-highlights.png`. Default `icon_base`.
 ---@field icon_highlights? string
 ---
 ---The tint to apply to the mask layer.
@@ -589,47 +599,64 @@ end
 ---The number of layers in the icon. Default `3`.
 ---@field num_layers? 1|2|3
 
----A creatable single-layer icon.
+---Defines a creatable icon with a single layer.
 ---@class LibHack.FlatCreatableIcon : LibHack.CreatableIconBase
----The name of the icon file named `{icon}.png`.
+---The name of the icon file, `{icon}.png`.
 ---@field icon string
 ---
----An optional tint to apply to the icon.
+---The tint of the icon. Default `nil`.
 ---@field tint? data.Color
 
+---Defines the inputs of `construct_icon`.
 ---@class LibHack.ConstructIconInputsOld
----@field type string # The type name of the prototype.
+---The type name of the prototype.
+---@field type string
+---The assets mod that holds the icon files.
 ---@field graphics_mod "assets-angels"|"assets-base"|"assets-bobs"|"assets-assorted"
----@field group? string # Folder under the `graphics/icons` folder. Default `nil`.
----@field subgroup? string # Folder under the `group` folder, e.g. `group/subgroup`. Default `nil`.
----@field untinted_icon_mask? boolean # Overrides default tinting behavior; when `true`, will not apply `tint` to the mask layer.
----@field tint? data.Color # Expected if `untinted_icon_mask` is not `true`. If not provided, defaults to white ({1, 1, 1, 1}).
----@field icon_filename? data.FileName # Required if `icon_name` is not defined.
----@field icon_size? data.SpriteSizeType # Default `64`.
----@field icon_name? string # Required if `icon_filename` is not defined. Specifies the folder/filenames to prepare the layered icon.
----@field icon_base? string # Override of `icon_name` for filename variants within the folder specified by `icon_name`, for the base layer
----@field icon_mask? string # Override of `icon_name` for filename variants within the folder specified by `icon_name`, for the mask layer
----@field icon_highlights? string # Override of `icon_name` for filename variants within the folder specified by `icon_name`, for the highlights layer
----@field icon_extras? data.IconData[] # An array of `IconData` objects to append to the main icon.
----@field icon_layers? 1|2|3 # Default 3 if used with `icon_name`, 1 if used with `icon_filename`, corresponds to the number of standard-form files to prepare
----@field defer_to_data_updates? boolean # When `true`, stores the icon for assignment at the end of data-updates. Expected if `defer_to_data_final_fixes` is not set.
----@field defer_to_data_final_fixes? boolean # When `true`, stores the icon for assignment at the end of data-final-fixes. Supersedes `defer_to_data_updates`. Expected if `defer_to_data_updates` is not set.
+---The folder under the `graphics/icons` folder. Default `nil`.
+---@field group? string
+---The folder under the `group` folder, such as `group/subgroup`. Default `nil`.
+---@field subgroup? string
+---When `true`, indicates that `tint` is not applied to the mask layer.
+---@field untinted_icon_mask? boolean
+---The tint of the mask layer. Default white, `{1, 1, 1, 1}`.
+---@field tint? data.Color
+---The file name of a single-layer icon, required when `icon_name` is `nil`.
+---@field icon_filename? data.FileName
+---The size of the icon. Default `64`.
+---@field icon_size? data.SpriteSizeType
+---The folder and file name prefix of the layered icon, required when `icon_filename` is `nil`.
+---@field icon_name? string
+---The file name prefix of the base layer within the folder named by `icon_name`. Default `icon_name`.
+---@field icon_base? string
+---The file name prefix of the mask layer within the folder named by `icon_name`. Default `icon_name`.
+---@field icon_mask? string
+---The file name prefix of the highlights layer within the folder named by `icon_name`. Default `icon_name`.
+---@field icon_highlights? string
+---An array of `IconData` objects appended to the icon.
+---@field icon_extras? data.IconData[]
+---The number of standard-form layers. Default `3` with `icon_name`. Default `1` with `icon_filename`.
+---@field icon_layers? 1|2|3
+---When `true`, indicates that the icon is stored for assignment at the end of the data-updates stage.
+---@field defer_to_data_updates? boolean
+---When `true`, indicates that the icon is stored for assignment at the end of the data-final-fixes stage, which
+---supersedes `defer_to_data_updates`.
+---@field defer_to_data_final_fixes? boolean
 
----Constructs and assigns an icon to the prototype with the given `name` from the given `inputs`,
----and appends tier labels of the given `tier`.
----
----@param name string # The name of the prototype.
----@param tier integer # The tier of the added labels. An integer value from 0 to 6.
----@param inputs LibHack.ConstructIconInputsOld
+---Constructs an icon from the given `inputs`, adds tier labels for the given `tier`, and assigns it to the prototype
+---with the given `name`.
+---@param name string The name of the prototype.
+---@param tier integer The tier of the added labels. An integer between 0 and 6.
+---@param inputs LibHack.ConstructIconInputsOld The icon inputs.
 ---@deprecated
 function lib.construct_icon(name, tier, inputs)
 	---@type LibHack.ConstructIconInputsOld
 	local inputs_copy = util.copy(inputs)
 
-	--Set defaults
+	-- Set defaults.
 	inputs_copy.icon_size = inputs.icon_size or 64
 
-	-- Handle compatibility defaults
+	-- Handle compatibility defaults.
 	local subfolder_path = ""
 	if inputs_copy.group then
 		subfolder_path = inputs_copy.group .. "/"
@@ -638,7 +665,7 @@ function lib.construct_icon(name, tier, inputs)
 		subfolder_path = subfolder_path .. inputs_copy.subgroup .. "/"
 	end
 
-	-- Handle mask tinting defaults
+	-- Handle mask tinting defaults.
 	---@type data.Color|nil
 	local icon_tint = inputs_copy.tint
 	if inputs_copy.untinted_icon_mask then
@@ -647,7 +674,7 @@ function lib.construct_icon(name, tier, inputs)
 		inputs_copy.untinted_icon_mask = true
 	end
 
-	-- Handle icon_layers defaults
+	-- Handle icon_layers defaults.
 	---@type integer
 	local icon_layers
 	if inputs_copy.icon_filename then
@@ -656,12 +683,12 @@ function lib.construct_icon(name, tier, inputs)
 		icon_layers = inputs_copy.icon_layers or 3
 	end
 
-	-- Some entities have variable bases and masks
+	-- Some entities have variable bases and masks.
 	local icon_base = inputs_copy.icon_base or inputs_copy.icon_name
 	local icon_mask = inputs_copy.icon_mask or inputs_copy.icon_name
 	local icon_highlights = inputs_copy.icon_highlights or inputs_copy.icon_name
 
-	-- Setup icon layers
+	-- Setup icon layers.
 	---@type data.IconData
 	local icon_base_layer = {
 		icon = inputs_copy.icon_filename
@@ -714,22 +741,22 @@ function lib.construct_icon(name, tier, inputs)
 		table.insert(icon_data, icon_highlights_layer)
 	end
 
-	-- Append icon extras as needed
+	-- Append icon extras as needed.
 	if inputs_copy.icon_extras then
-		-- Append icon_extras
+		-- Append icon_extras.
 		for n = 1, #inputs_copy.icon_extras do
 			table.insert(icon_data, inputs_copy.icon_extras[n])
 		end
 	end
 
-	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+	local deferrable_icon = _framework.tiers.icon_assignment_with_tier_labels({
 		tier = tier,
 		name = name,
 		type_name = inputs_copy.type or "item",
 		icon_data = icon_data,
 	})
 
-	-- It may be necessary to put icons back in final fixes, allow for that
+	-- The icon may be assigned again in the data-final-fixes stage.
 	local stage
 	if inputs_copy.defer_to_data_final_fixes then
 		stage = _sprite_utils.defines.stage.data_final_fixes
@@ -740,11 +767,11 @@ function lib.construct_icon(name, tier, inputs)
 	if stage then
 		_sprite_utils.icons.store_icon_for_deferred_assignment_in_stage(_deferred_icon_store, stage, deferrable_icon)
 	else
-		_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
+		_sprite_utils.icons.apply_icon_assignment(deferrable_icon)
 	end
 end
 
----Converts the directional sprite sheet to a non-directional, animated sprite sheet, for use with robot death animations.
+---Converts the given directional `animation` to a non-directional animation, for use as a robot death animation.
 ---@param animation data.RotatedAnimation
 ---@param shift data.Vector
 ---@return data.Animation
@@ -754,10 +781,10 @@ local function convert_rotated_animation_to_animation(animation, shift)
 	local layers = animation_copy.layers or { animation_copy }
 
 	for _, layer in pairs(layers) do
-		--- Extract the direction count, use it as frames.
+		-- Use the direction count as the frame count.
 		layer.frame_count = layer.direction_count
 
-		--- Remove it from the returned prototype.
+		-- Remove the direction count from the returned animation.
 		layer.direction_count = nil
 		layer.animation_speed = 1
 		layer.shift = util.add_shift(layer.shift or { 0, 0 }, shift)
@@ -773,7 +800,7 @@ local function get_reversed_animation(animation)
 	---@type data.Animation
 	local animation_copy = util.copy(animation)
 
-	--- Ensure working with an array of layers if animation was a single layer.
+	-- Wrap a single-layer animation in an array of layers.
 	local layers = animation_copy.layers or { animation_copy }
 
 	for _, layer in pairs(layers) do
@@ -783,9 +810,9 @@ local function get_reversed_animation(animation)
 	return animation_copy
 end
 
----Creates the necessary particles and animations for a flying robot's death spiral, and links it to the prototype.
----@param prototype data.CombatRobotPrototype|data.RobotWithLogisticInterfacePrototype
----@param corpse_name data.EntityID
+---Creates the particles and animations of the death spiral of the given flying robot `prototype`, and links them to it.
+---@param prototype data.CombatRobotPrototype|data.RobotWithLogisticInterfacePrototype The robot prototype.
+---@param corpse_name data.EntityID The name of the corpse of the robot.
 ---@deprecated
 function lib.configure_robot_death_animation(prototype, corpse_name)
 	local shadow_shift = { -0.75, -0.40 }
@@ -875,14 +902,13 @@ function lib.configure_robot_death_animation(prototype, corpse_name)
 	}
 end
 
----Initializes the library with the specified `icon_store` for use with deferrable
----icon assignment, and returns the LibHack instance.
----@param icon_store Reskins.SpriteUtils.DeferredIconStore
----@return LibHack
+---Sets the icon store used for deferrable icon assignment.
+---@param icon_store Reskins.SpriteUtils.DeferredIconStore The icon store.
+---@return LibHack # The library, for chaining.
 ---@deprecated
 function lib.with_icon_store(icon_store)
 	_deferred_icon_store = icon_store
-	return lib -- chainable
+	return lib -- Chainable.
 end
 
 return lib

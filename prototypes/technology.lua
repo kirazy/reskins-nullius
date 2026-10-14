@@ -574,7 +574,7 @@ local function make_technology_icons(options)
 	local builder = technology_icon_builders[icon_type]
 
 	if not builder then
-		error("Unknown technology icon type: " .. icon_type)
+		error("The technology icon type '" .. icon_type .. "' is not known.")
 	end
 
 	return builder(options)

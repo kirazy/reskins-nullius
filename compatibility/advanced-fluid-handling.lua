@@ -230,14 +230,14 @@ for name, options in pairs(items) do
 		scale = 0.5,
 	}, _assets.icons.get_tinted_icon(assets_base .. "symbols/" .. options.symbol .. ".png", tint))
 
-	local deferrable_icon = _framework.tiers.deferrable_icon_with_tier_labels({
+	local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 		tier = tier,
 		name = name,
 		type_name = entity.type,
 		icon_data = icon,
 	})
 
-	_sprite_utils.icons.assign_deferrable_icon(deferrable_icon)
+	_sprite_utils.icons.apply_icon_assignment(icon_assignment)
 
 	::continue::
 end

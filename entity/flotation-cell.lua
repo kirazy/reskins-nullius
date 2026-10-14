@@ -8,7 +8,7 @@ local tier_map = {
 	["nullius-flotation-cell-3"] = { tier = 3, prog_tier = 3 },
 }
 
--- Reskin entities, create and assign extra details
+-- Reskin entities, create and assign extra details.
 for name, map in pairs(tier_map) do
 	local tier = Framework.tiers.get_tier(map)
 
@@ -41,7 +41,6 @@ for name, map in pairs(tier_map) do
 	end
 
 	entity.graphics_set.working_visualisations = {
-		-- Idle animation
 		_sprites.get_rescaled_prototype({
 			always_draw = true,
 			animation = {
@@ -56,7 +55,6 @@ for name, map in pairs(tier_map) do
 			},
 		}, 0.81),
 
-		-- Animation
 		_sprites.get_rescaled_prototype({
 			fadeout = true,
 			animation = {
@@ -71,7 +69,6 @@ for name, map in pairs(tier_map) do
 			},
 		}, 0.81),
 
-		-- Water recipe mask
 		_sprites.get_rescaled_prototype({
 			fadeout = true,
 			apply_recipe_tint = "primary",
@@ -87,7 +84,6 @@ for name, map in pairs(tier_map) do
 			},
 		}, 0.81),
 
-		-- Froth recipe mask
 		_sprites.get_rescaled_prototype({
 			fadeout = true,
 			apply_recipe_tint = "secondary",
@@ -103,12 +99,10 @@ for name, map in pairs(tier_map) do
 			},
 		}, 0.81),
 
-		-- Color mask
 		{
 			always_draw = true,
 			animation = {
 				layers = {
-					-- Mask
 					_sprites.get_rescaled_prototype({
 						filename = "__reskins-assets-angels__/graphics/entity/ore-flotation-cell/ore-flotation-cell-mask.png",
 						priority = "extra-high",
@@ -118,7 +112,6 @@ for name, map in pairs(tier_map) do
 						tint = inputs.tint,
 						scale = 0.5,
 					}, 0.81),
-					-- Highlights
 					_sprites.get_rescaled_prototype({
 						filename = "__reskins-assets-angels__/graphics/entity/ore-flotation-cell/ore-flotation-cell-highlights.png",
 						priority = "extra-high",
