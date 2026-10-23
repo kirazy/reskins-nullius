@@ -1,21 +1,22 @@
 ---------------------------------------------------------------------------------------------------
-Version: 0.1.4
+Version: 0.2.0
 Date: ????
   Features:
+    - Updated for Factorio 2.1.
     - Tier labels may now be shown in world, or not, based on the "Show tier labels in world" setting.
     - Added support for heat pipes.
     - Added support for the 4th tier storage tank.
     - Added support for beacons, hangars, relays, labs, chargers, drone launchers, drone carriers, mining drills, and valves.
-    - Added tall drill graphics and icons for Nullius large miners
-    - Added custom graphics for solar collectors and thermal tanks
-    - Added support for equipment and equipment-adjacent icons, recipes, and technologies, including leg augmentations, night vision, generator equipment, self-repair packs
+    - Added tall drill graphics and icons for Nullius large miners.
+    - Added custom graphics for solar collectors and thermal tanks.
+    - Added support for equipment and equipment-adjacent icons, recipes, and technologies, including leg augmentations, night vision, generator equipment, self-repair packs.
     - Added layered Nullius-specific graphics for labs, large tanks, small tanks.
     - Added reskinned technology and checkpoint graphics for labs, large tanks, thermal tanks, mining drills, heat pipes, Stirling engines, large beacons, pumps, air filters, flotation cells, electrolyzers, geothermal power, exploration, sensors, solar collectors, and solar power milestones.
   Changes:
     - Revised support for combustion chambers and boilers:
       - Fire and fire glow animations now work correctly.
       - Combustion chambers and boilers now use different icons; as such, boiler tiers are now independent and are 2 and 3 when using progression.
-    - Open and Closed turbines are now presented as independent tiers from 1 to 3. Icons now include a symbol to distinguish the open and closed variants. 
+    - Open and Closed turbines are now presented as independent tiers from 1 to 3. Icons now include a symbol to distinguish the open and closed variants.
       - Note: the in-world entities are not yet visually distinct except when running.
   Bugfixes:
     - Fixed that some items would show tier labels when on belts and on the ground, unintentionally.
