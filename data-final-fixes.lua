@@ -15,6 +15,8 @@ require("prototypes.items.robot-frames")
 require("prototypes.equipment")
 require("prototypes.technology")
 
+require("compatibility.advanced-fluid-handling")
+
 -- After all entity updates.
 require("prototypes.items.broken")
 
