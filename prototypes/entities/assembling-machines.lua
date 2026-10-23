@@ -1,5 +1,4 @@
 ---@using data
----@using Reskins.Assets.Base.Entities
 
 local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
@@ -9,7 +8,7 @@ local _sprite_utils = {
 }
 
 local Applicators = require("__reskins-assets-api__.api.applicators")
-local AssemblingMachine = require("__reskins-assets-api__.assets.base.entities.assembling-machine")
+local AssemblingMachine = require("__reskins-assets-api__.assets.assorted.entities.assembling-machine-original")
 
 local small_icon_scale = 0.8
 local medium_icon_scale = 0.9
