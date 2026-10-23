@@ -14,6 +14,10 @@ local recipe_icon_sources_map = {
 		{ name = "nullius-heat-pipe-2", type_name = "item" },
 		{ name = "nullius-copper-sheet", type_name = "item", transform = corners.northeast },
 	},
+	["nullius-one-way-valve-2"] = {
+		{ name = "nullius-one-way-valve", type_name = "item" },
+		{ name = "nullius-rubber", type_name = "item", transform = corners.northeast },
+	},
 }
 
 _sprite_utils.icons.create_and_assign_composed_icons_from_sources_to_recipe(recipe_icon_sources_map)

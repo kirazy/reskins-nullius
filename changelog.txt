@@ -5,7 +5,7 @@ Date: ????
     - Tier labels may now be shown in world, or not, based on the "Show tier labels in world" setting.
     - Added support for heat pipes.
     - Added support for the 4th tier storage tank.
-    - Added support for beacons, hangars, relays, labs, chargers, drone launchers, drone carriers, and mining drills.
+    - Added support for beacons, hangars, relays, labs, chargers, drone launchers, drone carriers, mining drills, and valves.
     - Added tall drill graphics and icons for Nullius large miners
     - Added custom graphics for solar collectors and thermal tanks
     - Added support for equipment and equipment-adjacent icons, recipes, and technologies, including leg augmentations, night vision, generator equipment, self-repair packs
