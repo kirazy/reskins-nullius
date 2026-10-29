@@ -9,7 +9,7 @@ local _sprite_utils = {
 }
 
 local Applicators = require("__reskins-assets-api__.api.applicators")
-local HeatExchanger = require("__reskins-assets-api__.assets.assorted.entities.heat-exchanger-original")
+local HeatExchanger = require("__reskins-assets-api__.assets.base.entities.heat-exchanger")
 
 local entities = {
 	["nullius-heat-exchanger-1"] = {
