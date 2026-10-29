@@ -7,7 +7,7 @@ require("prototypes.entities.storage-tanks")
 require("prototypes.entities.inserters")
 require("prototypes.entities.inserters-bulk")
 
-require("entity.large-storage-tanks")
+-- require("entity.large-storage-tanks")
 require("entity.thermal-tank")
 require("entity.drone-launchers")
 

@@ -10,7 +10,7 @@ require("entity.geothermal-plant.geothermal-reactor")
 require("entity.geothermal-plant.item")
 require("entity.hydro-plant")
 require("entity.nanofabricator")
-require("entity.solar-collector")
+-- require("entity.solar-collector")
 
 -- require("entity.small-furnace")
 require("entity.steam-turbine")
