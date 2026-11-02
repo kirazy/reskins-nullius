@@ -4,14 +4,11 @@ Date: ????
   Features:
     - Updated for Factorio 2.1.
     - Tier labels may now be shown in world, or not, based on the "Show tier labels in world" setting.
-    - Added support for heat pipes.
+    - Added initial support for heat pipes.
     - Added support for the 4th tier storage tank.
-    - Added support for beacons, hangars, relays, labs, chargers, drone launchers, drone carriers, mining drills, and valves.
-    - Added tall drill graphics and icons for Nullius large miners.
-    - Added custom graphics for solar collectors and thermal tanks.
+    - Added support for beacons, hangars, relays, labs, chargers, drone launchers, and others.
     - Added support for equipment and equipment-adjacent icons, recipes, and technologies, including leg augmentations, night vision, generator equipment, self-repair packs.
-    - Added layered Nullius-specific graphics for labs, large tanks, small tanks.
-    - Added reskinned technology and checkpoint graphics for labs, large tanks, thermal tanks, mining drills, heat pipes, Stirling engines, large beacons, pumps, air filters, flotation cells, electrolyzers, geothermal power, exploration, sensors, solar collectors, and solar power milestones.
+    - Added reskinned technology and checkpoint graphics for labs, large tanks, thermal tanks, mining drills, heat pipes, Stirling engines, and others.
   Changes:
     - Revised support for combustion chambers and boilers:
       - Fire and fire glow animations now work correctly.
