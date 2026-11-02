@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.0
-Date: ????
+Date: 2026-11-01
   Features:
     - Updated for Factorio 2.1.
     - Tier labels may now be shown in world, or not, based on the "Show tier labels in world" setting.
