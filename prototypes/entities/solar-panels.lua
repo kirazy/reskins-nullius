@@ -27,10 +27,6 @@ for name, options in pairs(entities) do
 	-- })
 
 	local sprite_set = SolarPanelLarge.get_sprite_set({ tint = tint })
-
-	-- Keep the corpse of the entity.
-	sprite_set.set.corpse = nil
-
 	Applicators.apply_sprite_set(entity, sprite_set)
 	-- Applicators.apply_sprite_set(corpse, sprite_set)
 
