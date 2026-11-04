@@ -6,6 +6,8 @@
 
 ---@using Reskins.SpriteUtils
 
+---@namespace Reskins.Nullius
+
 local _sprite_utils = {
 	icons = require("__reskins-sprite-utils__.icons"),
 	colors = require("__reskins-sprite-utils__.colors"),

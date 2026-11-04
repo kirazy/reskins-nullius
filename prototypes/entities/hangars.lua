@@ -8,10 +8,10 @@ local Applicators = require("__reskins-assets-api__.api.applicators")
 local Roboport = require("__reskins-assets-api__.assets.base.entities.roboport")
 
 local entities = {
-	["nullius-hangar-1"] = { tier = 1, prog_tier = 2, antenna_variant = 0 },
-	["nullius-hangar-2"] = { tier = 2, prog_tier = 3, antenna_variant = 0 },
-	["nullius-hangar-3"] = { tier = 3, prog_tier = 4, antenna_variant = 0 },
-	["nullius-hangar-4"] = { tier = 4, prog_tier = 5, antenna_variant = 0 },
+	["nullius-hangar-1"] = { tier = 1, prog_tier = 2 },
+	["nullius-hangar-2"] = { tier = 2, prog_tier = 3 },
+	["nullius-hangar-3"] = { tier = 3, prog_tier = 4 },
+	["nullius-hangar-4"] = { tier = 4, prog_tier = 5 },
 	["nullius-hangar-construction-1"] = { tier = 1, prog_tier = 2, antenna_variant = 4 },
 	["nullius-hangar-construction-2"] = { tier = 2, prog_tier = 3, antenna_variant = 4 },
 	["nullius-hangar-construction-3"] = { tier = 3, prog_tier = 4, antenna_variant = 4 },
@@ -44,7 +44,6 @@ for name, options in pairs(entities) do
 	local sprite_set = Roboport.get_sprite_set({
 		tint = tint,
 		antenna_variant = options.antenna_variant,
-		door_variant = 0,
 	})
 
 	Applicators.apply_sprite_set(entity, sprite_set)

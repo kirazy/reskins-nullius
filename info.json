@@ -9,7 +9,7 @@
 	"dependencies": [
 		"nullius",
 		"reskins-framework >= 0.2.0",
-		"reskins-assets-api >= 0.2.0",
+		"reskins-assets-api >= 0.2.1",
 		"reskins-assets-angels",
 		"reskins-assets-base",
 		"reskins-assets-bobs",
