@@ -21,14 +21,8 @@ for name, options in pairs(entities) do
 	local tier = _framework.tiers.get_tier(options)
 	local tint = _framework.tiers.get_tint(tier)
 
-	-- local corpse = _lib.create_remnant(name, {
-	-- 	base_entity_name = "solar-panel",
-	-- 	type = options.type,
-	-- })
-
 	local sprite_set = SolarPanelLarge.get_sprite_set({ tint = tint })
 	Applicators.apply_sprite_set(entity, sprite_set)
-	-- Applicators.apply_sprite_set(corpse, sprite_set)
 
 	local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 		tier = tier,
