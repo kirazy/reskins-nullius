@@ -1,12 +1,10 @@
 ---@using data
 
-local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _assets = { icons = require("__reskins-assets-api__.api.icons") }
 local _sprite_utils = {
 	icons = require("__reskins-sprite-utils__.icons"),
 	colors = require("__reskins-sprite-utils__.colors"),
-	sprites = require("__reskins-sprite-utils__.sprites"),
 }
 
 local Applicators = require("__reskins-assets-api__.api.applicators")
@@ -27,15 +25,14 @@ local function update_penalty_variants(base_entity, base_tint, tier, options)
 	for idx, weight in pairs(options.penalties) do
 		local entity = data.raw["beacon"][base_entity.name .. "-" .. idx]
 		if entity then
-			entity.corpse = base_entity.corpse
-			entity.dying_explosion = base_entity.dying_explosion
-
 			local scaled_weight = 0.5 + 0.5 * weight
 			local tint = _sprite_utils.colors.blend({ 0.2, 0.2, 0.2 }, base_tint, scaled_weight) --[[@as Color]]
 			local sprite_set = Beacon.get_sprite_set({
 				tint = tint,
 				slot_count = base_entity.module_slots,
 			})
+			sprite_set.set.corpse = base_entity.corpse
+			sprite_set.set.dying_explosion = base_entity.dying_explosion
 
 			Applicators.apply_sprite_set(entity, sprite_set, { scale = options.scale })
 
@@ -101,30 +98,12 @@ for name, options in pairs(entities) do
 	local tier = _framework.tiers.get_tier(options)
 	local tint = _framework.tiers.get_tint(tier)
 
-	_lib.create_explosions_and_particles(name, {
-		base_entity_name = "beacon",
-		type = entity.type,
-		tint = tint,
-		particles = {
-			["small"] = 3,
-		},
-	})
-
-	local corpse = _lib.create_remnant(name, {
-		base_entity_name = "beacon",
-		type = entity.type,
-	})
-	if options.scale then
-		_sprite_utils.sprites.rescale_prototype(corpse, options.scale)
-	end
-
 	local sprite_set = Beacon.get_sprite_set({
 		tint = tint,
 		slot_count = entity.module_slots,
 	})
 
 	Applicators.apply_sprite_set(entity, sprite_set, { scale = options.scale })
-	Applicators.apply_sprite_set(corpse, sprite_set, { scale = options.scale })
 
 	local icon_data = Beacon.get_icon({ tint = tint })
 	local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({

@@ -1,7 +1,6 @@
 ---@using data
 ---@using Reskins.Assets.Applicators
 
-local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _assets = { defines = require("__reskins-assets-api__.api.defines") }
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
@@ -33,20 +32,6 @@ for name, options in pairs(entities) do
 	local tier = _framework.tiers.get_tier(options)
 	local tint = _framework.tiers.get_tint(tier)
 
-	_lib.create_explosions_and_particles(entity.name, {
-		base_entity_name = "pumpjack",
-		type = entity.type,
-		tint = tint,
-		particles = {
-			["small"] = 3,
-		},
-	})
-
-	local corpse = _lib.create_remnant(entity.name, {
-		base_entity_name = "pumpjack",
-		type = entity.type,
-	})
-
 	local sprite_set = Pumpjack.get_sprite_set({
 		-- tint = tint,
 		base_tint = options.base_tint,
@@ -67,6 +52,7 @@ for name, options in pairs(entities) do
 				dying_explosion = sprite_set.dying_explosion,
 				corpse = sprite_set.corpse,
 				water_reflection = sprite_set.water_reflection,
+				drawing_box_vertical_extension = sprite_set.drawing_box_vertical_extension,
 				nominal_width = sprite_set.nominal_width,
 				nominal_height = sprite_set.nominal_height,
 			}
@@ -76,7 +62,6 @@ for name, options in pairs(entities) do
 	}
 
 	Applicators.apply_sprite_set(entity, sprite_set)
-	Applicators.apply_sprite_set(corpse, sprite_set)
 
 	local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 		tier = tier,

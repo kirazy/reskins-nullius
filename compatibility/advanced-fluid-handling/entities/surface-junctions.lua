@@ -250,10 +250,9 @@ for suffix, tier_options in pairs(tier_suffixes) do
 			goto next_prefix
 		end
 
-		entity.corpse = util.copy(reference_entity.corpse)
-		entity.dying_explosion = util.copy(reference_entity.dying_explosion)
-
 		local sprite_set = PipeToGround.get_sprite_set({ pipe_material = tier_options.pipe_material })
+		sprite_set.set.corpse = reference_entity.corpse
+		sprite_set.set.dying_explosion = reference_entity.dying_explosion
 		Applicators.apply_sprite_set(entity, sprite_set)
 
 		entity.pictures = _V.append_in_world_visualizations(entity.pictures, options.offsets)
@@ -269,8 +268,6 @@ for suffix, tier_options in pairs(tier_suffixes) do
 			options = {
 				infer_corpse = false,
 				infer_explosion = false,
-				corpse_by_convention = false,
-				explosion_by_convention = false,
 			},
 		})
 
@@ -382,10 +379,9 @@ for suffix, tier_options in pairs(tier_suffixes) do
 			goto next_prefix
 		end
 
-		entity.corpse = util.copy(reference_entity.corpse)
-		entity.dying_explosion = util.copy(reference_entity.dying_explosion)
-
 		local sprite_set = Pipe.get_sprite_set({ pipe_material = tier_options.pipe_material })
+		sprite_set.set.corpse = reference_entity.corpse
+		sprite_set.set.dying_explosion = reference_entity.dying_explosion
 		Applicators.apply_sprite_set(entity, sprite_set)
 
 		local cross_offset = { x = 4, y = 2 }
@@ -400,8 +396,6 @@ for suffix, tier_options in pairs(tier_suffixes) do
 			options = {
 				infer_corpse = false,
 				infer_explosion = false,
-				corpse_by_convention = false,
-				explosion_by_convention = false,
 			},
 		})
 

@@ -1,4 +1,3 @@
-local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
@@ -22,21 +21,15 @@ for name, options in pairs(entities) do
 	local tier = _framework.tiers.get_tier(options)
 	local tint = _framework.tiers.get_tint(tier)
 
-	_lib.create_explosions_and_particles(name, {
-		base_entity_name = "solar-panel",
-		type = options.type,
-		tint = tint,
-		particles = {
-			["small"] = 2,
-		},
-	})
-
 	-- local corpse = _lib.create_remnant(name, {
 	-- 	base_entity_name = "solar-panel",
 	-- 	type = options.type,
 	-- })
 
 	local sprite_set = SolarPanelLarge.get_sprite_set({ tint = tint })
+
+	-- Keep the corpse of the entity.
+	sprite_set.set.corpse = nil
 
 	Applicators.apply_sprite_set(entity, sprite_set)
 	-- Applicators.apply_sprite_set(corpse, sprite_set)

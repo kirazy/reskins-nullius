@@ -117,8 +117,6 @@ for name, options in pairs(pump_entities) do
 			options = {
 				infer_corpse = false,
 				infer_explosion = false,
-				corpse_by_convention = false,
-				explosion_by_convention = false,
 			},
 		})
 

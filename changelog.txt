@@ -3,6 +3,9 @@ Version: 0.2.1
 Date: ????
   Changes:
     - Changes to support Artisanal Reskins: Assets API 0.2.1.
+    - Dying explosions, particles, and remnants now come from the Artisanal Reskins: Assets API, with the sprites of each entity, and remnants now have the size of the entity.
+  Bugfixes:
+    - Fixed that reskinned robots did not play the death sounds of the base game.
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.0
 Date: 2026-11-01

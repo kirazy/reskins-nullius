@@ -1,4 +1,3 @@
-local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
@@ -21,24 +20,9 @@ for name, options in pairs(entities) do
 	local tier = _framework.tiers.get_tier(options)
 	local tint = _framework.tiers.get_tint(tier)
 
-	_lib.create_explosions_and_particles(name, {
-		base_entity_name = "storage-tank",
-		type = options.type,
-		tint = tint,
-		particles = {
-			["big"] = 1,
-		},
-	})
-
-	local corpse = _lib.create_remnant(name, {
-		base_entity_name = "storage-tank",
-		type = options.type,
-	})
-
 	local sprite_set = StorageTank.get_sprite_set({ tint = tint })
 
 	Applicators.apply_sprite_set(entity, sprite_set)
-	Applicators.apply_sprite_set(corpse, sprite_set)
 
 	local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 		tier = tier,
