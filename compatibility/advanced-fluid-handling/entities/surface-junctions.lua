@@ -20,6 +20,7 @@ local _V = require("visualizations")
 local Applicators = require("__reskins-assets-api__.api.applicators")
 local Pipe = require("__reskins-assets-api__.assets.base.entities.pipe")
 local PipeToGround = require("__reskins-assets-api__.assets.base.entities.pipe-to-ground")
+local PipeToGroundFlipped = require("__reskins-assets-api__.assets.assorted.items.pipe-to-ground-flipped")
 
 local visualization_offsets = _V.visualization_offsets()
 
@@ -208,13 +209,11 @@ local tier_suffixes = {
 ---@param tier Tier
 local function create_surface_junction_icon(defaults_type, symbol, pipe_material, tier)
 	local tint = _framework.tiers.get_tint(tier)
-	return _sprite_utils.icons.compose_icons(defaults_type, {
-		icon = "__reskins-assets-assorted__/graphics/icons/pipe-to-ground-flipped/"
-			.. pipe_material
-			.. "-pipe-to-ground-flipped.png",
-		icon_size = 64,
-		scale = 0.5,
-	}, _assets.icons.get_tinted_icon("__reskins-assets-assorted__/graphics/symbols/" .. symbol .. ".png", tint))
+	return _sprite_utils.icons.compose_icons(
+		defaults_type,
+		PipeToGroundFlipped.get_icon_composition({ material = pipe_material }):build(),
+		_assets.icons.get_tinted_icon("__reskins-assets-assorted__/graphics/symbols/" .. symbol .. ".png", tint)
+	)
 end
 
 ---@param name string

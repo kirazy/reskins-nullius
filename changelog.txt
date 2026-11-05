@@ -7,6 +7,7 @@ Date: ????
     - The in-world pictures of the items of reskinned entities, equipment, and robot frames now have mipmaps.
     - The composite recipe icons of the heat pipe, valve, and pipe recipes no longer show the tier labels of the items they show.
     - The technology icons now come from the catalogs of the Artisanal Reskins: Assets API, and the geothermal power technologies now show the lights of their artwork.
+    - The icons of the surface and underground junctions of Underground Pipe Pack now come from the catalogs of the Artisanal Reskins: Assets API, and the icons of its advanced underground piping technologies are now assigned through Artisanal Reskins: Sprite Utils.
   Bugfixes:
     - Fixed that reskinned robots did not play the death sounds of the base game.
     - Fixed that a checkpoint technology with a single icon file and no background failed to load.

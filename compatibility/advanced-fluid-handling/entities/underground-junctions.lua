@@ -15,6 +15,7 @@ local _sprite_utils = {
 }
 
 local _V = require("visualizations")
+local UndergroundJunction = require("__reskins-assets-api__.assets.assorted.items.underground-junction")
 
 if not mods["underground-pipe-pack"] then
 	return
@@ -101,13 +102,11 @@ local tier_suffixes = {
 ---@param tier Tier
 local function create_surface_junction_icon(defaults_type, symbol, pipe_material, tier)
 	local tint = _framework.tiers.get_tint(tier)
-	return _sprite_utils.icons.compose_icons(defaults_type, {
-		icon = "__reskins-assets-assorted__/graphics/icons/underground-junction/"
-			.. pipe_material
-			.. "-underground-junction.png",
-		icon_size = 64,
-		scale = 0.5,
-	}, _assets.icons.get_tinted_icon("__reskins-assets-assorted__/graphics/symbols/" .. symbol .. ".png", tint))
+	return _sprite_utils.icons.compose_icons(
+		defaults_type,
+		UndergroundJunction.get_icon_composition({ material = pipe_material }):build(),
+		_assets.icons.get_tinted_icon("__reskins-assets-assorted__/graphics/symbols/" .. symbol .. ".png", tint)
+	)
 end
 
 ---@param name string

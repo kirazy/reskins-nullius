@@ -6,6 +6,7 @@ end
 
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
+local FluidHandling = require("__reskins-assets-api__.assets.base.technologies.fluid-handling")
 
 local technologies = {
 	["advanced-underground-piping"] = {
@@ -23,26 +24,13 @@ local technologies = {
 }
 
 for name, options in pairs(technologies) do
-	local technology = data.raw.technology[name]
-	if technology then
-		local tier = _framework.tiers.get_tier(options)
+	if data.raw.technology[name] then
+		local tint = _framework.tiers.get_tint(_framework.tiers.get_tier(options))
 
-		_sprite_utils.icons.clear_icon_from_prototype(technology)
-		technology.icons = {
-			{
-				icon = "__reskins-assets-base__/graphics/technology/fluid-handling/fluid-handling-base.png",
-				icon_size = 256,
-			},
-			{
-				icon = "__reskins-assets-base__/graphics/technology/fluid-handling/fluid-handling-mask.png",
-				icon_size = 256,
-				tint = _framework.tiers.get_tint(tier),
-			},
-			{
-				icon = "__reskins-assets-base__/graphics/technology/fluid-handling/fluid-handling-highlights.png",
-				icon_size = 256,
-				tint = { 1, 1, 1, 0 },
-			},
-		}
+		_sprite_utils.icons.assign_icons_to_prototype_and_related_prototypes(
+			name,
+			"technology",
+			FluidHandling.get_icon({ tint = tint })
+		)
 	end
 end
