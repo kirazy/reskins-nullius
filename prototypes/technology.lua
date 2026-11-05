@@ -15,6 +15,7 @@ local GasTank = require("__reskins-assets-api__.assets.angels.technologies.gas-t
 local HeatExchangerTechnology = require("__reskins-assets-api__.assets.bobs.technologies.heat-exchanger")
 local LabTechnology = require("__reskins-assets-api__.assets.base.technologies.lab")
 local MiningDrillTechnology = require("__reskins-assets-api__.assets.bobs.technologies.mining-drill")
+local OilGathering = require("__reskins-assets-api__.assets.base.technologies.oil-gathering")
 local OreFlotation = require("__reskins-assets-api__.assets.angels.technologies.ore-flotation")
 local PowerPoles = require("__reskins-assets-api__.assets.base.technologies.power-poles")
 local Pump = require("__reskins-assets-api__.assets.base.entities.pump")
@@ -31,8 +32,6 @@ local WaterTreatment = require("__reskins-assets-api__.assets.angels.technologie
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
 local BASE_ICON_PATH = "__base__/graphics/icons/"
-
-local BOBS_TECH_PATH = "__reskins-assets-bobs__/graphics/technology/"
 
 -- ============================================================================
 -- Technology assignments
@@ -305,16 +304,19 @@ local technologies = {
 		tier = 1,
 		prog_tier = 1,
 		module = MiningDrillTechnology,
+		params = { variant = "standard" },
 	},
 	["nullius-mining-2"] = {
 		tier = 2,
 		prog_tier = 2,
 		module = MiningDrillTechnology,
+		params = { variant = "standard" },
 	},
 	["nullius-mining-3"] = {
 		tier = 3,
 		prog_tier = 3,
 		module = MiningDrillTechnology,
+		params = { variant = "standard" },
 	},
 	["nullius-exploration-1"] = {
 		tier = 1,
@@ -395,14 +397,12 @@ local technologies = {
 		module = RepairPack,
 	},
 	["nullius-hydrology-1"] = {
-		icon_type = "flat",
-		icon = BOBS_TECH_PATH .. "oil-gathering/water-pumpjack-base.png",
-		icon_size = 256,
+		module = OilGathering,
+		params = { variant = "water" },
 	},
 	["nullius-hydrology-2"] = {
-		icon_type = "flat",
-		icon = BOBS_TECH_PATH .. "oil-gathering/water-pumpjack-base.png",
-		icon_size = 256,
+		module = OilGathering,
+		params = { variant = "water" },
 	},
 	["nullius-robotics-1"] = {
 		tier = 1,
@@ -705,6 +705,7 @@ local checkpoint_overlays = {
 		checkpoint_name = "nullius-checkpoint-large-miner",
 		background_icons = make_blueprint_background(),
 		module = MiningDrillTechnology,
+		params = { variant = "standard" },
 		tier = 2,
 		prog_tier = 4,
 		overlay_scale = 8,
