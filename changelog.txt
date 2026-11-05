@@ -5,6 +5,7 @@ Date: ????
     - Changes to support Artisanal Reskins: Assets API 0.2.1.
     - Dying explosions, particles, and remnants now come from the Artisanal Reskins: Assets API, with the sprites of each entity, and remnants now have the size of the entity.
     - The in-world pictures of the items of reskinned entities, equipment, and robot frames now have mipmaps.
+    - The composite recipe icons of the heat pipe, valve, and pipe recipes no longer show the tier labels of the items they show.
   Bugfixes:
     - Fixed that reskinned robots did not play the death sounds of the base game.
     - Fixed that a checkpoint technology with a single icon file and no background failed to load.
