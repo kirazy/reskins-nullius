@@ -11,7 +11,9 @@ local EquipmentFissionReactor = require("__reskins-assets-api__.assets.bobs.tech
 local EquipmentNightVision = require("__reskins-assets-api__.assets.base.technologies.equipment-night-vision")
 local FluidHandling = require("__reskins-assets-api__.assets.base.technologies.fluid-handling")
 local FurnaceElectricChemical = require("__reskins-assets-api__.assets.bobs.technologies.furnace-electric-chemical")
+local GasTank = require("__reskins-assets-api__.assets.angels.technologies.gas-tank")
 local HeatExchangerTechnology = require("__reskins-assets-api__.assets.bobs.technologies.heat-exchanger")
+local LabTechnology = require("__reskins-assets-api__.assets.base.technologies.lab")
 local MiningDrillTechnology = require("__reskins-assets-api__.assets.bobs.technologies.mining-drill")
 local OreFlotation = require("__reskins-assets-api__.assets.angels.technologies.ore-flotation")
 local PowerPoles = require("__reskins-assets-api__.assets.base.technologies.power-poles")
@@ -19,24 +21,18 @@ local Pump = require("__reskins-assets-api__.assets.base.entities.pump")
 local Radar = require("__reskins-assets-api__.assets.base.entities.radar")
 local RepairPack = require("__reskins-assets-api__.assets.bobs.technologies.repair-pack")
 local Robotics = require("__reskins-assets-api__.assets.base.technologies.robotics")
+local SolarCollector = require("__reskins-assets-api__.assets.assorted.technologies.solar-collector")
 local SolarEnergy = require("__reskins-assets-api__.assets.base.technologies.solar-energy")
 local SteamEngineTechnology = require("__reskins-assets-api__.assets.bobs.technologies.steam-engine")
 local SubstationTechnology = require("__reskins-assets-api__.assets.base.technologies.substation")
+local ThermalTank = require("__reskins-assets-api__.assets.assorted.technologies.thermal-tank")
 local TurretArtilleryTechnology = require("__reskins-assets-api__.assets.base.technologies.turret-artillery")
 local WaterTreatment = require("__reskins-assets-api__.assets.angels.technologies.water-treatment")
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
 local BASE_ICON_PATH = "__base__/graphics/icons/"
 
-local RESKINS_TECH_PATH = "__reskins-assets-base__/graphics/technology/"
-local BASE_RESKINS_ICON_PATH = "__reskins-assets-base__/graphics/icons/"
-local ANGELS_TECH_PATH = "__reskins-assets-angels__/graphics/technology/"
-local ANGELS_ICON_PATH = "__reskins-assets-angels__/graphics/icons/"
 local BOBS_TECH_PATH = "__reskins-assets-bobs__/graphics/technology/"
-local LAB_TECH_PATH = "__reskins-nullius__/graphics/technology/lab/lab-"
-local THERMAL_TANK_TECH_PATH = "__reskins-nullius__/graphics/technology/thermal-tank/thermal-tank-"
-
-local LARGE_TANK_TECH_PATH = "__reskins-nullius__/graphics/technology/large-tank/large-tank-"
 
 -- ============================================================================
 -- Technology assignments
@@ -76,37 +72,37 @@ local technologies = {
 	["nullius-empiricism-1"] = {
 		tier = 1,
 		prog_tier = 1,
-		path = LAB_TECH_PATH,
+		module = LabTechnology,
 	},
 	["nullius-empiricism-2"] = {
 		tier = 1,
 		prog_tier = 1,
-		path = LAB_TECH_PATH,
+		module = LabTechnology,
 	},
 	["nullius-empiricism-3"] = {
 		tier = 1,
 		prog_tier = 1,
-		path = LAB_TECH_PATH,
+		module = LabTechnology,
 	},
 	["nullius-empiricism-4"] = {
 		tier = 2,
 		prog_tier = 2,
-		path = LAB_TECH_PATH,
+		module = LabTechnology,
 	},
 	["nullius-empiricism-5"] = {
 		tier = 2,
 		prog_tier = 2,
-		path = LAB_TECH_PATH,
+		module = LabTechnology,
 	},
 	["nullius-empiricism-6"] = {
 		tier = 3,
 		prog_tier = 3,
-		path = LAB_TECH_PATH,
+		module = LabTechnology,
 	},
 	["nullius-empiricism-7"] = {
 		tier = 5,
 		prog_tier = 5,
-		path = LAB_TECH_PATH,
+		module = LabTechnology,
 	},
 	["nullius-solar-power-1"] = {
 		tier = 1,
@@ -338,17 +334,17 @@ local technologies = {
 	["nullius-thermal-storage-1"] = {
 		tier = 1,
 		prog_tier = 2,
-		path = THERMAL_TANK_TECH_PATH,
+		module = ThermalTank,
 	},
 	["nullius-thermal-storage-2"] = {
 		tier = 2,
 		prog_tier = 3,
-		path = THERMAL_TANK_TECH_PATH,
+		module = ThermalTank,
 	},
 	["nullius-thermal-storage-3"] = {
 		tier = 3,
 		prog_tier = 4,
-		path = THERMAL_TANK_TECH_PATH,
+		module = ThermalTank,
 	},
 	["nullius-locomotion-1"] = {
 		tier = 1,
@@ -441,15 +437,15 @@ local technologies = {
 		tier = 3,
 	},
 	["nullius-solar-thermal-power-1"] = {
-		path = "__reskins-nullius__/graphics/technology/collector/collector-",
+		module = SolarCollector,
 		tint = util.color("#ff3333"),
 	},
 	["nullius-solar-thermal-power-2"] = {
-		path = "__reskins-nullius__/graphics/technology/collector/collector-",
+		module = SolarCollector,
 		tint = util.color("#ff9f1c"),
 	},
 	["nullius-solar-thermal-power-3"] = {
-		path = "__reskins-nullius__/graphics/technology/collector/collector-",
+		module = SolarCollector,
 		tint = util.color("#ffe55c"),
 	},
 }
@@ -469,27 +465,6 @@ local function get_tier_tint(options)
 
 	local tier = _framework.tiers.get_tier(options)
 	return _framework.tiers.get_tint(tier)
-end
-
-local function make_tinted_technology_icon(options)
-	local size = options.icon_size or 256
-
-	return {
-		{
-			icon = options.path .. "base.png",
-			icon_size = size,
-		},
-		{
-			icon = options.path .. "mask.png",
-			icon_size = size,
-			tint = get_tier_tint(options),
-		},
-		{
-			icon = options.path .. "highlights.png",
-			icon_size = size,
-			tint = { 1, 1, 1, 0 },
-		},
-	}
 end
 
 local function make_electrolyzer_entity_frame_technology_icon(options)
@@ -535,11 +510,10 @@ local technology_icon_builders = {
 	catalog = make_catalog_technology_icon,
 	["electrolyzer-entity-frame"] = make_electrolyzer_entity_frame_technology_icon,
 	flat = make_flat_technology_icon,
-	tinted = make_tinted_technology_icon,
 }
 
 local function make_technology_icons(options)
-	local icon_type = options.icon_type or (options.module and "catalog") or "tinted"
+	local icon_type = options.icon_type or "catalog"
 	local builder = technology_icon_builders[icon_type]
 
 	if not builder then
@@ -608,7 +582,7 @@ local checkpoint_overlays = {
 	{
 		checkpoint_name = "nullius-checkpoint-large-tank",
 		background_icons = make_blueprint_background(),
-		path = LARGE_TANK_TECH_PATH,
+		module = GasTank,
 		tier = 2,
 		prog_tier = 3,
 		overlay_scale = 3.5,
@@ -667,7 +641,7 @@ local checkpoint_overlays = {
 	{
 		checkpoint_name = "nullius-checkpoint-lab",
 		background_icons = make_blueprint_background(),
-		path = LAB_TECH_PATH,
+		module = LabTechnology,
 		tier = 1,
 		prog_tier = 1,
 		overlay_scale = 4,
@@ -675,7 +649,7 @@ local checkpoint_overlays = {
 	{
 		checkpoint_name = "nullius-checkpoint-lab-2",
 		background_icons = make_blueprint_background(),
-		path = LAB_TECH_PATH,
+		module = LabTechnology,
 		tier = 2,
 		prog_tier = 2,
 		overlay_scale = 4,
@@ -719,7 +693,7 @@ local checkpoint_overlays = {
 	{
 		checkpoint_name = "nullius-checkpoint-thermal-tank",
 		background_icons = {},
-		path = THERMAL_TANK_TECH_PATH,
+		module = ThermalTank,
 		tier = 3,
 		prog_tier = 4,
 		overlay_scale = 4,
