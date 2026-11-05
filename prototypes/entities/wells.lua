@@ -67,7 +67,7 @@ for name, options in pairs(entities) do
 		tier = tier,
 		name = entity.name,
 		type_name = entity.type,
-		icon_data = _sprite_utils.icons.minify_icon(Pumpjack.get_icon({ tint = tint }), 0.8),
+		composition = Pumpjack.get_icon_composition({ tint = tint }):minify(0.8),
 	})
 
 	_sprite_utils.icons.apply_icon_assignment(icon_assignment)

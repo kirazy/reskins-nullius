@@ -4,10 +4,11 @@ local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _assets = {
 	defines = require("__reskins-assets-api__.api.defines"),
 	icons = require("__reskins-assets-api__.api.icons"),
-	create_icon = require("__reskins-assets-api__.assets.base.items.icons"),
 }
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 local _lib = require("_lib")
+
+local SteamTurbine = require("__reskins-assets-api__.assets.base.entities.steam-turbine")
 
 local turbines = {
 	open = {
@@ -254,17 +255,14 @@ for name, options in pairs(tier_map) do
 	local tint = _framework.tiers.get_tint(tier)
 
 	local symbol = name:find("open") and _assets.defines.symbol.aperture_open or _assets.defines.symbol.aperture_closed
-	local icon_data = _sprite_utils.icons.compose_icons(
-		"default",
-		_assets.create_icon.steam_turbine({ tint = tint }),
-		_assets.icons.get_symbol(symbol, tint)
-	)
+	local composition = SteamTurbine.get_icon_composition({ tint = tint })
+		:add_symbol(_assets.icons.get_symbol(symbol, tint))
 
 	local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 		tier = tier,
 		name = name,
 		type_name = "furnace",
-		icon_data = icon_data,
+		composition = composition,
 	})
 
 	_sprite_utils.icons.apply_icon_assignment(icon_assignment)

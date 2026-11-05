@@ -2,7 +2,9 @@ local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
-local _base_icons = require("__reskins-assets-api__.assets.base.items.icons")
+local EquipmentExoskeleton = require("__reskins-assets-api__.assets.base.items.equipment-exoskeleton")
+local EquipmentFissionReactor = require("__reskins-assets-api__.assets.base.items.equipment-fission-reactor")
+local EquipmentNightVision = require("__reskins-assets-api__.assets.base.items.equipment-night-vision")
 
 local BASE_EQUIPMENT_PATH = "__reskins-assets-base__/graphics/equipment/"
 local BASE_ICON_PATH = "__reskins-assets-base__/graphics/icons/"
@@ -59,7 +61,7 @@ for name, options in pairs(leg_augmentations) do
 		tier = options.tier,
 		name = name,
 		type_name = "movement-bonus-equipment",
-		icon_data = _base_icons.equipment_exoskeleton({ tint = tint }),
+		composition = EquipmentExoskeleton.get_icon_composition({ tint = tint }),
 	})
 
 	_sprite_utils.icons.apply_icon_assignment(icon_assignment)
@@ -92,7 +94,7 @@ for name, options in pairs(night_vision_equipment) do
 		tier = options.tier,
 		name = name,
 		type_name = "night-vision-equipment",
-		icon_data = _base_icons.equipment_night_vision({ tint = tint }),
+		composition = EquipmentNightVision.get_icon_composition({ tint = tint }),
 	})
 
 	_sprite_utils.icons.apply_icon_assignment(icon_assignment)
@@ -126,7 +128,7 @@ for name, options in pairs(generator_equipment) do
 		tier = options.tier,
 		name = name,
 		type_name = "generator-equipment",
-		icon_data = _base_icons.equipment_fission_reactor({ tint = tint }),
+		composition = EquipmentFissionReactor.get_icon_composition({ tint = tint }),
 	})
 
 	_sprite_utils.icons.apply_icon_assignment(icon_assignment)

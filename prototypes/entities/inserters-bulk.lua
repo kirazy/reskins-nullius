@@ -34,7 +34,7 @@ for name, options in pairs(entities) do
 	local icon_assignment = {
 		name = name,
 		type_name = options.type,
-		icon_data = Inserter.get_bulk_icon({ tint = options.tint }),
+		composition = Inserter.get_bulk_icon_composition({ tint = options.tint }),
 	}
 
 	_sprite_utils.icons.apply_icon_assignment(icon_assignment)

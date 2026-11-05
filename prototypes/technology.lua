@@ -2,7 +2,7 @@ local _framework = {
 	tiers = require("__reskins-framework__.api.tiers"),
 }
 local _lib = require("_lib")
-local _assets = { create_icon = require("__reskins-assets-api__.assets.base.items.icons") }
+local Radar = require("__reskins-assets-api__.assets.base.entities.radar")
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
 local BASE_ICON_PATH = "__base__/graphics/icons/"
@@ -536,7 +536,7 @@ local function make_flat_technology_icon(options)
 end
 
 local function make_radar_technology_icon(options)
-	return _assets.create_icon.radar({ tint = get_tier_tint(options) })
+	return Radar.get_icon({ tint = get_tier_tint(options) })
 end
 
 local function make_heat_exchanger_technology_icon(options)
@@ -800,7 +800,7 @@ local function get_checkpoint_background_icons(checkpoint, options)
 
 	if checkpoint.icon then
 		return {
-			_assets.icons.create_technology_icon(checkpoint.icon, checkpoint.icon_size),
+			_sprite_utils.icons.create_technology_icon(checkpoint.icon, checkpoint.icon_size),
 		}
 	end
 

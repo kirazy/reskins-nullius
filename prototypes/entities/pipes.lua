@@ -45,7 +45,7 @@ for name, options in pairs(pipe_entities) do
 		tier = tier,
 		name = name,
 		type_name = "pipe",
-		icon_data = Pipe.get_icon({ material = options.pipe_material }),
+		composition = Pipe.get_icon_composition({ material = options.pipe_material }),
 	})
 	_sprite_utils.icons.apply_icon_assignment(icon_assignment)
 
@@ -91,7 +91,7 @@ for name, options in pairs(pipe_to_ground_entities) do
 		tier = tier,
 		name = name,
 		type_name = "pipe-to-ground",
-		icon_data = PipeToGround.get_icon({ material = options.pipe_material }),
+		composition = PipeToGround.get_icon_composition({ material = options.pipe_material }),
 	})
 
 	_sprite_utils.icons.apply_icon_assignment(icon_assignment)

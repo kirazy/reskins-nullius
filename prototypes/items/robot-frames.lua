@@ -2,7 +2,7 @@ local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
-local _base_icons = require("__reskins-assets-api__.assets.base.items.icons")
+local FlyingRobotFrame = require("__reskins-assets-api__.assets.base.items.flying-robot-frame")
 
 local robot_frames = {
 	["nullius-robot-frame-1"] = { tier = 1, prog_tier = 2 },
@@ -23,7 +23,7 @@ for name, options in pairs(robot_frames) do
 			tier = tier,
 			name = item_name,
 			type_name = "item",
-			icon_data = _base_icons.flying_robot_frame({ tint = tint }),
+			composition = FlyingRobotFrame.get_icon_composition({ tint = tint }),
 		})
 		_sprite_utils.icons.apply_icon_assignment(icon_assignment)
 	end

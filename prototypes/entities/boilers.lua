@@ -36,7 +36,7 @@ for name, options in pairs(entities) do
 		tier = tier,
 		name = name,
 		type_name = options.type,
-		icon_data = Boiler.get_icon({ tint = tint, fire_tint = fire_tint }),
+		composition = Boiler.get_icon_composition({ tint = tint, fire_tint = fire_tint }),
 	})
 
 	_sprite_utils.icons.apply_icon_assignment(icon_assignment)

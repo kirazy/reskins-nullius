@@ -29,7 +29,7 @@ for name, options in pairs(entities) do
 		tier = tier,
 		name = name,
 		type_name = options.type,
-		icon_data = Boiler.get_fluid_icon({ tint = tint }),
+		composition = Boiler.get_fluid_icon_composition({ tint = tint }),
 	})
 
 	_sprite_utils.icons.apply_icon_assignment(icon_assignment)

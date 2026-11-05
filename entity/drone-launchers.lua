@@ -2,7 +2,8 @@ local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
-local _base_icons = require("__reskins-assets-api__.assets.base.items.icons")
+local TrainArtilleryWagon = require("__reskins-assets-api__.assets.base.entities.train-artillery-wagon")
+local TurretArtillery = require("__reskins-assets-api__.assets.base.entities.turret-artillery")
 
 local TURRET_ENTITY_PATH = "__reskins-assets-base__/graphics/entity/turret-artillery/"
 
@@ -137,7 +138,7 @@ for name, options in pairs(launchers) do
 		tier = tier,
 		name = name,
 		type_name = "artillery-turret",
-		icon_data = _base_icons.turret_artillery({ tint = tint }),
+		composition = TurretArtillery.get_icon_composition({ tint = tint }),
 	})
 
 	_sprite_utils.icons.apply_icon_assignment(icon_assignment)
@@ -157,7 +158,7 @@ for name, options in pairs(carriers) do
 		tier = tier,
 		name = name,
 		type_name = "artillery-wagon",
-		icon_data = _base_icons.train_artillery_wagon({ tint = tint }),
+		composition = TrainArtilleryWagon.get_icon_composition({ tint = tint }),
 	})
 
 	_sprite_utils.icons.apply_icon_assignment(icon_assignment)

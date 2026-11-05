@@ -42,7 +42,7 @@ for name, options in pairs(entities) do
 		tier = tier,
 		name = entity.name,
 		type_name = entity.type,
-		icon_data = OilRefinery.get_icon({ tint = tint }),
+		composition = OilRefinery.get_icon_composition({ tint = tint }),
 	})
 
 	_sprite_utils.icons.apply_icon_assignment(icon_assignment)

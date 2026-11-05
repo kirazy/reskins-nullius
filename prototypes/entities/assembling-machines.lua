@@ -82,12 +82,12 @@ for name, options in pairs(entities) do
 
 	Applicators.apply_sprite_set(entity, sprite_set)
 
-	local icon_data = AssemblingMachine.get_icon({ machine_tier = options.machine_tier, tint = tint })
+	local composition = AssemblingMachine.get_icon_composition({ machine_tier = options.machine_tier, tint = tint })
 	local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 		tier = tier,
 		name = name,
 		type_name = options.type,
-		icon_data = options.icon_scalar and _sprite_utils.icons.minify_icon(icon_data, options.icon_scalar) or icon_data,
+		composition = options.icon_scalar and composition:minify(options.icon_scalar) or composition,
 	})
 
 	_sprite_utils.icons.apply_icon_assignment(icon_assignment)

@@ -7,6 +7,8 @@ local _sprite_utils = {
 	sprites = require("__reskins-sprite-utils__.sprites"),
 }
 
+local HeatPipe = require("__reskins-assets-api__.assets.base.entities.heat-pipe")
+
 ---Defines the options of a tile sprite.
 ---@class TileSpriteOptions
 ---@field name? string
@@ -163,19 +165,6 @@ local function make_corpse_animation(pipe_tint, plate_tint)
 	})
 end
 
----@param pipe_tint Color
----@param plate_tint Color
----@return IconData[]
-local function heat_pipe_icon_creator_fn(pipe_tint, plate_tint)
-	local BASE_PATH = "__reskins-assets-base__/graphics/icons/heat-pipe/"
-	return {
-		{ icon = BASE_PATH .. "heat-pipe-base.png" },
-		{ icon = BASE_PATH .. "heat-pipe-mask.png", tint = pipe_tint },
-		{ icon = BASE_PATH .. "heat-pipe-plate-mask.png", tint = plate_tint },
-		{ icon = BASE_PATH .. "heat-pipe-highlights.png", tint = { 1, 1, 1, 0 } },
-	}
-end
-
 local entities = {
 	["nullius-heat-pipe-1"] = {
 		tier = 1,
@@ -229,7 +218,7 @@ for name, options in pairs(entities) do
 		tier = _framework.tiers.get_tier(options),
 		name = name,
 		type_name = "heat-pipe",
-		icon_data = heat_pipe_icon_creator_fn(options.pipe_tint, options.plate_tint),
+		composition = HeatPipe.get_tinted_icon_composition({ tint = options.pipe_tint, plate_tint = options.plate_tint }),
 	})
 
 	_sprite_utils.icons.apply_icon_assignment(icon_assignment)
