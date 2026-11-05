@@ -2,7 +2,28 @@ local _framework = {
 	tiers = require("__reskins-framework__.api.tiers"),
 }
 local _lib = require("_lib")
+local AirFilter = require("__reskins-assets-api__.assets.angels.entities.petrochem.air-filter")
+local Automation = require("__reskins-assets-api__.assets.base.technologies.automation")
+local ElectricEnergyAccumulators =
+	require("__reskins-assets-api__.assets.base.technologies.electric-energy-accumulators")
+local EquipmentExoskeleton = require("__reskins-assets-api__.assets.base.technologies.equipment-exoskeleton")
+local EquipmentFissionReactor = require("__reskins-assets-api__.assets.bobs.technologies.equipment-fission-reactor")
+local EquipmentNightVision = require("__reskins-assets-api__.assets.base.technologies.equipment-night-vision")
+local FluidHandling = require("__reskins-assets-api__.assets.base.technologies.fluid-handling")
+local FurnaceElectricChemical = require("__reskins-assets-api__.assets.bobs.technologies.furnace-electric-chemical")
+local HeatExchangerTechnology = require("__reskins-assets-api__.assets.bobs.technologies.heat-exchanger")
+local MiningDrillTechnology = require("__reskins-assets-api__.assets.bobs.technologies.mining-drill")
+local OreFlotation = require("__reskins-assets-api__.assets.angels.technologies.ore-flotation")
+local PowerPoles = require("__reskins-assets-api__.assets.base.technologies.power-poles")
+local Pump = require("__reskins-assets-api__.assets.base.entities.pump")
 local Radar = require("__reskins-assets-api__.assets.base.entities.radar")
+local RepairPack = require("__reskins-assets-api__.assets.bobs.technologies.repair-pack")
+local Robotics = require("__reskins-assets-api__.assets.base.technologies.robotics")
+local SolarEnergy = require("__reskins-assets-api__.assets.base.technologies.solar-energy")
+local SteamEngineTechnology = require("__reskins-assets-api__.assets.bobs.technologies.steam-engine")
+local SubstationTechnology = require("__reskins-assets-api__.assets.base.technologies.substation")
+local TurretArtilleryTechnology = require("__reskins-assets-api__.assets.base.technologies.turret-artillery")
+local WaterTreatment = require("__reskins-assets-api__.assets.angels.technologies.water-treatment")
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
 local BASE_ICON_PATH = "__base__/graphics/icons/"
@@ -12,13 +33,8 @@ local BASE_RESKINS_ICON_PATH = "__reskins-assets-base__/graphics/icons/"
 local ANGELS_TECH_PATH = "__reskins-assets-angels__/graphics/technology/"
 local ANGELS_ICON_PATH = "__reskins-assets-angels__/graphics/icons/"
 local BOBS_TECH_PATH = "__reskins-assets-bobs__/graphics/technology/"
-local FLUID_TECH_PATH = RESKINS_TECH_PATH .. "fluid-handling/fluid-handling-"
 local LAB_TECH_PATH = "__reskins-nullius__/graphics/technology/lab/lab-"
 local THERMAL_TANK_TECH_PATH = "__reskins-nullius__/graphics/technology/thermal-tank/thermal-tank-"
-local ELECTRIC_CHEMICAL_FURNACE_TECH_PATH =
-	"__reskins-assets-bobs__/graphics/technology/furnace-electric-chemical/furnace-electric-chemical-"
-local STEAM_ENGINE_TECH_PATH = "__reskins-assets-bobs__/graphics/technology/steam-engine/steam-engine-"
-local HEAT_EXCHANGER_TECH_PATH = "__reskins-assets-bobs__/graphics/technology/heat-exchanger/"
 
 local LARGE_TANK_TECH_PATH = "__reskins-nullius__/graphics/technology/large-tank/large-tank-"
 
@@ -30,32 +46,32 @@ local technologies = {
 	["nullius-plumbing-1"] = {
 		tier = 1,
 		prog_tier = 1,
-		path = FLUID_TECH_PATH,
+		module = FluidHandling,
 	},
 	["nullius-plumbing-2"] = {
 		tier = 1,
 		prog_tier = 1,
-		path = FLUID_TECH_PATH,
+		module = FluidHandling,
 	},
 	["nullius-plumbing-3"] = {
 		tier = 2,
 		prog_tier = 2,
-		path = FLUID_TECH_PATH,
+		module = FluidHandling,
 	},
 	["nullius-plumbing-4"] = {
 		tier = 2,
 		prog_tier = 2,
-		path = FLUID_TECH_PATH,
+		module = FluidHandling,
 	},
 	["nullius-plumbing-5"] = {
 		tier = 3,
 		prog_tier = 3,
-		path = FLUID_TECH_PATH,
+		module = FluidHandling,
 	},
 	["nullius-plumbing-6"] = {
 		tier = 4,
 		prog_tier = 4,
-		path = FLUID_TECH_PATH,
+		module = FluidHandling,
 	},
 	["nullius-empiricism-1"] = {
 		tier = 1,
@@ -95,134 +111,134 @@ local technologies = {
 	["nullius-solar-power-1"] = {
 		tier = 1,
 		prog_tier = 1,
-		path = RESKINS_TECH_PATH .. "solar-energy/solar-energy-",
+		module = SolarEnergy,
 	},
 	["nullius-solar-power-2"] = {
 		tier = 2,
 		prog_tier = 2,
-		path = RESKINS_TECH_PATH .. "solar-energy/solar-energy-",
+		module = SolarEnergy,
 	},
 	["nullius-solar-power-3"] = {
 		tier = 3,
 		prog_tier = 3,
-		path = RESKINS_TECH_PATH .. "solar-energy/solar-energy-",
+		module = SolarEnergy,
 	},
 	["nullius-solar-power-4"] = {
 		tier = 4,
 		prog_tier = 4,
-		path = RESKINS_TECH_PATH .. "solar-energy/solar-energy-",
+		module = SolarEnergy,
 	},
 	["nullius-automation"] = {
 		tier = 1,
 		prog_tier = 1,
-		path = RESKINS_TECH_PATH .. "automation/automation-",
+		module = Automation,
 		scale = 0.66,
 	},
 	["nullius-automation-2"] = {
 		tier = 2,
 		prog_tier = 2,
-		path = RESKINS_TECH_PATH .. "automation/automation-",
+		module = Automation,
 	},
 	["nullius-automation-3"] = {
 		tier = 3,
 		prog_tier = 3,
-		path = RESKINS_TECH_PATH .. "automation/automation-",
+		module = Automation,
 		scale = 1.25,
 	},
 	["nullius-mass-production-1"] = {
 		tier = 1,
 		prog_tier = 1,
-		path = RESKINS_TECH_PATH .. "automation/automation-",
+		module = Automation,
 	},
 	["nullius-mass-production-2"] = {
 		tier = 1,
 		prog_tier = 1,
-		path = RESKINS_TECH_PATH .. "automation/automation-",
+		module = Automation,
 	},
 	["nullius-mass-production-3"] = {
 		tier = 2,
 		prog_tier = 2,
-		path = RESKINS_TECH_PATH .. "automation/automation-",
+		module = Automation,
 		scale = 1.25,
 	},
 	["nullius-mass-production-4"] = {
 		tier = 4,
 		prog_tier = 4,
-		path = RESKINS_TECH_PATH .. "automation/automation-",
+		module = Automation,
 		scale = 1.25,
 	},
 	["nullius-mass-production-5"] = {
 		tier = 5,
 		prog_tier = 5,
-		path = RESKINS_TECH_PATH .. "automation/automation-",
+		module = Automation,
 		scale = 1.25,
 	},
 	["nullius-mass-production-6"] = {
 		tier = 6,
 		prog_tier = 6,
-		path = RESKINS_TECH_PATH .. "automation/automation-",
+		module = Automation,
 		scale = 1.25,
 	},
 	["nullius-mass-production-7"] = {
 		tier = 6,
 		prog_tier = 6,
-		path = RESKINS_TECH_PATH .. "automation/automation-",
+		module = Automation,
 		scale = 1.25,
 	},
 	["nullius-battery-storage-2"] = {
 		tier = 1,
 		prog_tier = 1,
-		path = RESKINS_TECH_PATH .. "electric-energy-accumulators/electric-energy-accumulators-",
+		module = ElectricEnergyAccumulators,
 	},
 	["nullius-battery-storage-4"] = {
 		tier = 2,
 		prog_tier = 3,
-		path = RESKINS_TECH_PATH .. "electric-energy-accumulators/electric-energy-accumulators-",
+		module = ElectricEnergyAccumulators,
 	},
 	["nullius-battery-storage-6"] = {
 		tier = 3,
 		prog_tier = 4,
-		path = RESKINS_TECH_PATH .. "electric-energy-accumulators/electric-energy-accumulators-",
+		module = ElectricEnergyAccumulators,
 	},
 	["nullius-energy-distribution-1"] = {
 		tier = 1,
 		prog_tier = 1,
-		path = RESKINS_TECH_PATH .. "power-poles/power-poles-",
+		module = PowerPoles,
 	},
 	["nullius-energy-distribution-2"] = {
 		tier = 2,
 		prog_tier = 2,
-		path = RESKINS_TECH_PATH .. "power-poles/power-poles-",
+		module = PowerPoles,
 	},
 	["nullius-energy-distribution-3"] = {
 		tier = 1,
 		prog_tier = 1,
-		path = RESKINS_TECH_PATH .. "substation/substation-",
+		module = SubstationTechnology,
 	},
 	["nullius-energy-distribution-4"] = {
 		tier = 3,
 		prog_tier = 3,
-		path = RESKINS_TECH_PATH .. "power-poles/power-poles-",
+		module = PowerPoles,
 	},
 	["nullius-energy-distribution-5"] = {
 		tier = 4,
 		prog_tier = 4,
-		path = RESKINS_TECH_PATH .. "substation/substation-",
+		module = SubstationTechnology,
 	},
 	["nullius-geothermal-power-1"] = {
 		tier = 1,
 		prog_tier = 1,
-		path = ELECTRIC_CHEMICAL_FURNACE_TECH_PATH,
+		module = FurnaceElectricChemical,
 	},
 	["nullius-geothermal-power-2"] = {
 		tier = 2,
 		prog_tier = 2,
-		path = ELECTRIC_CHEMICAL_FURNACE_TECH_PATH,
+		module = FurnaceElectricChemical,
 	},
 	["nullius-geothermal-power-3"] = {
 		tier = 3,
 		prog_tier = 3,
-		path = ELECTRIC_CHEMICAL_FURNACE_TECH_PATH,
+		module = FurnaceElectricChemical,
 	},
 	["nullius-electrolysis-1"] = {
 		icon_type = "electrolyzer-entity-frame",
@@ -245,88 +261,79 @@ local technologies = {
 		prog_tier = 3,
 	},
 	["nullius-air-filtration-1"] = {
-		icon_type = "tinted-icon",
 		tier = 1,
 		prog_tier = 1,
-		path = ANGELS_ICON_PATH .. "air-filter/air-filter-",
+		module = AirFilter,
 	},
 	["nullius-air-filtration-2"] = {
-		icon_type = "tinted-icon",
 		tier = 2,
 		prog_tier = 2,
-		path = ANGELS_ICON_PATH .. "air-filter/air-filter-",
+		module = AirFilter,
 	},
 	["nullius-air-filtration-3"] = {
-		icon_type = "tinted-icon",
 		tier = 3,
 		prog_tier = 3,
-		path = ANGELS_ICON_PATH .. "air-filter/air-filter-",
+		module = AirFilter,
 	},
 	["nullius-flotation-1"] = {
 		tier = 1,
 		prog_tier = 1,
-		path = ANGELS_TECH_PATH .. "ore-flotation/ore-flotation-",
+		module = OreFlotation,
 	},
 	["nullius-flotation-2"] = {
 		tier = 2,
 		prog_tier = 2,
-		path = ANGELS_TECH_PATH .. "ore-flotation/ore-flotation-",
+		module = OreFlotation,
 	},
 	["nullius-flotation-3"] = {
 		tier = 3,
 		prog_tier = 3,
-		path = ANGELS_TECH_PATH .. "ore-flotation/ore-flotation-",
+		module = OreFlotation,
 	},
 	["nullius-pumping-1"] = {
-		icon_type = "tinted-icon",
 		tier = 1,
 		prog_tier = 1,
-		path = BASE_RESKINS_ICON_PATH .. "pump/pump-",
+		module = Pump,
 	},
 	["nullius-pumping-2"] = {
-		icon_type = "tinted-icon",
 		tier = 2,
 		prog_tier = 2,
-		path = BASE_RESKINS_ICON_PATH .. "pump/pump-",
+		module = Pump,
 	},
 	["nullius-pumping-3"] = {
-		icon_type = "tinted-icon",
 		tier = 3,
 		prog_tier = 3,
-		path = BASE_RESKINS_ICON_PATH .. "pump/pump-",
+		module = Pump,
 	},
 	["nullius-mining-1"] = {
 		tier = 1,
 		prog_tier = 1,
-		path = "__reskins-assets-bobs__/graphics/technology/mining-drill/mining-drill-",
-		icon_size = 128,
+		module = MiningDrillTechnology,
 	},
 	["nullius-mining-2"] = {
 		tier = 2,
 		prog_tier = 2,
-		path = "__reskins-assets-bobs__/graphics/technology/mining-drill/mining-drill-",
-		icon_size = 128,
+		module = MiningDrillTechnology,
 	},
 	["nullius-mining-3"] = {
 		tier = 3,
 		prog_tier = 3,
-		path = "__reskins-assets-bobs__/graphics/technology/mining-drill/mining-drill-",
-		icon_size = 128,
+		module = MiningDrillTechnology,
 	},
 	["nullius-exploration-1"] = {
 		tier = 1,
 		prog_tier = 2,
-		path = RESKINS_TECH_PATH .. "turret-artillery/turret-artillery-",
+		module = TurretArtilleryTechnology,
 	},
 	["nullius-exploration-2"] = {
 		tier = 2,
 		prog_tier = 3,
-		path = RESKINS_TECH_PATH .. "turret-artillery/turret-artillery-",
+		module = TurretArtilleryTechnology,
 	},
 	["nullius-exploration-3"] = {
 		tier = 3,
 		prog_tier = 4,
-		path = RESKINS_TECH_PATH .. "turret-artillery/turret-artillery-",
+		module = TurretArtilleryTechnology,
 	},
 	["nullius-thermal-storage-1"] = {
 		tier = 1,
@@ -345,52 +352,51 @@ local technologies = {
 	},
 	["nullius-locomotion-1"] = {
 		tier = 1,
-		path = RESKINS_TECH_PATH .. "equipment-exoskeleton/equipment-exoskeleton-",
+		module = EquipmentExoskeleton,
 	},
 	["nullius-locomotion-2"] = {
 		tier = 2,
-		path = RESKINS_TECH_PATH .. "equipment-exoskeleton/equipment-exoskeleton-",
+		module = EquipmentExoskeleton,
 	},
 	["nullius-locomotion-3"] = {
 		tier = 3,
-		path = RESKINS_TECH_PATH .. "equipment-exoskeleton/equipment-exoskeleton-",
+		module = EquipmentExoskeleton,
 	},
 	["nullius-locomotion-4"] = {
 		tier = 4,
-		path = RESKINS_TECH_PATH .. "equipment-exoskeleton/equipment-exoskeleton-",
+		module = EquipmentExoskeleton,
 	},
 	["nullius-locomotion-5"] = {
 		tier = 5,
-		path = RESKINS_TECH_PATH .. "equipment-exoskeleton/equipment-exoskeleton-",
+		module = EquipmentExoskeleton,
 	},
 	["nullius-cybernetics-2"] = {
 		tier = 1,
-		path = RESKINS_TECH_PATH .. "equipment-night-vision/equipment-night-vision-",
+		module = EquipmentNightVision,
 	},
 	["nullius-cybernetics-3"] = {
 		tier = 2,
-		path = BOBS_TECH_PATH .. "equipment-fission-reactor/equipment-fission-reactor-",
+		module = EquipmentFissionReactor,
 	},
 	["nullius-cybernetics-4"] = {
 		tier = 1,
-		path = RESKINS_TECH_PATH .. "equipment-exoskeleton/equipment-exoskeleton-",
+		module = EquipmentExoskeleton,
 	},
 	["nullius-cybernetics-5"] = {
 		tier = 3,
-		path = RESKINS_TECH_PATH .. "equipment-night-vision/equipment-night-vision-",
+		module = EquipmentNightVision,
 	},
 	["nullius-insulation-1"] = {
 		tier = 1,
-		path = BOBS_TECH_PATH .. "equipment-fission-reactor/equipment-fission-reactor-",
+		module = EquipmentFissionReactor,
 	},
 	["nullius-nuclear-power-1"] = {
 		tier = 4,
-		path = BOBS_TECH_PATH .. "equipment-fission-reactor/equipment-fission-reactor-",
+		module = EquipmentFissionReactor,
 	},
 	["nullius-maintenance"] = {
 		tier = 4,
-		path = BOBS_TECH_PATH .. "repair-pack/repair-pack-",
-		icon_size = 128,
+		module = RepairPack,
 	},
 	["nullius-hydrology-1"] = {
 		icon_type = "flat",
@@ -405,33 +411,33 @@ local technologies = {
 	["nullius-robotics-1"] = {
 		tier = 1,
 		prog_tier = 2,
-		path = RESKINS_TECH_PATH .. "robotics/robotics-",
+		module = Robotics,
 	},
 	["nullius-robotics-2"] = {
 		tier = 2,
 		prog_tier = 3,
-		path = RESKINS_TECH_PATH .. "robotics/robotics-",
+		module = Robotics,
 	},
 	["nullius-robotics-3"] = {
 		tier = 3,
 		prog_tier = 4,
-		path = RESKINS_TECH_PATH .. "robotics/robotics-",
+		module = Robotics,
 	},
 	["nullius-robotics-4"] = {
 		tier = 4,
 		prog_tier = 5,
-		path = RESKINS_TECH_PATH .. "robotics/robotics-",
+		module = Robotics,
 	},
 	["nullius-sensors-2"] = {
-		icon_type = "radar",
+		module = Radar,
 		tier = 1,
 	},
 	["nullius-sensors-3"] = {
-		icon_type = "radar",
+		module = Radar,
 		tier = 2,
 	},
 	["nullius-sensors-4"] = {
-		icon_type = "radar",
+		module = Radar,
 		tier = 3,
 	},
 	["nullius-solar-thermal-power-1"] = {
@@ -486,27 +492,6 @@ local function make_tinted_technology_icon(options)
 	}
 end
 
-local function make_tinted_icon_technology_icon(options)
-	local size = options.icon_size or 64
-
-	return {
-		{
-			icon = options.path .. "base.png",
-			icon_size = size,
-		},
-		{
-			icon = options.path .. "mask.png",
-			icon_size = size,
-			tint = get_tier_tint(options),
-		},
-		{
-			icon = options.path .. "highlights.png",
-			icon_size = size,
-			tint = { 1, 1, 1, 0 },
-		},
-	}
-end
-
 local function make_electrolyzer_entity_frame_technology_icon(options)
 	return {
 		{
@@ -535,42 +520,26 @@ local function make_flat_technology_icon(options)
 	}
 end
 
-local function make_radar_technology_icon(options)
-	return Radar.get_icon({ tint = get_tier_tint(options) })
-end
+---Gets the icon of the catalog module of the given technology `options`, in the tint of its tier and with its
+---`params`, converted to the icon defaults of a technology.
+---@param options table
+---@return IconData[]
+local function make_catalog_technology_icon(options)
+	local params = util.copy(options.params or {})
+	params.tint = get_tier_tint(options)
 
-local function make_heat_exchanger_technology_icon(options)
-	local size = options.icon_size or 128
-	local icon_base = options.icon_base or "heat-exchanger-base"
-
-	return {
-		{
-			icon = options.path .. icon_base .. "-base.png",
-			icon_size = size,
-		},
-		{
-			icon = options.path .. "heat-exchanger-mask.png",
-			icon_size = size,
-			tint = get_tier_tint(options),
-		},
-		{
-			icon = options.path .. "heat-exchanger-highlights.png",
-			icon_size = size,
-		},
-	}
+	return options.module.get_icon_composition(params):build({ to = "technology" })
 end
 
 local technology_icon_builders = {
+	catalog = make_catalog_technology_icon,
 	["electrolyzer-entity-frame"] = make_electrolyzer_entity_frame_technology_icon,
 	flat = make_flat_technology_icon,
-	["heat-exchanger"] = make_heat_exchanger_technology_icon,
-	radar = make_radar_technology_icon,
-	["tinted-icon"] = make_tinted_icon_technology_icon,
 	tinted = make_tinted_technology_icon,
 }
 
 local function make_technology_icons(options)
-	local icon_type = options.icon_type or "tinted"
+	local icon_type = options.icon_type or (options.module and "catalog") or "tinted"
 	local builder = technology_icon_builders[icon_type]
 
 	if not builder then
@@ -627,9 +596,8 @@ local checkpoint_overlays = {
 	{
 		checkpoint_name = "nullius-checkpoint-heat-pipe",
 		background_icons = {},
-		icon_type = "heat-exchanger",
-		path = HEAT_EXCHANGER_TECH_PATH,
-		icon_base = "heat-exchanger-base",
+		module = HeatExchangerTechnology,
+		params = { pipe_material = "base" },
 		tier = 1,
 		prog_tier = 2,
 		overlay_scale = 4,
@@ -648,7 +616,7 @@ local checkpoint_overlays = {
 	{
 		checkpoint_name = "nullius-checkpoint-plumbing",
 		background_icons = make_blueprint_background(),
-		path = FLUID_TECH_PATH,
+		module = FluidHandling,
 		tier = 2,
 		prog_tier = 2,
 		overlay_scale = 4,
@@ -656,8 +624,7 @@ local checkpoint_overlays = {
 	{
 		checkpoint_name = "nullius-checkpoint-pumping",
 		background_icons = make_blueprint_background(),
-		icon_type = "tinted-icon",
-		path = BASE_RESKINS_ICON_PATH .. "pump/pump-",
+		module = Pump,
 		tier = 2,
 		prog_tier = 2,
 		overlay_scale = 4,
@@ -665,7 +632,7 @@ local checkpoint_overlays = {
 	{
 		checkpoint_name = "nullius-checkpoint-water",
 		background_icons = make_blueprint_background(),
-		path = ANGELS_TECH_PATH .. "water-treatment/water-treatment-",
+		module = WaterTreatment,
 		tier = 1,
 		prog_tier = 1,
 		overlay_scale = 4,
@@ -689,7 +656,7 @@ local checkpoint_overlays = {
 	{
 		checkpoint_name = "nullius-checkpoint-robotics",
 		background_icons = {},
-		path = RESKINS_TECH_PATH .. "robotics/robotics-",
+		module = Robotics,
 		tier = 1,
 		prog_tier = 2,
 		overlay_scale = 4,
@@ -716,7 +683,7 @@ local checkpoint_overlays = {
 	{
 		checkpoint_name = "nullius-checkpoint-solar-panel",
 		background_icons = make_blueprint_background(),
-		path = RESKINS_TECH_PATH .. "solar-energy/solar-energy-",
+		module = SolarEnergy,
 		tier = 3,
 		prog_tier = 3,
 		overlay_scale = 4,
@@ -724,7 +691,7 @@ local checkpoint_overlays = {
 	{
 		checkpoint_name = "nullius-checkpoint-mass-production",
 		background_icons = make_blueprint_background(),
-		path = RESKINS_TECH_PATH .. "automation/automation-",
+		module = Automation,
 		tier = 1,
 		prog_tier = 2,
 		overlay_scale = 4,
@@ -732,20 +699,20 @@ local checkpoint_overlays = {
 	{
 		checkpoint_name = "nullius-checkpoint-automation",
 		background_icons = make_blueprint_background(),
-		path = RESKINS_TECH_PATH .. "automation/automation-",
+		module = Automation,
 		tier = 3,
 		prog_tier = 5,
 		overlay_scale = 4,
 	},
 	{
 		checkpoint_name = "nullius-checkpoint-grid-battery",
-		path = RESKINS_TECH_PATH .. "electric-energy-accumulators/electric-energy-accumulators-",
+		module = ElectricEnergyAccumulators,
 		tier = 3,
 		prog_tier = 4,
 	},
 	{
 		checkpoint_name = "nullius-checkpoint-substation",
-		path = RESKINS_TECH_PATH .. "substation/substation-",
+		module = SubstationTechnology,
 		tier = 2,
 		prog_tier = 2,
 	},
@@ -763,8 +730,7 @@ local checkpoint_overlays = {
 	{
 		checkpoint_name = "nullius-checkpoint-large-miner",
 		background_icons = make_blueprint_background(),
-		path = "__reskins-assets-bobs__/graphics/technology/mining-drill/mining-drill-",
-		icon_size = 128,
+		module = MiningDrillTechnology,
 		tier = 2,
 		prog_tier = 4,
 		overlay_scale = 8,
@@ -772,8 +738,7 @@ local checkpoint_overlays = {
 	{
 		checkpoint_name = "nullius-checkpoint-stirling-engine",
 		background_icons = make_blueprint_background(),
-		path = STEAM_ENGINE_TECH_PATH,
-		icon_size = 128,
+		module = SteamEngineTechnology,
 		tier = 2,
 		prog_tier = 2,
 		overlay_scale = 8,

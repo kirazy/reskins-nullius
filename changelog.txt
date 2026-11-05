@@ -6,9 +6,11 @@ Date: ????
     - Dying explosions, particles, and remnants now come from the Artisanal Reskins: Assets API, with the sprites of each entity, and remnants now have the size of the entity.
     - The in-world pictures of the items of reskinned entities, equipment, and robot frames now have mipmaps.
     - The composite recipe icons of the heat pipe, valve, and pipe recipes no longer show the tier labels of the items they show.
+    - The technology icons now come from the catalogs of the Artisanal Reskins: Assets API, and the geothermal power technologies now show the lights of their artwork.
   Bugfixes:
     - Fixed that reskinned robots did not play the death sounds of the base game.
     - Fixed that a checkpoint technology with a single icon file and no background failed to load.
+    - Fixed that the sensor technologies drew the radar at a quarter of the size of the icon, and that the highlights of the heat pipe checkpoint were not drawn additively.
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.0
 Date: 2026-11-01
