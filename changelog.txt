@@ -11,6 +11,7 @@ Date: ????
     - Fixed that reskinned robots did not play the death sounds of the base game.
     - Fixed that a checkpoint technology with a single icon file and no background failed to load.
     - Fixed that the sensor technologies drew the radar at a quarter of the size of the icon, and that the highlights of the heat pipe checkpoint were not drawn additively.
+    - Fixed that the recipes of the first two pipes lost the ingot in the corner of their icons.
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.0
 Date: 2026-11-01

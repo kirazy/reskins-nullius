@@ -21,6 +21,18 @@ local recipes = {
 			{ name = "stone-brick", type_name = "item", transform = corners.northeast },
 		},
 	},
+	["pipe"] = {
+		sources = {
+			{ name = "pipe", type_name = "item" },
+			{ name = "nullius-iron-ingot", type_name = "item", transform = corners.northeast },
+		},
+	},
+	["nullius-pipe-2"] = {
+		sources = {
+			{ name = "nullius-pipe-2", type_name = "item" },
+			{ name = "nullius-steel-ingot", type_name = "item", transform = corners.northeast },
+		},
+	},
 }
 
 _framework.tiers.assign_icons_with_tier_labels("recipe", recipes)
