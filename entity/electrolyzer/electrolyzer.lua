@@ -11,7 +11,6 @@ local tier_map = {
 	["nullius-surge-electrolyzer-3"] = { tier = 3 },
 }
 
--- Reskin entities, create and assign extra details.
 for name, map in pairs(tier_map) do
 	local tier = _framework.tiers.get_tier(map)
 
@@ -84,7 +83,6 @@ for name, map in pairs(tier_map) do
 		scale = 0.75,
 	}
 
-	-- Reskin entities.
 	entity.graphics_set = entity.graphics_set or {}
 	entity.graphics_set.animation = {
 		north = {

@@ -210,7 +210,6 @@ for name, options in pairs(entities) do
 	local corpse = _lib.create_remnant(name, inputs)
 	corpse.animation = make_corpse_animation(options.pipe_tint, options.plate_tint)
 
-	-- Reskin entities.
 	entity.connection_sprites = make_connection_sprites(options.pipe_tint, options.plate_tint)
 	entity.heat_glow_sprites = make_heat_glow_sprites()
 

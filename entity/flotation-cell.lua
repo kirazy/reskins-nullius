@@ -8,7 +8,6 @@ local tier_map = {
 	["nullius-flotation-cell-3"] = { tier = 3, prog_tier = 3 },
 }
 
--- Reskin entities, create and assign extra details.
 for name, map in pairs(tier_map) do
 	local tier = Framework.tiers.get_tier(map)
 
