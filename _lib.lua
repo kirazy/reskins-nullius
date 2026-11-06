@@ -812,9 +812,10 @@ local function get_reversed_animation(animation)
 	return animation_copy
 end
 
----Creates the particles and animations of the death spiral of the given flying robot `prototype`, and links them to it.
+---Creates the particles and animations of the death spiral for the given flying robot `prototype`, and links
+---them to it.
 ---@param prototype data.CombatRobotPrototype|data.RobotWithLogisticInterfacePrototype The robot prototype.
----@param corpse_name data.EntityID The name of the corpse of the robot.
+---@param corpse_name data.EntityID The name of the corpse for the robot.
 ---@deprecated
 function lib.configure_robot_death_animation(prototype, corpse_name)
 	local shadow_shift = { -0.75, -0.40 }

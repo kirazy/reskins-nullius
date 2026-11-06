@@ -495,7 +495,7 @@ local function make_flat_technology_icon(options)
 	}
 end
 
----Gets the icon of the catalog module of the given technology `options`, in the tint of its tier and with its
+---Gets the icon of the catalog module from the given technology `options`, in the tint of its tier and with its
 ---`params`, converted to the icon defaults of a technology.
 ---@param options table
 ---@return IconData[]
