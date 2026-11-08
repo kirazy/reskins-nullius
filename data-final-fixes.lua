@@ -8,8 +8,8 @@ require("prototypes.entities.inserters")
 require("prototypes.entities.inserters-bulk")
 
 -- require("entity.large-storage-tanks")
-require("entity.thermal-tank")
-require("entity.drone-launchers")
+require("prototypes.entities.thermal-tanks")
+require("prototypes.entities.drone-launchers")
 
 require("prototypes.items.robot-frames")
 require("prototypes.equipment")

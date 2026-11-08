@@ -1,15 +1,25 @@
+---@using data
+---@using Reskins.Framework
+
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
-local _lib = require("_lib")
+local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
----@type LibHack.ConstructIconInputsOld
-local inputs = {
-	type = "assembling-machine",
-	icon_name = "thermal-extractor",
-	graphics_mod = "assets-angels",
-}
+local ThermalExtractor = require("__reskins-assets-api__.assets.angels.entities.refining.thermal-extractor")
 
----@diagnostic disable-next-line: param-type-mismatch
-_lib.set_inputs_defaults(inputs)
+---Assigns the icon of the thermal extractor, in the given `tint` and with the tier label of the given `tier`, to the
+---prototype with the given `name`.
+---@param name string
+---@param tier Tier
+---@param tint Color
+local function assign_icon(name, tier, tint)
+	local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
+		tier = tier,
+		name = name,
+		type_name = "assembling-machine",
+		composition = ThermalExtractor.get_icon_composition({ tint = tint }),
+	})
+	_sprite_utils.icons.apply_icon_assignment(icon_assignment)
+end
 
 local tier_map = {
 	["nullius-compressor-1"] = { tier = 1, prog_tier = 1 },
@@ -67,34 +77,27 @@ local function tint_animation(animation, tint)
 		return
 	end
 
-	if animation.filename
-		and animation.filename:find("thermal-extractor-animation", 1, true)
-	then
+	if animation.filename and animation.filename:find("thermal-extractor-animation", 1, true) then
 		animation.tint = tint
 	end
 end
 
 for name, map in pairs(tier_map) do
 	local tier = _framework.tiers.get_tier(map)
-	inputs.tint = _framework.tiers.get_tint(tier)
 
-	_lib.construct_icon(name, tier, inputs)
+	assign_icon(name, tier, _framework.tiers.get_tint(tier))
 end
 
 for name, map in pairs(compressor_entities) do
 	local tier = _framework.tiers.get_tier(map)
 	local tint = shade_tint(_framework.tiers.get_tint(tier), map.shade)
 
-	---@type data.AssemblingMachinePrototype
-	local entity = data.raw["assembling-machine"]
-		and data.raw["assembling-machine"][name]
-
+	local entity = data.raw["assembling-machine"][name]
 	if not entity then
 		goto continue
 	end
 
-	inputs.tint = tint
-	_lib.construct_icon(name, tier, inputs)
+	assign_icon(name, tier, tint)
 
 	local animation = entity.graphics_set and entity.graphics_set.animation
 	if animation then

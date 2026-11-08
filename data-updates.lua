@@ -23,8 +23,8 @@ require("prototypes.entities.mining-drills")
 require("prototypes.entities.labs")
 require("prototypes.entities.valves")
 
-require("entity.relays")
-require("entity.chargers")
+require("prototypes.entities.relays")
+require("prototypes.entities.chargers")
 -- require("entity.solar-collectors")
 
 require("prototypes.recipe-updates")
