@@ -1,4 +1,3 @@
-local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
@@ -85,7 +84,7 @@ local function make_icon(tint)
 end
 
 for name, options in pairs(collectors) do
-	local entity = data.raw.reactor and data.raw.reactor[name]
+	local entity = data.raw.reactor[name]
 	if entity ~= nil then
 		replace_collector_body(entity.picture, options.tint)
 		replace_collector_body(entity.working_light_picture, options.tint)

@@ -1,4 +1,3 @@
-local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
@@ -66,7 +65,7 @@ for name, options in pairs(leg_augmentations) do
 
 	_sprite_utils.icons.apply_icon_assignment(icon_assignment)
 
-	local equipment = data.raw["movement-bonus-equipment"] and data.raw["movement-bonus-equipment"][name]
+	local equipment = data.raw["movement-bonus-equipment"][name]
 	if equipment ~= nil then
 		equipment.sprite = make_equipment_sprite(
 			BASE_EQUIPMENT_PATH .. "equipment-exoskeleton/equipment-exoskeleton-",
@@ -99,7 +98,7 @@ for name, options in pairs(night_vision_equipment) do
 
 	_sprite_utils.icons.apply_icon_assignment(icon_assignment)
 
-	local equipment = data.raw["night-vision-equipment"] and data.raw["night-vision-equipment"][name]
+	local equipment = data.raw["night-vision-equipment"][name]
 	if equipment ~= nil then
 		equipment.sprite = make_equipment_sprite(
 			BASE_EQUIPMENT_PATH .. "equipment-night-vision/equipment-night-vision-",
@@ -133,7 +132,7 @@ for name, options in pairs(generator_equipment) do
 
 	_sprite_utils.icons.apply_icon_assignment(icon_assignment)
 
-	local equipment = data.raw["generator-equipment"] and data.raw["generator-equipment"][name]
+	local equipment = data.raw["generator-equipment"][name]
 	if equipment ~= nil then
 		equipment.sprite = make_equipment_sprite(
 			BOBS_EQUIPMENT_PATH .. "equipment-fission-reactor/equipment-fission-reactor-",

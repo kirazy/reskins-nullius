@@ -1,6 +1,8 @@
-local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
+
+local Applicators = require("__reskins-assets-api__.api.applicators")
+local StorageTankExplosion = require("__reskins-assets-api__.assets.base.explosions.storage-tank")
 
 -- ============================================================================
 -- Nullius large tanks
@@ -117,9 +119,9 @@ local function make_large_tank_icon(tint, nullius_tint)
 end
 
 for name, options in pairs(large_tanks) do
-	local entity = data.raw[options.type] and data.raw[options.type][name]
+	local entity = data.raw[options.type][name]
 
-	local item = data.raw.item and data.raw.item[name]
+	local item = data.raw.item[name]
 
 	if not entity then
 		goto continue
@@ -128,13 +130,10 @@ for name, options in pairs(large_tanks) do
 	local tier = _framework.tiers.get_tier(options)
 	local tint = _framework.tiers.get_tint(tier)
 
-	_lib.create_explosions_and_particles(name, {
-		base_entity_name = "storage-tank",
-		type = options.type,
-		tint = tint,
-		particles = {
-			["big"] = 1,
-		},
+	Applicators.apply_corpse_and_explosion(entity, {
+		dying_explosion = StorageTankExplosion.get_explosion({
+			tints = { ["storage-tank-metal-particle-big"] = tint },
+		}),
 	})
 
 	entity.pictures.picture = {
@@ -401,9 +400,9 @@ local function make_small_tank_icon(tint, nullius_tint)
 end
 
 for name, options in pairs(small_tanks) do
-	local entity = data.raw[options.type] and data.raw[options.type][name]
+	local entity = data.raw[options.type][name]
 
-	local item = data.raw.item and data.raw.item[name]
+	local item = data.raw.item[name]
 
 	if not entity then
 		goto continue
@@ -412,13 +411,10 @@ for name, options in pairs(small_tanks) do
 	local tier = _framework.tiers.get_tier(options)
 	local tint = _framework.tiers.get_tint(tier)
 
-	_lib.create_explosions_and_particles(name, {
-		base_entity_name = "storage-tank",
-		type = options.type,
-		tint = tint,
-		particles = {
-			["medium"] = 1,
-		},
+	Applicators.apply_corpse_and_explosion(entity, {
+		dying_explosion = StorageTankExplosion.get_explosion({
+			tints = { ["storage-tank-metal-particle-medium"] = tint },
+		}),
 	})
 
 	entity.pictures = make_small_tank_pictures(tint, options.nullius_tint)
@@ -439,7 +435,7 @@ for name, options in pairs(small_tanks) do
 		})
 	end
 
-	if data.raw.recipe and data.raw.recipe[name] then
+	if data.raw.recipe[name] then
 		_sprite_utils.icons.apply_icon_assignment({
 			name = name,
 			type_name = "recipe",

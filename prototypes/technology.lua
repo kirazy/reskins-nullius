@@ -1,7 +1,6 @@
 local _framework = {
 	tiers = require("__reskins-framework__.api.tiers"),
 }
-local _lib = require("_lib")
 local AirFilter = require("__reskins-assets-api__.assets.angels.entities.petrochem.air-filter")
 local Automation = require("__reskins-assets-api__.assets.base.technologies.automation")
 local ElectricEnergyAccumulators =
@@ -547,7 +546,7 @@ end
 -- ============================================================================
 
 for name, options in pairs(technologies) do
-	local technology = data.raw.technology and data.raw.technology[name]
+	local technology = data.raw.technology[name]
 
 	if not technology then
 		goto continue
@@ -748,7 +747,7 @@ local function get_checkpoint_background_icons(checkpoint, options)
 end
 
 local function apply_checkpoint_overlay(options)
-	local checkpoint = data.raw.technology and data.raw.technology[options.checkpoint_name]
+	local checkpoint = data.raw.technology[options.checkpoint_name]
 
 	if not checkpoint then
 		return

@@ -7,7 +7,6 @@ if not mods["underground-pipe-pack"] then
 	return
 end
 
-local _lib = require("_lib")
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _assets = {
 	defines = require("__reskins-assets-api__.api.defines"),
