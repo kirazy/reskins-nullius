@@ -1,5 +1,5 @@
 local TechnologyIcons = require("prototypes.technology-icons")
-local Radar = require("__reskins-assets-api__.assets.base.entities.radar")
+local Radar = require("__reskins-assets-api__.assets.base.technologies.radar")
 
 TechnologyIcons.assign_technology_icons({
 	["nullius-sensors-2"] = {
