@@ -32,13 +32,13 @@ for name, options in pairs(entities) do
 	local tier = _framework.tiers.get_tier(options)
 	local tint = _framework.tiers.get_tint(tier)
 
-	local sprite_set = Pumpjack.get_sprite_set({
+	local pumpjack_sprite_set = Pumpjack.get_sprite_set({
 		-- tint = tint,
 		base_tint = options.base_tint,
 		accent_tint = tint,
 	})
 
-	sprite_set.converters = {
+	pumpjack_sprite_set.converters = {
 		[_assets.defines.sprite_set_type.crafting_machine_sprite_set] = function(sprite_set)
 			---@cast sprite_set MiningDrillSpriteSet
 			---@type CraftingMachineSpriteSet
@@ -61,7 +61,7 @@ for name, options in pairs(entities) do
 		end,
 	}
 
-	Applicators.apply_sprite_set(entity, sprite_set)
+	Applicators.apply_sprite_set(entity, pumpjack_sprite_set)
 
 	local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 		tier = tier,
