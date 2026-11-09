@@ -2,11 +2,8 @@
 
 -- The `util` global is not available during the settings stage and must be imported.
 local util = require("util")
+local _settings = require("__reskins-framework__.api.settings-utils")
 
-data.raw["color-setting"]["reskins-framework-custom-colors-tier-4"].default_value = util.color("#67e55c") --[[@as Color]]
-data.raw["color-setting"]["reskins-framework-custom-colors-tier-5"].default_value = util.color("#b459ff") --[[@as Color]]
-data.raw["color-setting"]["reskins-framework-custom-colors-tier-6"].default_value = util.color("#ff8533") --[[@as Color]]
-
-data.raw["color-setting"]["reskins-framework-default-colors-tier-4"].default_value = util.color("#67e55c") --[[@as Color]]
-data.raw["color-setting"]["reskins-framework-default-colors-tier-5"].default_value = util.color("#b459ff") --[[@as Color]]
-data.raw["color-setting"]["reskins-framework-default-colors-tier-6"].default_value = util.color("#ff8533") --[[@as Color]]
+_settings.set_default_tier_color(4, util.color("#67e55c"))
+_settings.set_default_tier_color(5, util.color("#b459ff"))
+_settings.set_default_tier_color(6, util.color("#ff8533"))
