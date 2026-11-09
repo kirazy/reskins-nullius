@@ -37,22 +37,20 @@ local function update_penalty_variants(base_entity, base_tint, tier, options)
 
 			Applicators.apply_sprite_set(entity, sprite_set, { scale = options.scale })
 
-			local icon = _sprite_utils.icons.minify_icon(Beacon.get_icon({ tint = tint }), options.icon_scalar)
-			local penalty_indicator = _sprite_utils.icons.transform_icons(
-				_sprite_utils.icons.float_icons(
-					_assets.icons.get_tinted_icon(
-						"__reskins-framework__/graphics/icons/tiers/chevron/" .. idx .. ".png",
-						penalty_tints[idx]
-					)
-				),
-				{ shift = { 25, 0 } }
+			local penalty_indicator = _sprite_utils.icons.float_icons(
+				_assets.icons.get_tinted_icon(
+					"__reskins-framework__/graphics/icons/tiers/chevron/" .. idx .. ".png",
+					penalty_tints[idx]
+				)
 			)
 
 			local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 				tier = tier,
 				name = entity.name,
 				type_name = entity.type,
-				icon_data = _sprite_utils.icons.compose_icons("default", icon, penalty_indicator),
+				composition = Beacon.get_icon_composition({ tint = tint })
+					:minify(options.icon_scalar)
+					:add_symbol(penalty_indicator, { shift = { 25, 0 } }),
 				-- The penalty variant shares its corpse and explosion with the base beacon.
 				options = {
 					infer_explosion = false,
