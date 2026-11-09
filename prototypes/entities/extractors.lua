@@ -1,5 +1,3 @@
----@using data
-
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
@@ -10,14 +8,14 @@ local entities = {
 	["nullius-extractor-1"] = {
 		tier = 1,
 		prog_tier = 2,
-		base_tint = util.color("#e56d45") --[[@as Color]],
-		accent_tint = util.color("#52adcc") --[[@as Color]],
+		base_tint = util.color("#e56d45"),
+		accent_tint = util.color("#52adcc"),
 	},
 	["nullius-extractor-2"] = {
 		tier = 2,
 		prog_tier = 3,
-		base_tint = util.color("#e51739") --[[@as Color]],
-		accent_tint = util.color("#52ccb8") --[[@as Color]],
+		base_tint = util.color("#e51739"),
+		accent_tint = util.color("#52ccb8"),
 	},
 }
 

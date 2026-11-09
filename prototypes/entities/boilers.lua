@@ -1,5 +1,3 @@
----@using data
-
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
@@ -11,10 +9,9 @@ local entities = {
 	["nullius-boiler-2"] = { type = "assembling-machine", tier = 2, prog_tier = 3 },
 }
 
-local fire_tint = util.color("#2e7ae5") --[[@as Color]]
+local fire_tint = util.color("#2e7ae5")
 
 for name, options in pairs(entities) do
-	---@type data.AssemblingMachinePrototype
 	local entity = data.raw[options.type][name]
 	if not entity then
 		goto continue

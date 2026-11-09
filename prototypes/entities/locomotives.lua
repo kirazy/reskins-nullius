@@ -3,6 +3,7 @@ local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
 local TrainLocomotive = require("__reskins-assets-api__.assets.base.entities.train-locomotive")
 
+-- Solar locomotive is outside the tier system.
 local entities = {
 	["nullius-locomotive-1"] = { type = "locomotive", tier = 1, prog_tier = 1 },
 	["nullius-locomotive-2"] = { type = "locomotive", tier = 2, prog_tier = 2 },
@@ -29,5 +30,3 @@ for name, options in pairs(entities) do
 
 	::continue::
 end
-
--- Solar locomotive is outside the tier system.

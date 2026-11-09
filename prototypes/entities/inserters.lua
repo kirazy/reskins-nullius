@@ -29,7 +29,7 @@ for name, options in pairs(entities) do
 
 	Applicators.apply_sprite_set(entity, sprite_set)
 
-	---@type IconDataAssignment
+	---@type IconAssignment
 	local icon_assignment = {
 		name = name,
 		type_name = options.type,

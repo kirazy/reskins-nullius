@@ -1,6 +1,3 @@
----@using data
----@using Reskins.Assets.Base.Entities
-
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _sprite_utils = {
 	icons = require("__reskins-sprite-utils__.icons"),

@@ -1,4 +1,5 @@
 ---@using data
+---@using Reskins.Framework
 
 local _framework = { tiers = require("__reskins-framework__.api.tiers") }
 local _assets = { icons = require("__reskins-assets-api__.api.icons") }
@@ -17,9 +18,9 @@ local penalty_tints = {
 	util.color("#ff0000"),
 }
 
----@param base_entity data.BeaconPrototype
+---@param base_entity BeaconPrototype
 ---@param base_tint Color
----@param tier Reskins.Framework.Tier
+---@param tier Tier
 ---@param options table
 local function update_penalty_variants(base_entity, base_tint, tier, options)
 	for idx, weight in pairs(options.penalties) do
