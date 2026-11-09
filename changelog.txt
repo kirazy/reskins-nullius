@@ -2,17 +2,15 @@
 Version: 0.2.1
 Date: ????
   Changes:
-    - Changes to support Artisanal Reskins: Assets API 0.2.1.
-    - Dying explosions, particles, and remnants now come from the Artisanal Reskins: Assets API, with the sprites of each entity, and remnants now have the size of the entity.
-    - The in-world pictures of the items for reskinned entities, equipment, and robot frames now have mipmaps.
-    - The composite recipe icons of the heat pipe, valve, and pipe recipes no longer show the tier labels of the items they show.
-    - The technology icons now come from the catalogs of the Artisanal Reskins: Assets API, and the geothermal power technologies now show the lights of their artwork.
-    - The icons of the surface and underground junctions in Underground Pipe Pack now come from the catalogs of the Artisanal Reskins: Assets API, and the icons of its advanced underground piping technologies are now assigned through Artisanal Reskins: Sprite Utils.
+    - Migrated all artwork to the Artisanal Reskins: Assets API
+    - Technology icons and the Underground Pipe Pack junction icons now come from the Artisanal Reskins: Assets API, and the geothermal power technologies now show their lights.
+    - Composite recipe icons for heat pipes, valves, and pipes no longer show the tier labels of the items they include.
+    - Reskinned entity, equipment, and robot frame items now have mipmaps on belts and on the ground.
   Bugfixes:
-    - Fixed that reskinned robots did not play the death sounds of the base game.
+    - Fixed that reskinned robots did not play death sounds and were missing several effects added in Factorio 2.0
     - Fixed that a checkpoint technology with a single icon file and no background failed to load.
-    - Fixed that the sensor technologies drew the radar at a quarter the size of the icon, and that the highlights of the heat pipe checkpoint were not drawn additively.
-    - Fixed that the recipes of the first two pipes lost the ingot in the corner of their icons.
+    - Fixed that the sensor technology icons showed the radar at a quarter of the icon size, and that the heat pipe checkpoint highlights were not blended additively.
+    - Fixed that the Pipe 1 (Iron) and Pipe 2 (Steel) recipes did not include the corresponding ingot in the top right corner.
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.0
 Date: 2026-11-01
