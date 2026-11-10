@@ -8,7 +8,7 @@
 	"homepage": "https://github.com/kirazy/reskins-nullius",
 	"dependencies": [
 		"nullius",
-		"reskins-framework >= 0.2.0",
+		"reskins-framework >= 0.2.1",
 		"reskins-assets-api >= 0.2.1",
 		"reskins-assets-angels",
 		"reskins-assets-base",
