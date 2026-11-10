@@ -1,6 +1,6 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.1
-Date: ????
+Date: 2026-11-09
   Features:
     - Added support for furnaces and seawater intakes.
     - Added icons to the backup generator and generator re-prioritization recipe to differentiate them from generator 2.
