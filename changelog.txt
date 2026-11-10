@@ -16,6 +16,7 @@ Date: ????
     - Fixed that reskinned robots did not play death sounds and were missing several effects added in Factorio 2.0.
     - Fixed that the Pipe 1 (Iron) and Pipe 2 (Steel) recipes did not include the corresponding ingot in the top right corner.
     - Fixed that the backup generator, equivalent to generator 2, was marked as a different tier.
+    - Fixed that turbines were not assigning sprites correctly for Factorio 2.1's changes to the generator prototype
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.0
 Date: 2026-11-01

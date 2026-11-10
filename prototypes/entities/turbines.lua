@@ -14,20 +14,6 @@ local SteamTurbine = require("__reskins-assets-api__.assets.base.entities.steam-
 local closures = { "open", "closed" }
 local modes = { "standard", "exhaust", "backup" }
 
----Gets the vertical and horizontal animations of the steam turbine in the given `tint`.
----
----The animations are at the size of the steam turbine and are not rescaled.
----@param tint Color
----@return Animation vertical
----@return Animation horizontal
-local function get_animations(tint)
-	local sprite_set = SteamTurbine.get_sprite_set({ tint = tint })
-	local vertical = util.copy(sprite_set.set.pictures.north.animation) --[[@as Animation]]
-	local horizontal = util.copy(sprite_set.set.pictures.east.animation) --[[@as Animation]]
-
-	return vertical, horizontal
-end
-
 ---Gets a copy of the given `animation` that shows its first frame only.
 ---@param animation Animation
 ---@return Animation
@@ -44,47 +30,31 @@ local function get_first_frame(animation)
 	return frame
 end
 
----Gets a copy of the given `animation` without its shadow layers.
----@param animation Animation
----@return Animation
-local function get_without_shadows(animation)
-	local layers = {}
-
-	for _, layer in pairs(animation.layers) do
-		if not layer.draw_as_shadow then
-			layers[#layers + 1] = util.copy(layer)
-		end
-	end
-
-	return { layers = layers }
-end
-
----Inserts a copy of the given `overlay` layer above the base layer of the given `animation`, in place.
+---Inserts a copy of the given `overlay` layer above the base layer of the given `animation`, in place, and sets the
+---copy to repeat for each frame of the base layer.
 ---@param animation Animation
 ---@param overlay? Animation
 local function insert_overlay(animation, overlay)
 	if overlay then
-		table.insert(animation.layers, 2, util.copy(overlay))
+		local layer = util.copy(overlay)
+		layer.repeat_count = animation.layers[1].frame_count
+
+		table.insert(animation.layers, 2, layer)
 	end
 end
 
 ---Defines the layers that mark the mode of a turbine.
 ---@class TurbineOverlays
----The overlay of the furnace when it faces north or south.
+---The overlay of the turbine when it faces north or south.
 ---@field vertical? Animation
----The overlay of the furnace when it faces east or west.
+---The overlay of the turbine when it faces east or west.
 ---@field horizontal? Animation
----The overlay of the generator when it faces north or south.
----@field generator_vertical? Animation
----The overlay of the generator when it faces east or west.
----@field generator_horizontal? Animation
 
 ---Gets copies of the overlays from the open turbine in the third tier for the given `mode`.
 ---@param mode string
 ---@return TurbineOverlays
 local function get_overlays(mode)
 	local furnace = data.raw["furnace"]["nullius-turbine-open-" .. mode .. "-3"]
-	local generator = data.raw["generator"]["nullius-turbine-generator-open-" .. mode .. "-3"]
 
 	---@type TurbineOverlays
 	local overlays = {}
@@ -92,11 +62,6 @@ local function get_overlays(mode)
 	if furnace then
 		overlays.vertical = util.copy(furnace.graphics_set.idle_animation.north.layers[2])
 		overlays.horizontal = util.copy(furnace.graphics_set.idle_animation.east.layers[2])
-	end
-
-	if generator then
-		overlays.generator_vertical = util.copy(generator.vertical_animation.layers[2])
-		overlays.generator_horizontal = util.copy(generator.horizontal_animation.layers[2])
 	end
 
 	return overlays
@@ -117,12 +82,14 @@ for _, closure in pairs(closures) do
 			local suffix = closure .. "-" .. mode .. "-" .. tier
 			local tint = _framework.tiers.get_tint(tier)
 
+			-- The turbines are drawn at the size of the steam turbine and are not rescaled.
+			local sprite_set = SteamTurbine.get_sprite_set({ tint = tint })
+
 			local furnace = data.raw["furnace"]["nullius-turbine-" .. suffix]
 			if furnace then
-				local vertical, horizontal = get_animations(tint)
+				local vertical = get_first_frame(sprite_set.set.pictures.north.animation --[[@as Animation]])
+				local horizontal = get_first_frame(sprite_set.set.pictures.east.animation --[[@as Animation]])
 
-				vertical = get_first_frame(vertical)
-				horizontal = get_first_frame(horizontal)
 				insert_overlay(vertical, overlays.vertical)
 				insert_overlay(horizontal, overlays.horizontal)
 
@@ -137,46 +104,47 @@ for _, closure in pairs(closures) do
 
 			local generator = data.raw["generator"]["nullius-turbine-generator-" .. suffix]
 			if generator then
-				local vertical, horizontal = get_animations(tint)
+				local pictures = util.copy(sprite_set.set.pictures)
 
-				-- The furnace draws the shadow.
-				vertical = get_without_shadows(vertical)
-				horizontal = get_without_shadows(horizontal)
-				insert_overlay(vertical, overlays.generator_vertical)
-				insert_overlay(horizontal, overlays.generator_horizontal)
+				insert_overlay(pictures.north.animation --[[@as Animation]], overlays.vertical)
+				insert_overlay(pictures.east.animation --[[@as Animation]], overlays.horizontal)
 
-				generator.vertical_animation = vertical
-				generator.horizontal_animation = horizontal
+				generator.two_direction_only = sprite_set.set.two_direction_only
+				generator.pictures = pictures
 			end
 		end
 	end
 end
 
+local TIER_ONE = { tier = 1, prog_tier = 1 }
+local TIER_TWO = { tier = 2, prog_tier = 2 }
+local TIER_THREE = { tier = 3, prog_tier = 3 }
+
 local tier_map = {
-	["nullius-turbine-open-1"] = { tier = 1, prog_tier = 1 },
-	["nullius-turbine-open-2"] = { tier = 2, prog_tier = 2 },
-	["nullius-turbine-open-3"] = { tier = 3, prog_tier = 3 },
-	["nullius-turbine-open-standard-1"] = { tier = 1, prog_tier = 1 },
-	["nullius-turbine-open-standard-2"] = { tier = 2, prog_tier = 2 },
-	["nullius-turbine-open-standard-3"] = { tier = 3, prog_tier = 3 },
-	["nullius-turbine-open-exhaust-1"] = { tier = 1, prog_tier = 1 },
-	["nullius-turbine-open-exhaust-2"] = { tier = 2, prog_tier = 2 },
-	["nullius-turbine-open-exhaust-3"] = { tier = 3, prog_tier = 3 },
-	["nullius-turbine-open-backup-1"] = { tier = 1, prog_tier = 1 },
-	["nullius-turbine-open-backup-2"] = { tier = 2, prog_tier = 2 },
-	["nullius-turbine-open-backup-3"] = { tier = 3, prog_tier = 3 },
-	["nullius-turbine-closed-1"] = { tier = 1, prog_tier = 1 },
-	["nullius-turbine-closed-2"] = { tier = 2, prog_tier = 2 },
-	["nullius-turbine-closed-3"] = { tier = 3, prog_tier = 3 },
-	["nullius-turbine-closed-standard-1"] = { tier = 1, prog_tier = 1 },
-	["nullius-turbine-closed-standard-2"] = { tier = 2, prog_tier = 2 },
-	["nullius-turbine-closed-standard-3"] = { tier = 3, prog_tier = 3 },
-	["nullius-turbine-closed-exhaust-1"] = { tier = 1, prog_tier = 1 },
-	["nullius-turbine-closed-exhaust-2"] = { tier = 2, prog_tier = 2 },
-	["nullius-turbine-closed-exhaust-3"] = { tier = 3, prog_tier = 3 },
-	["nullius-turbine-closed-backup-1"] = { tier = 1, prog_tier = 1 },
-	["nullius-turbine-closed-backup-2"] = { tier = 2, prog_tier = 2 },
-	["nullius-turbine-closed-backup-3"] = { tier = 3, prog_tier = 3 },
+	["nullius-turbine-open-1"] = TIER_ONE,
+	["nullius-turbine-open-2"] = TIER_TWO,
+	["nullius-turbine-open-3"] = TIER_THREE,
+	["nullius-turbine-open-standard-1"] = TIER_ONE,
+	["nullius-turbine-open-standard-2"] = TIER_TWO,
+	["nullius-turbine-open-standard-3"] = TIER_THREE,
+	["nullius-turbine-open-exhaust-1"] = TIER_ONE,
+	["nullius-turbine-open-exhaust-2"] = TIER_TWO,
+	["nullius-turbine-open-exhaust-3"] = TIER_THREE,
+	["nullius-turbine-open-backup-1"] = TIER_ONE,
+	["nullius-turbine-open-backup-2"] = TIER_TWO,
+	["nullius-turbine-open-backup-3"] = TIER_THREE,
+	["nullius-turbine-closed-1"] = TIER_ONE,
+	["nullius-turbine-closed-2"] = TIER_TWO,
+	["nullius-turbine-closed-3"] = TIER_THREE,
+	["nullius-turbine-closed-standard-1"] = TIER_ONE,
+	["nullius-turbine-closed-standard-2"] = TIER_TWO,
+	["nullius-turbine-closed-standard-3"] = TIER_THREE,
+	["nullius-turbine-closed-exhaust-1"] = TIER_ONE,
+	["nullius-turbine-closed-exhaust-2"] = TIER_TWO,
+	["nullius-turbine-closed-exhaust-3"] = TIER_THREE,
+	["nullius-turbine-closed-backup-1"] = TIER_ONE,
+	["nullius-turbine-closed-backup-2"] = TIER_TWO,
+	["nullius-turbine-closed-backup-3"] = TIER_THREE,
 }
 
 for name, options in pairs(tier_map) do
