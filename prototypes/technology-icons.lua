@@ -22,8 +22,6 @@ local reskin_base_entities = _framework.settings.get_value("reskins-framework-us
 ---Defines the icon of a technology from the `get_icon_composition` function of a catalog module, in the tint of a tier,
 ---and the options with which it is assigned.
 ---@class CatalogTechnologyIconDefinition
----The source of the icon. Default `"catalog"`.
----@field icon_type? "catalog"
 ---The module from which the icon is read.
 ---@field module CatalogModule
 ---The parameters given to `get_icon_composition` of `module` in addition to `tint`.
@@ -41,8 +39,6 @@ local reskin_base_entities = _framework.settings.get_value("reskins-framework-us
 
 ---Defines the icon of a technology from one image file, and the options with which it is assigned.
 ---@class FlatTechnologyIconDefinition
----The source of the icon.
----@field icon_type "flat"
 ---The file name of the image.
 ---@field icon FileName
 ---The size of the image, in pixels. Default `256`.
@@ -58,8 +54,6 @@ local reskin_base_entities = _framework.settings.get_value("reskins-framework-us
 ---Defines the icon of a checkpoint from the `get_icon_composition` function of a catalog module, in the tint of a tier,
 ---and the checkpoint to which it is assigned.
 ---@class CatalogCheckpointIconDefinition
----The source of the icon. Default `"catalog"`.
----@field icon_type? "catalog"
 ---The module from which the icon is read.
 ---@field module CatalogModule
 ---The parameters given to `get_icon_composition` of `module` in addition to `tint`.
@@ -85,8 +79,6 @@ local reskin_base_entities = _framework.settings.get_value("reskins-framework-us
 
 ---Defines the icon of a checkpoint from one image file, and the checkpoint to which it is assigned.
 ---@class FlatCheckpointIconDefinition
----The source of the icon.
----@field icon_type "flat"
 ---The file name of the image.
 ---@field icon FileName
 ---The size of the image, in pixels. Default `256`.
@@ -159,20 +151,23 @@ local function make_catalog_technology_icon(options)
 	return icon_data
 end
 
----Gets the icon that the given `options` describe, from the source that its `icon_type` selects.
+---Gets the icon that the given `options` describe, from the catalog module or the image file that they name.
 ---@param options TechnologyIconDefinition|CheckpointIconDefinition
+---@param technology_name string
 ---@return IconData[]
 ---@nodiscard
-local function make_technology_icons(options)
-	local icon_type = options.icon_type or "catalog"
+local function make_technology_icons(options, technology_name)
+	if options.module and options.icon then
+		error("The icon for the technology '" .. technology_name .. "' names both a catalog module and an image file.")
+	end
 
-	if icon_type == "catalog" then
+	if options.module then
 		return make_catalog_technology_icon(options --[[@as CatalogIconDefinition]])
-	elseif icon_type == "flat" then
+	elseif options.icon then
 		return make_flat_technology_icon(options --[[@as FlatIconDefinition]])
 	end
 
-	error("The technology icon type '" .. icon_type .. "' is not known.")
+	error("The icon for the technology '" .. technology_name .. "' names neither a catalog module nor an image file.")
 end
 
 ---Gets the check mark that is drawn over the icon of a checkpoint.
@@ -212,7 +207,7 @@ function M.assign_technology_icons(technologies)
 			goto continue
 		end
 
-		local icon_data = _sprite_utils.icons.transform_icons(make_technology_icons(options), {
+		local icon_data = _sprite_utils.icons.transform_icons(make_technology_icons(options, name), {
 			scale = options.scale,
 		}, "technology")
 
@@ -257,7 +252,7 @@ local function apply_checkpoint_overlay(options)
 		return
 	end
 
-	local overlay_icons = _sprite_utils.icons.transform_icons(make_technology_icons(options), {
+	local overlay_icons = _sprite_utils.icons.transform_icons(make_technology_icons(options, options.checkpoint_name), {
 		scale = options.overlay_scale,
 		shift = options.overlay_shift,
 	}, "technology")

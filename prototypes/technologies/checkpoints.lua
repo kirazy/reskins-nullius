@@ -198,7 +198,6 @@ TechnologyIcons.assign_checkpoint_icons({
 	{
 		checkpoint_name = "nullius-checkpoint-large-beacon",
 		background_icons = TechnologyIcons.make_blueprint_background(),
-		icon_type = "flat",
 		icon = "__base__/graphics/technology/effect-transmission.png",
 		overlay_scale = 4,
 	},
