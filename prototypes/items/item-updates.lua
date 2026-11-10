@@ -9,22 +9,41 @@ local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 local IconComposition = require("__reskins-sprite-utils__.icon-composition")
 
 local lit_items = {
-	["nullius-aneutronic-cell"] = _assets.sprites.get_sprite_light_layer(_assets.defines.light.fuel_cell),
-	["nullius-fusion-cell"] = _assets.sprites.get_sprite_light_layer(_assets.defines.light.fuel_cell),
-	["nullius-breeder-cell"] = _assets.sprites.get_sprite_light_layer(_assets.defines.light.fuel_cell),
-	["nullius-fission-cell"] = _assets.sprites.get_sprite_light_layer(_assets.defines.light.fuel_cell),
+	["nullius-aneutronic-cell"] = {
+		type = "item",
+		light = _assets.sprites.get_sprite_light_layer(_assets.defines.light.fuel_cell),
+	},
+	["nullius-fusion-cell"] = {
+		type = "item",
+		light = _assets.sprites.get_sprite_light_layer(_assets.defines.light.fuel_cell),
+	},
+	["nullius-breeder-cell"] = {
+		type = "item",
+		light = _assets.sprites.get_sprite_light_layer(_assets.defines.light.fuel_cell),
+	},
+	["nullius-fission-cell"] = {
+		type = "item",
+		light = _assets.sprites.get_sprite_light_layer(_assets.defines.light.fuel_cell),
+	},
 
-	["nullius-antimatter"] = _assets.sprites.get_sprite_light_layer(_assets.defines.light.fuel),
-	["nullius-magazine"] = _assets.sprites.get_sprite_light_layer(_assets.defines.light.rounds_magazine),
+	["nullius-antimatter"] = {
+		type = "item",
+		light = _assets.sprites.get_sprite_light_layer(_assets.defines.light.fuel),
+	},
+
+	["nullius-magazine-2"] = {
+		type = "ammo",
+		light = _assets.sprites.get_sprite_light_layer(_assets.defines.light.rounds_magazine),
+	},
 }
 
-for name, light in pairs(lit_items) do
-	local item = data.raw.item[name]
+for name, options in pairs(lit_items) do
+	local item = data.raw[options.type][name]
 	if item then
 		_sprite_utils.icons.apply_icon_assignment({
 			name = item.name,
 			type_name = item.type,
-			composition = IconComposition:from_prototype(item):add_light(light),
+			composition = IconComposition:from_prototype(item):add_light(options.light),
 			options = {
 				strict = true,
 			},
