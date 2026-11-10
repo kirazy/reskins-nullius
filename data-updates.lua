@@ -21,6 +21,7 @@ require("prototypes.entities.mining-drills")
 require("prototypes.entities.labs")
 require("prototypes.entities.valves")
 require("prototypes.entities.furnaces")
+require("prototypes.entities.seawater-intakes")
 
 require("prototypes.entities.relays")
 require("prototypes.entities.chargers")

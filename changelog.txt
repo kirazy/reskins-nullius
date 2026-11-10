@@ -2,7 +2,7 @@
 Version: 0.2.1
 Date: ????
   Features:
-    - Added support for furnaces.
+    - Added support for furnaces and seawater intakes.
     - Added small, medium, and large indicators to assembling machines, beacons, furnaces, and mining drills.
   Changes:
     - Migrated all artwork to the Artisanal Reskins: Assets API
