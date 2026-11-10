@@ -11,6 +11,7 @@ Date: ????
     - Composite recipe icons for heat pipes, valves, and pipes no longer show the tier labels of the items they include.
     - Reskinned entity, equipment, and robot frame items now have mipmaps on belts and on the ground.
     - Revised the tiers of personal generators.
+    - Updated the pumpjack icon to reflect the coloration of the entities.
   Bugfixes:
     - Fixed that reskinned robots did not play death sounds and were missing several effects added in Factorio 2.0
     - Fixed that a checkpoint technology with a single icon file and no background failed to load.

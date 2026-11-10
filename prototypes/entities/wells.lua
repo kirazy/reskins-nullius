@@ -12,14 +12,14 @@ local entities = {
 	["nullius-well-1"] = {
 		tier = 1,
 		prog_tier = 2,
-		base_tint = util.color("#47abcc") --[[@as Color]],
-		accent_tint = util.color("#cc7052") --[[@as Color]],
+		base_tint = util.color("#47abcc"),
+		accent_tint = util.color("#cc7052"),
 	},
 	["nullius-well-2"] = {
 		tier = 2,
 		prog_tier = 3,
-		base_tint = util.color("#4c6fd9") --[[@as Color]],
-		accent_tint = util.color("#ccad52") --[[@as Color]],
+		base_tint = util.color("#4c6fd9"),
+		accent_tint = util.color("#ccad52"),
 	},
 }
 
@@ -67,7 +67,10 @@ for name, options in pairs(entities) do
 		tier = tier,
 		name = entity.name,
 		type_name = entity.type,
-		composition = Pumpjack.get_icon_composition({ tint = tint }):minify(0.8),
+		composition = Pumpjack.get_tintable_icon_composition({
+			base_tint = options.base_tint,
+			tint = tint,
+		}):minify(0.8),
 	})
 
 	_sprite_utils.icons.apply_icon_assignment(icon_assignment)
