@@ -12,5 +12,3 @@ require("prototypes.entities.nanofabricators")
 -- require("entity.small-furnace")
 require("prototypes.entities.turbines")
 require("prototypes.entities.stirling-engines")
-
-require("prototypes.entities.vacuum-chambers")

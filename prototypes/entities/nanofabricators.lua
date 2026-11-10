@@ -8,7 +8,6 @@ local Crystallizer = require("__reskins-assets-api__.assets.angels.entities.refi
 local entities = {
 	["nullius-nanofabricator-1"] = { tier = 1, prog_tier = 1 },
 	["nullius-nanofabricator-2"] = { tier = 2, prog_tier = 2 },
-	["nullius-nanofabricator-3"] = { tier = 3, prog_tier = 3 },
 }
 
 for name, options in pairs(entities) do
