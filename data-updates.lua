@@ -27,4 +27,6 @@ require("prototypes.entities.relays")
 require("prototypes.entities.chargers")
 -- require("entity.solar-collectors")
 
+require("prototypes.items.item-updates")
+
 require("prototypes.recipe-updates")
