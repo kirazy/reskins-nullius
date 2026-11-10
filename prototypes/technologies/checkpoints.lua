@@ -2,6 +2,7 @@ local TechnologyIcons = require("prototypes.technology-icons")
 local Automation = require("__reskins-assets-api__.assets.base.technologies.automation")
 local ElectricEnergyAccumulators =
 	require("__reskins-assets-api__.assets.base.technologies.electric-energy-accumulators")
+local Electrolyser = require("__reskins-assets-api__.assets.angels.technologies.electrolyser")
 local FluidHandling = require("__reskins-assets-api__.assets.base.technologies.fluid-handling")
 local GasTank = require("__reskins-assets-api__.assets.angels.technologies.gas-tank")
 local HeatExchangerTechnology = require("__reskins-assets-api__.assets.bobs.technologies.heat-exchanger")
@@ -64,7 +65,7 @@ TechnologyIcons.assign_checkpoint_icons({
 	{
 		checkpoint_name = "nullius-checkpoint-caustic-solution",
 		background_icons = TechnologyIcons.make_blueprint_background(),
-		icon_type = "electrolyzer-entity-frame",
+		module = Electrolyser,
 		tier = 1,
 		prog_tier = 1,
 		overlay_scale = 4,
@@ -72,7 +73,7 @@ TechnologyIcons.assign_checkpoint_icons({
 	{
 		checkpoint_name = "nullius-checkpoint-energy-storage",
 		background_icons = TechnologyIcons.make_blueprint_background(),
-		icon_type = "electrolyzer-entity-frame",
+		module = Electrolyser,
 		tier = 1,
 		prog_tier = 1,
 		overlay_scale = 4,

@@ -39,22 +39,6 @@ local reskin_base_entities = _framework.settings.get_value("reskins-framework-us
 ---When `true`, indicates that the icon is assigned only when the tier colors are customized. Default `false`.
 ---@field is_base? boolean
 
----Defines the icon of a technology from the north-facing sprite of the electrolyser entity, in the tint of a tier, and
----the options with which it is assigned.
----@class ElectrolyzerFrameTechnologyIconDefinition
----The source of the icon.
----@field icon_type "electrolyzer-entity-frame"
----The traditional tier of the technology.
----@field tier? Tier
----The progression tier of the technology.
----@field prog_tier? Tier
----The tint of the icon. When `nil`, the color of the tier for the current tier mapping is used, if `tier` is given.
----@field tint? Color
----The scale applied to the icon. When `nil`, the icon is not scaled.
----@field scale? double
----When `true`, indicates that the icon is assigned only when the tier colors are customized. Default `false`.
----@field is_base? boolean
-
 ---Defines the icon of a technology from one image file, and the options with which it is assigned.
 ---@class FlatTechnologyIconDefinition
 ---The source of the icon.
@@ -69,7 +53,7 @@ local reskin_base_entities = _framework.settings.get_value("reskins-framework-us
 ---@field is_base? boolean
 
 ---Defines the icon of a technology and the options with which it is assigned.
----@alias TechnologyIconDefinition CatalogTechnologyIconDefinition|ElectrolyzerFrameTechnologyIconDefinition|FlatTechnologyIconDefinition
+---@alias TechnologyIconDefinition CatalogTechnologyIconDefinition|FlatTechnologyIconDefinition
 
 ---Defines the icon of a checkpoint from the `get_icon_composition` function of a catalog module, in the tint of a tier,
 ---and the checkpoint to which it is assigned.
@@ -80,30 +64,6 @@ local reskin_base_entities = _framework.settings.get_value("reskins-framework-us
 ---@field module CatalogModule
 ---The parameters given to `get_icon_composition` of `module` in addition to `tint`.
 ---@field params? table<string, string|integer>
----The traditional tier of the technology.
----@field tier? Tier
----The progression tier of the technology.
----@field prog_tier? Tier
----The tint of the icon. When `nil`, the color of the tier for the current tier mapping is used, if `tier` is given.
----@field tint? Color
----The name of the checkpoint technology to which the icon is assigned.
----@field checkpoint_name string
----The layers drawn beneath the icon. When `nil`, the first layer in the current icon of the checkpoint is used.
----@field background_icons? IconData[]
----The layers drawn over the icon. Default `nil`.
----@field top_icons? IconData[]
----The scale applied to the icon. When `nil`, the icon is not scaled.
----@field overlay_scale? double
----The shift applied to the icon. When `nil`, the icon is not shifted.
----@field overlay_shift? Vector
----When `true`, indicates that the icon is assigned only when the tier colors are customized. Default `false`.
----@field is_base? boolean
-
----Defines the icon of a checkpoint from the north-facing sprite of the electrolyser entity, in the tint of a tier, and
----the checkpoint to which it is assigned.
----@class ElectrolyzerFrameCheckpointIconDefinition
----The source of the icon.
----@field icon_type "electrolyzer-entity-frame"
 ---The traditional tier of the technology.
 ---@field tier? Tier
 ---The progression tier of the technology.
@@ -145,13 +105,10 @@ local reskin_base_entities = _framework.settings.get_value("reskins-framework-us
 ---@field is_base? boolean
 
 ---Defines the icon of a checkpoint and the checkpoint to which it is assigned.
----@alias CheckpointIconDefinition CatalogCheckpointIconDefinition|ElectrolyzerFrameCheckpointIconDefinition|FlatCheckpointIconDefinition
+---@alias CheckpointIconDefinition CatalogCheckpointIconDefinition|FlatCheckpointIconDefinition
 
 ---Defines the icon of a technology or a checkpoint from a catalog module.
 ---@alias CatalogIconDefinition CatalogTechnologyIconDefinition|CatalogCheckpointIconDefinition
-
----Defines the icon of a technology or a checkpoint from the electrolyser entity.
----@alias ElectrolyzerFrameIconDefinition ElectrolyzerFrameTechnologyIconDefinition|ElectrolyzerFrameCheckpointIconDefinition
 
 ---Defines the icon of a technology or a checkpoint from one image file.
 ---@alias FlatIconDefinition FlatTechnologyIconDefinition|FlatCheckpointIconDefinition
@@ -160,7 +117,7 @@ local reskin_base_entities = _framework.settings.get_value("reskins-framework-us
 local M = {}
 
 ---Gets the tint of the icon that the given `options` describe, from its `tint` or from the color of its tier.
----@param options CatalogIconDefinition|ElectrolyzerFrameIconDefinition
+---@param options CatalogIconDefinition
 ---@return Color? # The tint, or `nil` when `options` gives neither a tint nor a tier.
 ---@nodiscard
 local function get_tier_tint(options)
@@ -174,29 +131,6 @@ local function get_tier_tint(options)
 	end
 
 	return _framework.tiers.get_tint(_framework.tiers.get_tier(tier, options.prog_tier))
-end
-
----Gets the icon of the electrolyser entity that the given `options` describe, in the tint of its tier.
----@param options ElectrolyzerFrameIconDefinition
----@return IconData[]
----@nodiscard
-local function make_electrolyzer_entity_frame_technology_icon(options)
-	return {
-		{
-			icon = "__angelspetrochemgraphics__/graphics/entity/electrolyser/electrolyser-north.png",
-			icon_size = 224,
-		},
-		{
-			icon = "__reskins-assets-angels__/graphics/entity/electrolyser/electrolyser-mask.png",
-			icon_size = 224,
-			tint = get_tier_tint(options),
-		},
-		{
-			icon = "__reskins-assets-angels__/graphics/entity/electrolyser/electrolyser-highlights.png",
-			icon_size = 224,
-			tint = { 1, 1, 1, 0 },
-		},
-	}
 end
 
 ---Gets the icon of the image file that the given `options` name.
@@ -234,8 +168,6 @@ local function make_technology_icons(options)
 
 	if icon_type == "catalog" then
 		return make_catalog_technology_icon(options --[[@as CatalogIconDefinition]])
-	elseif icon_type == "electrolyzer-entity-frame" then
-		return make_electrolyzer_entity_frame_technology_icon(options --[[@as ElectrolyzerFrameIconDefinition]])
 	elseif icon_type == "flat" then
 		return make_flat_technology_icon(options --[[@as FlatIconDefinition]])
 	end
