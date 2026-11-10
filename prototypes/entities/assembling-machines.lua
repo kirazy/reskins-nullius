@@ -53,7 +53,7 @@ local entities = {
 		type = "assembling-machine",
 		tier = 3,
 		prog_tier = 4,
-		machine_tier = 4, -- crafting speed: 4
+		machine_tier = 5, -- crafting speed: 4
 		icon_scalar = medium_icon_scale,
 		letter = "M",
 	},
