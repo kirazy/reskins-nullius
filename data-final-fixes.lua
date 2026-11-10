@@ -43,6 +43,7 @@ require("prototypes.technologies.solar-thermal-power")
 require("prototypes.technologies.checkpoints")
 
 require("compatibility.advanced-fluid-handling")
+require("compatibility.aai-loaders")
 
 -- After all entity updates.
 require("prototypes.items.broken")

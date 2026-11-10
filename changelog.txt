@@ -6,6 +6,7 @@ Date: ????
     - Added small, medium, and large indicators to assembling machines, beacons, furnaces, and mining drills.
     - Added icons to the backup generator and generator re-prioritization recipe to differentiate them from generator 2.
     - Uranium, fuel cells, antimatter, and the depleted-uranium ammo magazine are now lit when in-world.
+    - Added support for AAI Loaders.
   Changes:
     - Migrated all artwork to the Artisanal Reskins: Assets API
     - Technology icons and the Underground Pipe Pack junction icons now come from the Artisanal Reskins: Assets API, and the geothermal power technologies now show their lights.
