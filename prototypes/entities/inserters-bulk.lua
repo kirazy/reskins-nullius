@@ -9,11 +9,11 @@ local Inserter = require("__reskins-assets-api__.assets.base.entities.inserter")
 local entities = {
 	["bulk-inserter"] = {
 		type = "inserter",
-		tint = util.color("#45bcec") --[[@as Color]],
+		tint = util.color("#45bcec"),
 	},
 	["bob-express-bulk-inserter"] = {
 		type = "inserter",
-		tint = util.color("#9fd942") --[[@as Color]],
+		tint = util.color("#9fd942"),
 	},
 }
 
