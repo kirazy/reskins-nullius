@@ -12,6 +12,7 @@ Date: ????
     - Revised the tiers of personal generators.
     - Updated the pumpjack icon to reflect the coloration of the entities.
     - Updated the sensor node technologies to use the radar technology icon.
+    - Relays now use two distinct sprite sets for standard and construction mode, matching how hangars are handled.
   Bugfixes:
     - Fixed that reskinned robots did not play death sounds and were missing several effects added in Factorio 2.0.
     - Fixed that the Pipe 1 (Iron) and Pipe 2 (Steel) recipes did not include the corresponding ingot in the top right corner.
