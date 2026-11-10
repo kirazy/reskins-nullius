@@ -48,10 +48,14 @@ local function update_penalty_variants(base_entity, base_tint, tier, options)
 				tier = tier,
 				name = entity.name,
 				type_name = entity.type,
-				composition = Beacon.get_icon_composition({ tint = tint })
+				composition = Beacon
+					.get_icon_composition({ tint = tint })
 					:minify(options.icon_scalar)
-					:add_label(_assets.icons.get_letter(options.letter, _framework.tiers.get_tint(tier)))
-					:add_symbol(penalty_indicator, { shift = { 25, 0 } }),
+					-- :add_label(_assets.icons.get_letter(options.letter, _framework.tiers.get_tint(tier)))
+					:add_symbol(
+						penalty_indicator,
+						{ shift = { 25, 0 } }
+					),
 				-- The penalty variant shares its corpse and explosion with the base beacon.
 				options = {
 					infer_explosion = false,
@@ -109,7 +113,7 @@ for name, options in pairs(entities) do
 	Applicators.apply_sprite_set(entity, sprite_set, { scale = options.scale })
 
 	local composition = Beacon.get_icon_composition({ tint = tint })
-		:add_label(_assets.icons.get_letter(options.letter, tint))
+	-- :add_label(_assets.icons.get_letter(options.letter, tint))
 	local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 		tier = tier,
 		name = name,

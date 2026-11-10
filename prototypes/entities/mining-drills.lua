@@ -122,7 +122,8 @@ for name, options in pairs(burner_entities) do
 			tier = tier,
 			name = entity.name,
 			type_name = entity.type,
-			composition = burner_icon:add_label(_assets.icons.get_letter(options.letter, tint)):minify(options.icon_scalar),
+			composition = burner_icon:minify(options.icon_scalar),
+			-- :add_label(_assets.icons.get_letter(options.letter, tint))
 		})
 
 		_sprite_utils.icons.apply_icon_assignment(icon_assignment)

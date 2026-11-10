@@ -90,7 +90,7 @@ for name, options in pairs(entities) do
 	Applicators.apply_sprite_set(entity, sprite_set)
 
 	local composition = AssemblingMachine.get_icon_composition({ machine_tier = options.machine_tier, tint = tint })
-		:add_label(_assets.icons.get_letter(options.letter, tint))
+	-- :add_label(_assets.icons.get_letter(options.letter, tint))
 	local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 		tier = tier,
 		name = name,

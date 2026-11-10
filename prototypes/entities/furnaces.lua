@@ -97,9 +97,8 @@ for name, options in pairs(entities) do
 
 	Applicators.apply_sprite_set(entity, sprite_set)
 
-	local composition = options.module
-		.get_icon_composition({ tint = tint, variant = options.variant })
-		:add_label(_assets.icons.get_letter(options.letter, tint))
+	local composition = options.module.get_icon_composition({ tint = tint, variant = options.variant })
+	-- :add_label(_assets.icons.get_letter(options.letter, tint))
 	local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 		tier = tier,
 		name = entity.name,

@@ -3,7 +3,6 @@ Version: 0.2.1
 Date: ????
   Features:
     - Added support for furnaces and seawater intakes.
-    - Added small, medium, and large indicators to assembling machines, beacons, furnaces, and mining drills.
     - Added icons to the backup generator and generator re-prioritization recipe to differentiate them from generator 2.
     - Uranium, fuel cells, antimatter, and the depleted-uranium ammo magazine are now lit when in-world.
     - Added support for AAI Loaders.
