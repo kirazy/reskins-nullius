@@ -8,16 +8,12 @@ Date: ????
     - Uranium, fuel cells, antimatter, and the depleted-uranium ammo magazine are now lit when in-world.
     - Added support for AAI Loaders.
   Changes:
-    - Migrated all artwork to the Artisanal Reskins: Assets API
-    - Technology icons and the Underground Pipe Pack junction icons now come from the Artisanal Reskins: Assets API, and the geothermal power technologies now show their lights.
-    - Composite recipe icons for heat pipes, valves, and pipes no longer show the tier labels of the items they include.
-    - Reskinned entity, equipment, and robot frame items now have mipmaps on belts and on the ground.
+    - Completed migration of artwork to the Artisanal Reskins: Assets API.
     - Revised the tiers of personal generators.
     - Updated the pumpjack icon to reflect the coloration of the entities.
+    - Updated the sensor node technologies to use the radar technology icon.
   Bugfixes:
-    - Fixed that reskinned robots did not play death sounds and were missing several effects added in Factorio 2.0
-    - Fixed that a checkpoint technology with a single icon file and no background failed to load.
-    - Fixed that the sensor technology icons showed the radar at a quarter of the icon size, and that the heat pipe checkpoint highlights were not blended additively.
+    - Fixed that reskinned robots did not play death sounds and were missing several effects added in Factorio 2.0.
     - Fixed that the Pipe 1 (Iron) and Pipe 2 (Steel) recipes did not include the corresponding ingot in the top right corner.
     - Fixed that the backup generator, equivalent to generator 2, was marked as a different tier.
 ---------------------------------------------------------------------------------------------------
