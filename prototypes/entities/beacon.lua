@@ -50,6 +50,7 @@ local function update_penalty_variants(base_entity, base_tint, tier, options)
 				type_name = entity.type,
 				composition = Beacon.get_icon_composition({ tint = tint })
 					:minify(options.icon_scalar)
+					:add_label(_assets.icons.get_letter(options.letter, _framework.tiers.get_tint(tier)))
 					:add_symbol(penalty_indicator, { shift = { 25, 0 } }),
 				-- The penalty variant shares its corpse and explosion with the base beacon.
 				options = {
@@ -69,6 +70,7 @@ local entities = {
 		icon_scalar = 0.8,
 		scale = 0.4,
 		penalties = { 0.45, 0.40, 0.30, 0.15 },
+		letter = "S",
 	},
 	["nullius-beacon-2"] = {
 		tier = 2,
@@ -76,6 +78,7 @@ local entities = {
 		icon_scalar = 0.8,
 		scale = 0.45,
 		penalties = { 0.36, 0.32, 0.24, 0.12 },
+		letter = "S",
 	},
 	["nullius-beacon-3"] = {
 		tier = 3,
@@ -83,9 +86,10 @@ local entities = {
 		icon_scalar = 0.8,
 		scale = 0.5,
 		penalties = { 0.45, 0.40, 0.30, 0.15 },
+		letter = "S",
 	},
-	["nullius-large-beacon-1"] = { tier = 1, prog_tier = 2, tint_tier = 2, scale = 0.6 },
-	["nullius-large-beacon-2"] = { tier = 2, prog_tier = 3, tint_tier = 3, scale = 0.665 },
+	["nullius-large-beacon-1"] = { tier = 1, prog_tier = 2, scale = 0.6, letter = "L" },
+	["nullius-large-beacon-2"] = { tier = 2, prog_tier = 3, scale = 0.665, letter = "L" },
 }
 
 for name, options in pairs(entities) do
@@ -105,6 +109,7 @@ for name, options in pairs(entities) do
 	Applicators.apply_sprite_set(entity, sprite_set, { scale = options.scale })
 
 	local composition = Beacon.get_icon_composition({ tint = tint })
+		:add_label(_assets.icons.get_letter(options.letter, tint))
 	local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 		tier = tier,
 		name = name,
