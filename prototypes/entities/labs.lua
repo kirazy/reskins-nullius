@@ -3,12 +3,13 @@ local _sprite_utils = { icons = require("__reskins-sprite-utils__.icons") }
 
 local Applicators = require("__reskins-assets-api__.api.applicators")
 local Lab = require("__reskins-assets-api__.assets.base.entities.lab")
+local Tints = require("__reskins-nullius__.prototypes.tints")
 
 local entities = {
 	["nullius-lab-1"] = { tier = 1, prog_tier = 1, icon_scalar = 0.8 },
 	["nullius-lab-2"] = { tier = 2, prog_tier = 2, icon_scalar = 0.8 },
 	["nullius-lab-3"] = { tier = 3, prog_tier = 3, icon_scalar = 0.8 },
-	["nullius-biology-lab"] = { tier = 4, prog_tier = 4 },
+	["nullius-biology-lab"] = { tier = 0, tint = Tints.ecological_green },
 }
 
 for name, options in pairs(entities) do
@@ -18,7 +19,7 @@ for name, options in pairs(entities) do
 	end
 
 	local tier = _framework.tiers.get_tier(options)
-	local tint = _framework.tiers.get_tint(tier)
+	local tint = options.tint or _framework.tiers.get_tint(tier)
 
 	local sprite_set = Lab.get_sprite_set({ tint = tint })
 
