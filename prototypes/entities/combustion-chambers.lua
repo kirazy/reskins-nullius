@@ -5,14 +5,14 @@ local Applicators = require("__reskins-assets-api__.api.applicators")
 local Boiler = require("__reskins-assets-api__.assets.base.entities.boiler")
 
 local entities = {
-	["nullius-combustion-chamber-1"] = { type = "assembling-machine", tier = 1, prog_tier = 1 },
-	["nullius-combustion-chamber-2"] = { type = "assembling-machine", tier = 2, prog_tier = 2 },
-	["nullius-combustion-chamber-3"] = { type = "assembling-machine", tier = 3, prog_tier = 3 },
+	["nullius-combustion-chamber-1"] = { tier = 1, prog_tier = 1 },
+	["nullius-combustion-chamber-2"] = { tier = 2, prog_tier = 2 },
+	["nullius-combustion-chamber-3"] = { tier = 3, prog_tier = 3 },
 }
 
 for name, options in pairs(entities) do
 	---@type data.AssemblingMachinePrototype
-	local entity = data.raw[options.type][name]
+	local entity = data.raw["assembling-machine"][name]
 	if not entity then
 		goto continue
 	end
@@ -26,7 +26,7 @@ for name, options in pairs(entities) do
 	local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 		tier = tier,
 		name = name,
-		type_name = options.type,
+		type_name = entity.type,
 		composition = Boiler.get_fluid_icon_composition({ tint = tint }),
 	})
 

@@ -5,9 +5,9 @@ local Applicators = require("__reskins-assets-api__.api.applicators")
 local CastingMachine = require("__reskins-assets-api__.assets.angels.entities.smelting.casting-machine")
 
 local entities = {
-	["nullius-foundry-1"] = { tier = 1 },
-	["nullius-foundry-2"] = { tier = 2 },
-	["nullius-foundry-3"] = { tier = 3 },
+	["nullius-foundry-1"] = { tier = 1, prog_tier = 1 },
+	["nullius-foundry-2"] = { tier = 2, prog_tier = 2 },
+	["nullius-foundry-3"] = { tier = 3, prog_tier = 3 },
 }
 
 for name, options in pairs(entities) do

@@ -7,14 +7,17 @@ local ICON_PATH = "__reskins-nullius__/graphics/icons/collector/"
 local collectors = {
 	["nullius-solar-collector-1"] = {
 		tier = 1,
+		prog_tier = 1,
 		tint = util.color("#ff3333"),
 	},
 	["nullius-solar-collector-2"] = {
 		tier = 2,
+		prog_tier = 2,
 		tint = util.color("#ff9f1c"),
 	},
 	["nullius-solar-collector-3"] = {
 		tier = 3,
+		prog_tier = 3,
 		tint = util.color("#ffe55c"),
 	},
 }

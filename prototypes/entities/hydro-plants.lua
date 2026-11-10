@@ -12,9 +12,9 @@ local HydroPlant = require("__reskins-assets-api__.assets.angels.entities.refini
 -- their own fluid box graphics and circuit connector, and draw none of the pipes that Angel's hydro plant draws on the
 -- building.
 local entities = {
-	["nullius-hydro-plant-1"] = { tier = 1 },
-	["nullius-hydro-plant-2"] = { tier = 2 },
-	["nullius-hydro-plant-3"] = { tier = 3 },
+	["nullius-hydro-plant-1"] = { tier = 1, prog_tier = 1 },
+	["nullius-hydro-plant-2"] = { tier = 2, prog_tier = 2 },
+	["nullius-hydro-plant-3"] = { tier = 3, prog_tier = 3 },
 }
 
 ---Indicates whether the given `working_visualisation` draws pipes.

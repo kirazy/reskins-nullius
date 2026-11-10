@@ -10,10 +10,10 @@ local RoboportChargePad = require("__reskins-assets-api__.assets.bobs.items.robo
 local EquipmentPartChargePad = require("__reskins-assets-api__.assets.bobs.equipment.equipment-part-charge-pad")
 
 local chargers = {
-	["nullius-charger-1"] = { tier = 1, prog_tier = 2, image_index = 1, scale = 1 },
-	["nullius-charger-2"] = { tier = 2, prog_tier = 3, image_index = 2, scale = 1 },
-	["nullius-charger-3"] = { tier = 3, prog_tier = 4, image_index = 3, scale = 1 },
-	["nullius-charger-4"] = { tier = 4, prog_tier = 5, image_index = 4, scale = 0.5 },
+	["nullius-charger-1"] = { tier = 1, prog_tier = 2, image_index = 1, pad_scale = 1 },
+	["nullius-charger-2"] = { tier = 2, prog_tier = 3, image_index = 2, pad_scale = 1 },
+	["nullius-charger-3"] = { tier = 3, prog_tier = 4, image_index = 3, pad_scale = 1 },
+	["nullius-charger-4"] = { tier = 4, prog_tier = 5, image_index = 4, pad_scale = 0.5 },
 }
 
 local triangle_offsets = {
@@ -58,8 +58,8 @@ for name, options in pairs(chargers) do
 		local sprite_set = RoboChargePort.get_sprite_set({
 			tint = tint,
 			tier = options.image_index,
-			pad_positions = get_pad_positions(options.scale),
-			pad_scale = options.scale,
+			pad_positions = get_pad_positions(options.pad_scale),
+			pad_scale = options.pad_scale,
 		})
 		local graphics_set = util.copy(sprite_set.set.graphics_set)
 

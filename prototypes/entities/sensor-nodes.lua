@@ -5,13 +5,13 @@ local Applicators = require("__reskins-assets-api__.api.applicators")
 local Radar = require("__reskins-assets-api__.assets.base.entities.radar")
 
 local entities = {
-	["radar"] = { type = "radar", tier = 1, prog_tier = 1 },
-	["nullius-sensor-node-2"] = { type = "radar", tier = 2, prog_tier = 2 },
-	["nullius-sensor-node-3"] = { type = "radar", tier = 3, prog_tier = 3 },
+	["radar"] = { tier = 1, prog_tier = 1 },
+	["nullius-sensor-node-2"] = { tier = 2, prog_tier = 2 },
+	["nullius-sensor-node-3"] = { tier = 3, prog_tier = 3 },
 }
 
 for name, options in pairs(entities) do
-	local entity = data.raw[options.type][name]
+	local entity = data.raw["radar"][name]
 	if not entity then
 		goto continue
 	end
@@ -26,7 +26,7 @@ for name, options in pairs(entities) do
 	local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 		tier = tier,
 		name = name,
-		type_name = options.type,
+		type_name = entity.type,
 		composition = Radar.get_icon_composition({ tint = tint }),
 	})
 

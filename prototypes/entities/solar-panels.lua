@@ -6,14 +6,14 @@ local SolarPanelLarge = require("__reskins-assets-api__.assets.base.entities.sol
 local SolarPanel = require("__reskins-assets-api__.assets.base.entities.solar-panel-standard")
 
 local entities = {
-	["nullius-solar-panel-1"] = { type = "solar-panel", tier = 1, prog_tier = 1 },
-	["nullius-solar-panel-2"] = { type = "solar-panel", tier = 2, prog_tier = 2 },
-	["nullius-solar-panel-3"] = { type = "solar-panel", tier = 3, prog_tier = 3 },
-	["nullius-solar-panel-4"] = { type = "solar-panel", tier = 4, prog_tier = 4 },
+	["nullius-solar-panel-1"] = { tier = 1, prog_tier = 1 },
+	["nullius-solar-panel-2"] = { tier = 2, prog_tier = 2 },
+	["nullius-solar-panel-3"] = { tier = 3, prog_tier = 3 },
+	["nullius-solar-panel-4"] = { tier = 4, prog_tier = 4 },
 }
 
 for name, options in pairs(entities) do
-	local entity = data.raw[options.type][name]
+	local entity = data.raw["solar-panel"][name]
 	if not entity then
 		goto continue
 	end
@@ -27,7 +27,7 @@ for name, options in pairs(entities) do
 	local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 		tier = tier,
 		name = name,
-		type_name = options.type,
+		type_name = entity.type,
 		composition = SolarPanel.get_icon_composition({ tint = tint }),
 	})
 

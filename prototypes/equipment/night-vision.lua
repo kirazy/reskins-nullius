@@ -6,9 +6,9 @@ local EquipmentNightVision = require("__reskins-assets-api__.assets.base.items.e
 local EquipmentNightVisionSprites = require("__reskins-assets-api__.assets.base.equipment.equipment-night-vision")
 
 local night_vision_equipment = {
-	["nullius-night-vision-1"] = { tier = 1 },
-	["nullius-night-vision-2"] = { tier = 2 },
-	["nullius-night-vision-3"] = { tier = 3 },
+	["nullius-night-vision-1"] = { tier = 1, prog_tier = 1 },
+	["nullius-night-vision-2"] = { tier = 2, prog_tier = 2 },
+	["nullius-night-vision-3"] = { tier = 3, prog_tier = 3 },
 }
 
 for name, options in pairs(night_vision_equipment) do

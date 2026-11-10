@@ -11,18 +11,9 @@ local Applicators = require("__reskins-assets-api__.api.applicators")
 local OilRefinery = require("__reskins-assets-api__.assets.assorted.entities.oil-refinery-original")
 
 local entities = {
-	["nullius-distillery-1"] = {
-		tier = 1,
-		prog_tier = 1,
-	},
-	["nullius-distillery-2"] = {
-		tier = 2,
-		prog_tier = 2,
-	},
-	["nullius-distillery-3"] = {
-		tier = 3,
-		prog_tier = 3,
-	},
+	["nullius-distillery-1"] = { tier = 1, prog_tier = 1 },
+	["nullius-distillery-2"] = { tier = 2, prog_tier = 2 },
+	["nullius-distillery-3"] = { tier = 3, prog_tier = 3 },
 }
 
 for name, options in pairs(entities) do

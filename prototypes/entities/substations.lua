@@ -5,13 +5,13 @@ local Applicators = require("__reskins-assets-api__.api.applicators")
 local Substation = require("__reskins-assets-api__.assets.base.entities.substation")
 
 local entities = {
-	["substation"] = { type = "electric-pole", tier = 1, prog_tier = 1 },
-	["nullius-substation-2"] = { type = "electric-pole", tier = 2, prog_tier = 2 },
-	["nullius-substation-3"] = { type = "electric-pole", tier = 3, prog_tier = 3 },
+	["substation"] = { tier = 1, prog_tier = 1 },
+	["nullius-substation-2"] = { tier = 2, prog_tier = 2 },
+	["nullius-substation-3"] = { tier = 3, prog_tier = 3 },
 }
 
 for name, options in pairs(entities) do
-	local entity = data.raw[options.type][name]
+	local entity = data.raw["electric-pole"][name]
 	if not entity then
 		goto continue
 	end
@@ -26,7 +26,7 @@ for name, options in pairs(entities) do
 	local icon_assignment = _framework.tiers.icon_assignment_with_tier_labels({
 		tier = tier,
 		name = name,
-		type_name = options.type,
+		type_name = entity.type,
 		composition = Substation.get_icon_composition({ tint = tint }),
 	})
 

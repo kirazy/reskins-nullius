@@ -9,12 +9,12 @@ local Applicators = require("__reskins-assets-api__.api.applicators")
 local Electrolyser = require("__reskins-assets-api__.assets.angels.entities.petrochem.electrolyser")
 
 local entities = {
-	["nullius-priority-electrolyzer-1"] = { tier = 1 },
-	["nullius-priority-electrolyzer-2"] = { tier = 2 },
-	["nullius-priority-electrolyzer-3"] = { tier = 3 },
-	["nullius-surge-electrolyzer-1"] = { tier = 1 },
-	["nullius-surge-electrolyzer-2"] = { tier = 2 },
-	["nullius-surge-electrolyzer-3"] = { tier = 3 },
+	["nullius-priority-electrolyzer-1"] = { tier = 1, prog_tier = 1 },
+	["nullius-priority-electrolyzer-2"] = { tier = 2, prog_tier = 2 },
+	["nullius-priority-electrolyzer-3"] = { tier = 3, prog_tier = 3 },
+	["nullius-surge-electrolyzer-1"] = { tier = 1, prog_tier = 1 },
+	["nullius-surge-electrolyzer-2"] = { tier = 2, prog_tier = 2 },
+	["nullius-surge-electrolyzer-3"] = { tier = 3, prog_tier = 3 },
 }
 
 for name, options in pairs(entities) do
@@ -42,9 +42,9 @@ end
 
 -- The items place the priority electrolyzers, and have no entity of the same name.
 local items = {
-	["nullius-electrolyzer-1"] = { tier = 1 },
-	["nullius-electrolyzer-2"] = { tier = 2 },
-	["nullius-electrolyzer-3"] = { tier = 3 },
+	["nullius-electrolyzer-1"] = { tier = 1, prog_tier = 1 },
+	["nullius-electrolyzer-2"] = { tier = 2, prog_tier = 2 },
+	["nullius-electrolyzer-3"] = { tier = 3, prog_tier = 3 },
 }
 
 for name, options in pairs(items) do
