@@ -4,16 +4,19 @@ Date: ????
   Features:
     - Added support for furnaces and seawater intakes.
     - Added small, medium, and large indicators to assembling machines, beacons, furnaces, and mining drills.
+    - Added icons to the backup generator and generator re-prioritization recipe to differentiate them from generator 2.
   Changes:
     - Migrated all artwork to the Artisanal Reskins: Assets API
     - Technology icons and the Underground Pipe Pack junction icons now come from the Artisanal Reskins: Assets API, and the geothermal power technologies now show their lights.
     - Composite recipe icons for heat pipes, valves, and pipes no longer show the tier labels of the items they include.
     - Reskinned entity, equipment, and robot frame items now have mipmaps on belts and on the ground.
+    - Revised the tiers of personal generators.
   Bugfixes:
     - Fixed that reskinned robots did not play death sounds and were missing several effects added in Factorio 2.0
     - Fixed that a checkpoint technology with a single icon file and no background failed to load.
     - Fixed that the sensor technology icons showed the radar at a quarter of the icon size, and that the heat pipe checkpoint highlights were not blended additively.
     - Fixed that the Pipe 1 (Iron) and Pipe 2 (Steel) recipes did not include the corresponding ingot in the top right corner.
+    - Fixed that the backup generator, equivalent to generator 2, was marked as a different tier.
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.0
 Date: 2026-11-01
