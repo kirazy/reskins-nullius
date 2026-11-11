@@ -58,7 +58,7 @@ for name, options in pairs(broken_items) do
 		goto continue
 	end
 
-	local composition = get_icon_as_composition(source_item):blend_tint(broken_tint, 0.5):add_symbol(broken_symbol)
+	local composition = get_icon_as_composition(source_item):blend_tint(broken_tint, 0.35):add_symbol(broken_symbol)
 	local icon_assignment = {
 		name = name,
 		type_name = "item",
