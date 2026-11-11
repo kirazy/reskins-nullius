@@ -6,6 +6,7 @@ local tier_map = {
 
 local function heat_pipe_sprite(material, sprite_name, shift)
 	return {
+		-- stylua: ignore
 		filename = "__reskins-assets-bobs__/graphics/entity/heat-pipe/" .. material .. "/heat-pipe-" .. sprite_name .. ".png",
 		priority = "extra-high",
 		width = 64,
