@@ -16,6 +16,7 @@ local SteamEngineTechnology = require("__reskins-assets-api__.assets.bobs.techno
 local SubstationTechnology = require("__reskins-assets-api__.assets.base.technologies.substation")
 local ThermalTank = require("__reskins-assets-api__.assets.assorted.technologies.thermal-tank")
 local WaterTreatment = require("__reskins-assets-api__.assets.angels.technologies.water-treatment")
+local WindTurbine = require("__reskins-assets-api__.assets.assorted.technologies.wind-turbine")
 
 TechnologyIcons.assign_checkpoint_icons({
 	{
@@ -140,6 +141,14 @@ TechnologyIcons.assign_checkpoint_icons({
 		module = SubstationTechnology,
 		tier = 2,
 		prog_tier = 2,
+	},
+	{
+		checkpoint_name = "nullius-checkpoint-wind-power",
+		background_icons = TechnologyIcons.make_blueprint_background(),
+		module = WindTurbine,
+		tier = 1,
+		prog_tier = 1,
+		overlay_scale = 3.5,
 	},
 	{
 		checkpoint_name = "nullius-checkpoint-thermal-tank",

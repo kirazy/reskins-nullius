@@ -25,6 +25,8 @@ require("prototypes.entities.seawater-intakes")
 
 require("prototypes.entities.relays")
 require("prototypes.entities.chargers")
+require("prototypes.entities.wind-turbines")
+require("prototypes.technologies.wind-power")
 -- require("entity.solar-collectors")
 
 require("prototypes.items.item-updates")

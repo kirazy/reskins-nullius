@@ -1,6 +1,8 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.2
 Date: ????
+  Features:
+    - Added new sprites for wind turbines.
   Changes:
     - Minor adjustments to how the broken item icons are tinted to retain more of the mask coloration.
 ---------------------------------------------------------------------------------------------------
