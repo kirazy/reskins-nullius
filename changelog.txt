@@ -1,7 +1,10 @@
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.3
 Date: ????
+  Features:
+    - Added support for barrel pumps and related technologies.
   Changes:
+    - Technologies are now handled in data-updates rather than data-final-fixes.
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.2
 Date: 2026-11-11

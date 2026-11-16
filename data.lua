@@ -1,4 +1,5 @@
 require("prototypes.entities.air-filters")
+require("prototypes.entities.barrel-pumps")
 require("prototypes.entities.compressors")
 require("prototypes.entities.crushers")
 require("prototypes.entities.electrolyzers")
