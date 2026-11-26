@@ -25,3 +25,6 @@ require("prototypes.items.broken")
 -- After all entity and item updates.
 require("prototypes.recipe-final-fixes")
 require("prototypes.entities.barrel-pumps-final-fixes")
+
+-- After all item icon updates.
+require("prototypes.items.boxes")

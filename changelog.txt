@@ -2,6 +2,8 @@
 Version: 0.2.4
 Date: ????
   Changes:
+  Bugfixes:
+    - Fixed that boxes of pipes, pumps, pylons, storage tanks, inserters, robot frames and night vision showed the old icons.
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.3
 Date: 2026-11-16
