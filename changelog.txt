@@ -2,6 +2,8 @@
 Version: 0.2.4
 Date: ????
   Changes:
+  Bugfixes:
+    - Fixed that mirrored compressors kept the Nullius tint instead of their tier color.
 ---------------------------------------------------------------------------------------------------
 Version: 0.2.3
 Date: 2026-11-16

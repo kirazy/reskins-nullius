@@ -99,10 +99,14 @@ for name, map in pairs(compressor_entities) do
 
 	assign_icon(name, tier, tint)
 
-	local animation = entity.graphics_set and entity.graphics_set.animation
-	if animation then
-		for _, direction in pairs({ "north", "east", "south", "west" }) do
-			tint_animation(animation[direction], tint)
+	-- Nullius builds `graphics_set_flipped` (mirrored compressors) as a copy of `graphics_set` during its own data
+	-- stage, so it still has Nullius's tint and needs the same treatment.
+	for _, graphics_set in pairs({ entity.graphics_set, entity.graphics_set_flipped }) do
+		local animation = graphics_set.animation
+		if animation then
+			for _, direction in pairs({ "north", "east", "south", "west" }) do
+				tint_animation(animation[direction], tint)
+			end
 		end
 	end
 
